@@ -1,0 +1,652 @@
+# translation of system-config-samba.tip.ast.po to Asturian
+msgid ""
+msgstr ""
+"Project-Id-Version: system-config-samba.tip.ast\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2009-10-25 17:00+0100\n"
+"Last-Translator: Marcos Alvarez Costales <marcos.alvarez.costales@gmail."
+"com>\n"
+"Language-Team: Asturian <alministradores@softastur.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.4\n"
+"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Asturian\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Nun concasen les contraseñes. Inténtalo de nueves."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Introduz un nome d'usuariu Windows."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "Yá esiste una cuenta pa esti usuariu. Por favor, inténtalo de nueves."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Dominiu"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Sirvidor"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Recursu Compartíu"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Usuariu"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Sí"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "Non"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Nun esiste la cuenta Invitáu"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"Pa auto-llocalizar un sirvidor de contraseñes, introduz un \"*\" nel campu "
+"Sirvidor d'Autenticación. D'otru mou, debes especificar un sirvidor de "
+"contraseñes cuando uses autenticación 'ADS', 'Dominiu' o de 'Sirvidor'."
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr ""
+"Por favor, introduz un ámbitu de kerberos cuando uses autenticación ADS."
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Tienes d'especificar un grupu de trabayu."
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Configuración del Sirvidor Samba"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Criar, camudar y desaniciar recursos compartíos samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "Anubrir _detalles"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "Amosar _detalles"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Direutoriu"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "Nome de recursu compartíu"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Permisos"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "Visibilidá"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Descripción"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_Ficheru"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_Amestar Recursu Compartíu"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "_Propiedaes"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "_Desaniciar"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "_Colar"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "_Preferencies"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "Configuración del _Sirvidor..."
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "Usuarios _Samba..."
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "A_ida"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_Conteníu"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "Toc_ante a"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "Amestar un recursu compartíu Samba"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_Amestar"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Camudar les propiedaes del direutoriu seleicionáu"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "P_ropiedaes"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Desaniciar el direutoriu seleicionáu"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Ver aida"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "Colar del programa"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Configuración del Sirvidor"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Usuarios Samba"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "Conteníu de l'aida"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "Ver aida"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "Tocante al programa"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Namái Llectura"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "Visible"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Llectura/Escritura"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "Anubríu"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "El serviciu Samba nun ta furrulando anguaño. ¿Quies anicialu?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr ""
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr ""
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr ""
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr ""
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr ""
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr ""
+"Nun s'alcontró'l visor d'aida. Pa poder ver l'aida tienes  qu'instalar el "
+"paquete 'yelp'."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Criar un Recursu Compartíu Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Camudar un Recursu Compartíu Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Tienes d'especificar un direutoriu a compartir.  \n"
+"\n"
+"Calca n'\"Aceutar\" pa siguir."
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"El direutoriu \"%s\" nun esiste. Especifica un direutoriu yá esistente. \n"
+"\n"
+"Calca n'\"Aceutar\" pa siguir."
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Tienes d'especificar un nome de recursu compartíu.\n"
+"\n"
+"Calca n'\"Aceutar\" pa siguir."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "El nome de recursu compartíu \"%s\" yá esiste."
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "El nome de recursu compartíu \"%s\" ta reserváu."
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"Por favor, usa un nome de recursu compartíu distintu.\n"
+"Calca en \"Suxerir Nome de Recursu\" o n'\"Aceutar\" pa siguir."
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_Suxerir Nome de Recursu"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "Por favor, permite l'accesu al menos a un usuariu."
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Seleicionar Direutoriu"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr ""
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr ""
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "Nun tienes permisu pa executar %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+"Fallu lleendo la llista de contraseñes de Samba:\n"
+"%s"
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "Nun pudo lleese %s. El programa zarraráse."
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "Sirvidor d'A_utenticación:"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Configuración Avanzada del Sirvidor Samba"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Básicu"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Restolar"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr ""
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "Co_nfirmar la contraseña Samba:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Criar un Nuevu Usuariu Samba"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Execución"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Nome del ficheru"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr ""
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Permisos de Grupu:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "Bloquéu"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Rexistru"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Accesu"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "D'otra miente"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Permisos:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "Impresión"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Protocolu"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Llectura"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Seguridá"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"Lleendo'l ficheru de configuración /etc/samba/smb.conf, nun s'interpretaron "
+"dalgunes llinies. Estes pueden ser directives de configuración desconocíes "
+"pol complementu de Samba o fallos de configuración."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Axustes"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Permisos d'Usuariu:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "Alvertencia"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Permisos Globales:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Escritura"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Accesu"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Amestar Usuariu"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "Mou d'_Autenticación:"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Básicu"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "_Desaniciar Usuariu"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "_Descripción:"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Camudar Usuariu"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "_Encriptar Contraseñes:"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "Cuenta _Invitáu:"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "Ámbitu de _Kerberos:"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "Contraseña _Samba:"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Seguridá"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "Nome de recur_su compartíu:"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "Nome d'usuariu _Unix:"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "_Visible"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "Nome d'usuariu _Windows:"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "_Grupu de trabayu:"
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "_Permisu d'Escritura"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr ""
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr ""
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "Configurar Samba"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr ""
+
+#~ msgid "A_llow access to everyone"
+#~ msgstr "Permi_tir accesu a toos"
+
+#~ msgid "Brow_se..."
+#~ msgstr "Res_tolar..."
+
+#~ msgid "D_escription:"
+#~ msgstr "D_escripción:"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "Só_lo permitir accesu a usuarios específicos"
+
+#~ msgid "_Directory:"
+#~ msgstr "_Direutoriu:"
+
+#~ msgid "window1"
+#~ msgstr "window1"
+
+#~ msgid "System policy prevents access to Samba configuration"
+#~ msgstr "La política del sistema torga l'accesu a la configuración de Samba"
+
+#~ msgid "Copyright %(year)s © %(holder)s <%(email)s>\n"
+#~ msgstr "Copyright %(year)s © %(holder)s <%(email)s>\n"
+
+#~ msgid "Copyright %(year)s © %(holder)s\n"
+#~ msgstr "Copyright %(year)s © %(holder)s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "A graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Ferramienta de Configuración del Sirvidor Samba %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "Una interface pa configurar comparticiones SMB"
+
+#~ msgid "About"
+#~ msgstr "Tocante a"

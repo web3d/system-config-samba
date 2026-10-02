@@ -1,0 +1,705 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: system-config-samba 0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2009-01-05 09:53+0100\n"
+"Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
+"Language-Team: Renato Pavicic <renato@translator-shop.org, www.translator>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Lozinke se ne poklapaju. Pokušajte ponovo."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Unesite Windows korisničko ime."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "Nalog za ovog korisnika već postoji. Pokušajte ponovo."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Domena"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Poslužitelj"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Dijeljenje"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Korisnik"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Da"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "Ne"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Bez naloga gost"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"Za automatsko pronalaženje poslužitelja lozinki, unesite \"*\" u polje unosa "
+"poslužitelja provjere autentičnosti. U suprotnom je potrebno odrediti "
+"poslužitelj lozinki tijekom provjera vjerodostojnosti vrsti 'ADS', 'Domena' "
+"ili 'Poslužitelj' "
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr "Unesite kerberos područje tijekom upotrebe ADS provjere autentičnosti."
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Potrebno je navesti radnu grupu."
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Konfiguriranje Samba poslužitelja"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Izrada, izmjena ili brisanje Samba dijeljenih mapa"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "Sakrij _detalje"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "Pokaži _detalje"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Mapa"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "Dijeljenje"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Dopuštenja"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "Vidljivost"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Opis"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_Datoteke"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_Dodaj dijeljenje"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "_Svojstva"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "_Izbriši"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "_Izlaz"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "_Osobne postavke"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "_Postavke poslužitelja..."
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "Samba _korisnici..."
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "_Pomoć"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_Sadržaj"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "_O programu"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "Dodaj Samba mapu dijeljenja"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_Dodaj"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Uređivanje svojstava odabrane mape"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "_Svojstva"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Brisanje odabrane mape"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Prikaz pomoći"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "Izlazak iz programa"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Postavke poslužitelja"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Samba korisnici"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "Sadržaj pomoći"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "Prikaz pomoći"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "O programu"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Samo za čitanje"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "Vidljiv"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Čitanje/Pisanje"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "Skriven"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "Usluga Samba trenutno nije pokrenuta. Želite li ju pokrenuti?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr ""
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr ""
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr ""
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr ""
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr ""
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr ""
+"Predglednik pomoći nije pronađen. Da biste vidjeli pomoć trebate instalirati "
+"'yelp' aplikaciju."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Izrada Samba dijeljene mape"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Uređivanje Samba dijeljene mape"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Potrebno je odrediti mapu za dijeljenje.\n"
+"\n"
+"Da biste nastavili kliknite \"U redu\"."
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Mapa \"%s\" ne postoji. Odredite postojeću mapu.\n"
+"\n"
+"Da biste nastavili kliknite \"U redu\"."
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Zadajte naziv mape za dijeljenje.\n"
+"\n"
+"Da biste nastavili kliknite \"U redu\"."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "Naziv dijeljenja \"%s\" već postoji."
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "Naziv dijeljenja \"%s\" je rezerviran."
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"Upotrijebite drugi naziv dijeljenja.\n"
+"\n"
+"Kliknite \"Predloži naziv dijeljenja\" ili \"U redu\" za nastavak."
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_Predloži naziv dijeljenja"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "Dopustite pristup najmanje jednom korisniku"
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Odabir mape"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr ""
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr ""
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "Nemate dopuštenja za izvršavanje %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "Nije moguće pročitati %s.  Program će prekinuti s radom."
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "_Poslužitelj provjere:"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Napredne postavke Samba poslužitelja"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Osnovno"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Pretraživanje"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr ""
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "Potvrdite Samba _lozinku:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Izrada novog Samba korisnika"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Izvrši"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Nazivi"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr ""
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Grupna dopuštenja:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "Zaključavanje"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Zapisnik"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Prijava"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "Razno"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Dopuštenja:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "Ispisivanje"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Protokol"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Čitanje"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Sigurnost"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"Neki od redaka nisu prepoznati kod čitanja konfiguracijske datoteke /etc/"
+"samba/smb.conf. To su možda nepoznate direktive za neki Samba plugin ali "
+"mogu biti i greške u konfiguraciji."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Fino podešavanje"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Korisnička dopuštenja:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "Upozorenje"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Ostala dopuštenja:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Zapisivanje"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Pristup"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Dodaj korisnika"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "_Način provjere:"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Osnovno"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "_Izbriši korisnika"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "_Opis:"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Uredi korisnika"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "_Šifriranje lozinki:"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "_Gost nalog:"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "_Kerberos područje:"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "_Samba lozinka:"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Sigurnost"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "_Naziv dijeljenja:"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "_Unix korisničko ime:"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "_Vidljivo"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "_Windows korisničko ime:"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "_Radna grupa:"
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "_Zapisivo"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr ""
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr ""
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr ""
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr ""
+
+#~ msgid "A_llow access to everyone"
+#~ msgstr "Pristup dopusti svima"
+
+#~ msgid "Brow_se..."
+#~ msgstr "_Pretraži..."
+
+#~ msgid "D_escription:"
+#~ msgstr "_Opis:"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "Pristup dopusti samo određenim korisnicima"
+
+#~ msgid "_Directory:"
+#~ msgstr "_Mapa:"
+
+#~ msgid "window1"
+#~ msgstr "window1"
+
+#~ msgid "About"
+#~ msgstr "O programu"
+
+#~ msgid "label30"
+#~ msgstr "label30"
+
+#~ msgid "label31"
+#~ msgstr "label31"
+
+#~ msgid "label32"
+#~ msgstr "label32"
+
+#~ msgid "label33"
+#~ msgstr "label33"
+
+#~ msgid "label34"
+#~ msgstr "label34"
+
+#~ msgid "label35"
+#~ msgstr "label35"
+
+#~ msgid "label36"
+#~ msgstr "label36"
+
+#~ msgid "label37"
+#~ msgstr "label37"
+
+#~ msgid "label38"
+#~ msgstr "label38"
+
+#~ msgid "label39"
+#~ msgstr "label39"
+
+#~ msgid "label40"
+#~ msgstr "label40"
+
+#~ msgid "label41"
+#~ msgstr "label41"
+
+#~ msgid "label42"
+#~ msgstr "label42"
+
+#~ msgid "label43"
+#~ msgstr "label43"
+
+#~ msgid "label44"
+#~ msgstr "label44"
+
+#~ msgid "<user name>"
+#~ msgstr "<korisničko ime>"
+
+#~ msgid "Copyright %s (c) %s %s\n"
+#~ msgstr "Autorska prava %s (c) %s %s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %s\n"
+#~ "%sA graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Alat za konfiguriranje Samba poslužitelja %s\n"
+#~ "%sGrafičko sučelje za konfiguriranje SMB dijeljenja"
+
+#~ msgid "Cannot write to %s.  Program will now exit."
+#~ msgstr "Nije moguće zapisati u %s.  Program će prekinuti s radom."
+
+#~ msgid "You do not have permission to write to %s.  Program will now exit."
+#~ msgstr "Nemate dopuštenja za pisanje u %s. Program će prekinuti s radom."
+
+#~ msgid "Help is not available."
+#~ msgstr "Pomoć nije dostupna."
+
+#~ msgid "You must be root to run samba-share."
+#~ msgstr "Da biste pokrenuli 'samba-share' morate biti root korisnik."
+
+#~ msgid "Add a samba share"
+#~ msgstr "Dodaj Samba dijeljenu mapu"
+
+#~ msgid "*"
+#~ msgstr "*"

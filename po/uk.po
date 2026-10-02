@@ -1,0 +1,644 @@
+# Ukrainian translation of system-config-samba.
+# Copyright (C) Free Software Foundation
+# This file is distributed under the same license as the system-config-samba package.
+#
+# Maxim Dziumanenko <mvd@mylinux.com.ua>, 2003.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: system-config-samba\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2010-08-20 17:30+0300\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Паролі не збігаються. Спробуйте ще раз."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Введіть ім'я користувача Windows."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "Обліковий запис для цього користувача вже існує. Спробуйте ще раз."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Домен"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Сервер"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Ресурс"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Користувач"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Так"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "Ні"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Немає гостьового облікового запису"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"Щоб знаходити сервер паролів автоматично, введіть \"*\" у полі \"Сервер "
+"автентифікації\". У іншому випадку необхідно вказати сервер паролів при "
+"використанні автентифікації 'ADS', 'Домен' або 'Сервер'"
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr "Введіть область kerberos при використанні ADS автентифікації."
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Необхідно вказати робочу групу."
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Ця програма є вільною; її можна поширювати та змінювати на умовах ліцензії "
+"GNU General Public License версії 2 або старшої версії, що видана Фондом "
+"вільного програмного забезпечення.\n"
+"\n"
+"Ця програма поширюється зі сподіванням, що буде корисною, але БЕЗ БУДЬ-ЯКИХ "
+"ГАРАНТІЙ, ЯВНИХ ЧИ НЕЯВНИХ, У ТОМУ ЧИСЛІ БЕЗ ГАРАНТІЙ КОМЕРЦІЙНОЇ ЦІННОСТІ "
+"ТП ПРИДАТНОСТІ ДЛЯ КОНКРЕТНОЇ МЕТИ. Для отримання додаткових відомостей до "
+"ліцензії GNU.\n"
+"\n"
+"Копія ліцензії GNU надається разом з цією програмою. \n"
+"Її також можна знайти на сайті <http://www.gnu.org/licenses/>."
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Налаштовування сервера Samba"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Створення, зміна чи видалення ресурсів Samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "Сховати _подробиці"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "Показати _подробиці"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Каталог"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "Назва ресурсу"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Права"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "Видимість"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Опис"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_Файл"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_Додати ресурс"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "В_ластивості"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "В_идалити"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "Ви_йти"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "П_араметри"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "Параметри _сервера..."
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "_Користувачі Samba"
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "_Довідка"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_Зміст"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "_Про програму"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "Додати ресурс Samba"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_Додати"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Змінити властивості вибраного каталогу"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "В_ластивості"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Видалити вибраний каталог"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Перегляд довідки"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "Вийти з програми"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Параметри сервера"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Користувачі Samba"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "Зміст довідки"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "Перегляд довідки"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "Про програму"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Лише для читання"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "Видимий"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Читання/запис"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "Прихований"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "Служба Samba зупинена. Запустити її?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr "Засіб налаштовування сервера Samba"
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr "Графічний інтерфейс налаштовування Samba"
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr "© %(year)s  %(holder)s <%(email)s>"
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr "© %(year)s  %(holder)s"
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr "%(name)s <%(email)s>"
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr ""
+"Не знайдено програму для перегляду довідки. Щоб переглянути довідку треба "
+"встановити пакет 'yelp'."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Створити ресурс Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Змінити ресурс Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Необхідно вказати каталог для ресурсу.  \n"
+"\n"
+"Натисніть \"Гаразд\" щоб продовжити."
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Каталог \"%s\" не існує.  Вкажіть існуючий каталог. \n"
+"\n"
+"Натисніть \"Гаразд\" щоб продовжити."
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Необхідно вказати назву для ресурсу.\n"
+"\n"
+"Натисніть \"Гаразд\" щоб продовжити."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "Назва ресурсу \"%s\" вже існує."
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "Назва ресурсу \"%s\" є зарезервованою."
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"Використовуйте іншу назву ресурсу.\n"
+"\n"
+"Клацніть \"Порадити назву ресурсу\" або \"Гаразд\"."
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_Порадити назву ресурсу"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "Надайте доступ принаймні одному користувачу."
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Виберіть каталог"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr "Для роботи system-config-samba потрібен дисплей X-Window."
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr "Помилка при авторизації"
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+"Не вдається отримати авторизацію, потрібну для '%(action_id)s'. Програма "
+"завершується."
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "У вас немає прав для запуску %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+"Помилка при читанні списку паролів Samba:\n"
+"%s"
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "Не вдається прочитати %s. Завершення."
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "С_ервер автентифікації:"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Додаткові параметри сервера Samba"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Загальні"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Огляд"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr "Ви_брати..."
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "_Підтвердження паролю:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Створення нового користувача Samba"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Виконання"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Назва файлу"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr "Надати дост_уп всім"
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr "Надати доступ цим _користувачам:"
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Права групи:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "Блокування"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Журнал"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Вхід"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "Різне"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Права:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "Друк"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Протокол"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Читання"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Безпека"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"Деякі рядки з директивами з файлу /etc/samba/smb.conf можуть бути "
+"інтерпретовані неправильно. Можливо, це невідомі директиви для модулів "
+"Samba, але може це й помилки у конфігурації."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Налаштовування"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Права користувача:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "Попередження"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Права інших:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Запис"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Доступ"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Додати користувача"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "_Режим автентифікації:"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Основні"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "В_идалити користувача"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "О_пис:"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Змінити користувача"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "_Шифрування паролів:"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr "_Тека:"
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "Г_остьовий запис:"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "Область _kerberos:"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "Пароль _Samba:"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Безпека"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "Назва _ресурсу:"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "_Unix ім'я користувача:"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "_Видимий"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "_Windows ім'я користувача:"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "_Робоча група:"
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "_Запис"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr "system-config-samba"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr "Максим Дзюманенко"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "Налаштувати Samba"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr "Для налаштовування Samba потрібна авторизація"
+
+#~ msgid "A_llow access to everyone"
+#~ msgstr "Дозволити доступ _усім"
+
+#~ msgid "Brow_se..."
+#~ msgstr "О_гляд..."
+
+#~ msgid "D_escription:"
+#~ msgstr "О_пис:"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "Дозволити доступ _лише окремим користувачам"
+
+#~ msgid "_Directory:"
+#~ msgstr "_Каталог:"

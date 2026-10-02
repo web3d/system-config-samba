@@ -1,0 +1,631 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Manatsawin Hanmongkolchai <willwill@fedoraproject.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2010-03-06 22:44+0700\n"
+"Last-Translator: Manatsawin Hanmongkolchai <willwill@fedoraproject.org>\n"
+"Language-Team: Thai L10N <thai-l10n@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Virtaal 0.5.2\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "รหัสผ่านไม่ตรงกัน โปรดลองใหม่อีกครั้ง"
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "กรุณากรอกชื่อผู้ใช้งาน Windows"
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "มีบัญชีผู้ใช้งานนี้อยู่แล้ว กรุณาลองใหม่อีกครั้ง"
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "โดเมน"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "เซิร์ฟเวอร์"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "แชร์"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "ผู้ใช้งาน"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "ใช่"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "ไม่ใช่"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "ไม่มีบัญชีผู้ใช้ชั่วคราว"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"ในการหาเซิร์ฟเวอร์เก็บรหัสผ่านอัตโนมัติ ป้อน \"*\" ลงในช่องเซิร์ฟเวอร์ใช้ยึนยันตน "
+"หรือไม่เช่นนั้นแล้วคุณจะต้องระบุเซิร์ฟเวอร์รหัสผ่าน เมื่อใช้การยึนยันตนแบบ 'ADS', 'โดเมน' หรือ "
+"'เซิร์ฟเวอร์'"
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr "โปรดป้อน Kerberos Realm เมื่อใช้การยึนยันตนแบบ ADS"
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "คุณต้องระบุเวิร์กกรุ๊ป"
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"โปรแกรมนี้เป็นซอฟต์แวร์เสรี คุณสามารถแจกจ่ายและ/หรือแก้ไขมันภายใต้สัญญาอนุญาต GNU General "
+"Public License ซึ่งเผยแพร่โดยมูลนิธิซอฟต์แวร์เสรีไม่ว่าจะเป็นรุ่นที่ 2 ของสัญญาอนุญาต หรือ "
+"(ตามแต่ความสมัครใจ) รุ่นใดๆ หลังจากนั้น\n"
+"\n"
+"โปรแกรมนี้ถูกแจกจ่ายเพื่อหวังว่ามันจะมีประโยชน์ แต่ไม่มี_การรับประกันใด_ "
+"ไม่แม้แต่เป็นนัยกับ_สภาพที่พร้อมขาย_หรือ_ความหมาะสมกับวัตถุประสงค์ใด_ "
+"สำหรับรายละเอียดเพิ่มเติมดูสัญญาอนุญาต GNU General Public License\n"
+"\n"
+"คุณควรจะได้รับสำเนาของสัญญาอนุญาต GNU General Public License มาพร้อมกับโปรแกรมนี้ "
+"หากยังไม่ได้รับกรุณาดูที่ <http://www.gnu.org/licenses/>"
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "การตั้งค่าเซิร์ฟเวอร์ Samba"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "สร้าง, แก้ไขและลบการแบ่งปันทาง Samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "ซ่อน_รายละเอียด"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "แสดง_รายละเอียด"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "ไดเรคทอรี"
+
+#: src/mainWindow.py:176
+#, fuzzy
+msgid "Share name"
+msgstr "ชื่อการแบ่งปัน"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "สิทธิ"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "การมองเห็น"
+
+#: src/mainWindow.py:182
+#, fuzzy
+msgid "Description"
+msgstr "รายละเอียด"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_แฟ้ม"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_เพิ่มการแบ่งปัน"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "_คุณสมบัติ"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "_ลบ"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "_ออก"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "_ตั้งค่า"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "_ตั้งค่าเซิร์ฟเวอร์..."
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "ผู้ใช้ _Samba..."
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "_ช่วยเหลือ"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_สารบัญ"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "_เกี่ยวกับ"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "เพิ่มการแบ่งปัน Samba"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_เพิ่ม"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "แก้ไขคุณสมบัติของไดเรคทอรีที่เลือก"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "คุ_ณสมบัติ"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "ลบไดเรคทอรีที่เลือก"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "ดูวิธีใช้"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "ออกจากโปรแกรม"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "ตั้งค่าเซิร์ฟเวอร์"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "ผู้ใช้ Samba"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "สารบัญวิธีใช้"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "ดูวิธีใช้"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "เกี่ยวกับโปรแกรม"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "อ่านอย่างเดียว"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "มองเห็น"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "อ่าน/เขียน"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "ซ่อน"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "บริการ Samba ไม่ได้ทำงานอยู่ในขณะนี้ คุณต้องการเปิดมันหรือไม่?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr "ส่วนติดต่อผู้ใช้แบบกราฟิกสำหรับตั้งค่า Samba"
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr "ส่วนติดต่อผู้ใช้แบบกราฟฟิคสำหรับตั้งค่า Samba"
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr "สงวนลิขสิทธิ์ %(year)s © %(holder)s <%(email)s>"
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr "สงวนลิขสิทธิ์ %(year)s © %(holder)s"
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr "%(name)s <%(email)s>"
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr "ไม่พบโปรแกรมสำหรับเปิดวิธีใช้ ในการแสดงวิธีใช้คุณจะต้องติดตั้งแพคเกจ 'yelp'"
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "สร้างการแบ่งปัน Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "แก้ไขการแบ่งปัน Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"คุณจะต้องระบุไดเรคทอรีที่จะแบ่งปัน \n"
+"\n"
+"คลิก \"OK\" เพื่อดำเนินการต่อ"
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"ไดเรคทอรี \"%s\" ไม่มีอยู่ กรุณาระบุไดเรคทอรีที่มีอยู่แล้ว\n"
+"\n"
+"คลิก \"OK\" เพื่อดำเนินการต่อ"
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"กรุณาระบุชื่อการแบ่งปัน\n"
+"\n"
+"คลิก \"OK\" เพื่อดำเนินการต่อ"
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "การแบ่งปัน \"%s\" มีอยู่แล้ว"
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "การแบ่งปัน \"%s\" ถูกจองแล้ว"
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"กรุณาใช้การแบ่งปันชื่ออื่น\n"
+"\n"
+"คลิก \"เสนอแนะชื่อการแบ่งปัน\" หรือ \"OK\" เพื่อ"
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_เสนอแนะชื่อการแบ่งปัน"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr ""
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr ""
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr ""
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr ""
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr ""
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "การตั้งค่าเซิร์ฟเวอร์ Samba ขั้นสูง"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "พื้นฐาน"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "เรียกดู"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr ""
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "ยึน_ยันรหัสผ่าน Samba:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "สร้างผู้ใช้ Samba ใหม่"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "เรียกใช้"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "ชื่อแฟ้ม"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr ""
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "สิทธิของกลุ่ม:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "การล็อค"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "กำลังเข้าสู่ระบบ"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "เข้าสู่ระบบ"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "เบ็ดเตล็ด"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "สิทธิ:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "การพิมพ์"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "โพรโตคอล"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "อ่าน"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "ความปลอดภัย"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"ในระหว่างทำการอ่านแฟ้ม /etc/samba/smb.conf ไม่เข้าใจการปรับแต่งค่าบางบรรทัด "
+"ซึ่งอาจจะเป็นการตั้งค่าสำหรับส่วนขยาย Samba หรือเป็นข้อผิดพลาดในการตั้งค่า"
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "การปรับ"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "สิทธิของผู้ใช้:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "คำเตือน"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr ""
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr ""
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr ""
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr ""
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr ""
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr ""
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr ""
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr ""
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr ""
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr ""
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr ""
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "ตั้งค่า Samba"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr "การตั้งค่า Samba ต้องทำการยึนยันตน"
+
+#~ msgid "Brow_se..."
+#~ msgstr "เ_รียกดู..."
+
+#~ msgid "D_escription:"
+#~ msgstr "ร_ายละเอียด:"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "_อนุญาตเฉพาะผู้ใช้ที่ระบุ"

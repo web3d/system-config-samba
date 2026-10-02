@@ -1,0 +1,14 @@
+system-config-samba-*.tar.bz2
+system-config-samba.desktop.in.h
+system-config-samba.desktop
+config/org.fedoraproject.config.samba.policy.0
+config/org.fedoraproject.config.samba.policy.0.in.h
+config/org.fedoraproject.config.samba.policy.1
+config/org.fedoraproject.config.samba.policy.1.in.h
+po/*.mo
+src/setup.py
+src/build
+src/system-config-samba.glade.h
+*.pyc
+*.pyo
+*.bak

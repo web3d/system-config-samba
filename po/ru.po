@@ -1,0 +1,641 @@
+# translation of ru.po to Russian
+# translation of ru.po to
+# Copyright (C) 2008 ORGANIZATION.
+#
+#
+# Alexandr Kanevskiy <kad@blackcatlinux.com>, 2003.
+# Leonid Kanter <leon@geon.donetsk.ua>, 2003.
+# Leonid Kanter <leon@asplinux.ru>, 2004.
+# Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
+# Anatoliy Guskov <anatoliy.guskov@gmail.com>, 2009.
+# Yulia <ypoyarko@redhat.com>, 2009, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: ru\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2010-08-04 12:41+1000\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Пароли не совпадают.  Повторите попытку."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Введите имя пользователя Windows."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "Учётная запись для этого пользователя уже существует. Повторите попытку."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Домен"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Сервер"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Ресурс"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Пользователь"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Да"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "Нет"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Нет гостевой учётной записи"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"Для автоматического поиска сервера паролей введите «*» в поле "
+"«Сервер аутентификации». При выборе аутентификации  «ADS», «Домен» или "
+"«Сервер» укажите сервер паролей вручную."
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr "Введите домен Kerberos при использовании аутентификации ADS."
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Необходимо указать рабочую группу."
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Эта программа — свободное программное обеспечение; её можно распространять и "
+"изменять в соответствии с условиями лицензии GNU General Public License "
+"версии 2 или любой более поздней версии, опубликованной Фондом свободного "
+"программного обеспечения.\n"
+"\n"
+"Эта программа распространяется в надежде, что она может быть полезной, но "
+"БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ВЫРАЖЕННЫХ ЯВНО ИЛИ ПОДРАЗУМЕВАЕМЫХ, В ТОМ ЧИСЛЕ "
+"БЕЗ ГАРАНТИЙ КОММЕРЧЕСКОЙ ЦЕННОСТИ И ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ. Для "
+"получения дополнительных сведений обратитесь к лицензии GNU.\n"
+"\n"
+"Копия лицензии GNU предоставляется вместе с этой программой. \n"
+"Её также можно найти на сайте <http://www.gnu.org/licenses/>."
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Настройка сервера Samba"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Создание, изменение и удаление ресурсов Samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "Скрыть _подробности"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "Показать _подробности"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Каталог"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "Название ресурса"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Права"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "Показ"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Описание"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_Файл"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_Добавить ресурс"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "С_войства"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "_Удалить"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "В_ыход"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "_Параметры"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "_Параметры сервера..."
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "П_ользователи Samba..."
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "_Справка"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_Содержание"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "_О программе"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "Добавить ресурс Samba"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_Добавить"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Изменить свойства выбранного каталога"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "С_войства"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Удалить выбранный каталог"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Просмотр справки"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "Выход из программы"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Параметры сервера"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Пользователи Samba"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "Содержание справки"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "Просмотр справки"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "О программе"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Только для чтения"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "Виден"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Чтение/запись"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "Скрыт"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "Служба Samba остановлена. Запустить?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr "Настройка сервера Samba"
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr "Графический интерфейс настройки Samba"
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr "© %(year)s  %(holder)s <%(email)s>"
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr "© %(year)s  %(holder)s"
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr "%(name)s <%(email)s>"
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr ""
+"Не найдена программа просмотра справки. Для просмотра справки необходимо "
+"установить пакет yelp."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Создать ресурс Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Изменить ресурс Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Необходимо указать общий каталог.  \n"
+"\n"
+"Нажмите «OК» для продолжения."
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Каталог «%s» не существует.  Укажите существующий каталог. \n"
+"\n"
+"Нажмите «OК» для продолжения."
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Необходимо указать название ресурса.  \n"
+"\n"
+"Нажмите «OК» для продолжения."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "Ресурс с именем «%s» уже существует."
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "Имя «%s» является зарезервированным."
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"Выберите другое название.\n"
+"\n"
+"Нажмите «Предложить название ресурса» или «OK» для продолжения."
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_Предложить название ресурса"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "Предоставьте доступ хотя бы одному пользователю."
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Каталог"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr "Для работы system-config-samba нужен дисплей X Window."
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr "Ошибка авторизации"
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+"Не получена необходимая для '%(action_id)s' авторизация. Программа завершит "
+"работу."
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "У вас недостаточно прав для запуска %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+"Ошибка чтения списка паролей Samba:\n"
+"%s"
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "Не удалось прочитать %s.  Программа будет завершена."
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "_Сервер аутентификации:"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Дополнительные параметры сервера Samba"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Основные"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Обзор"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr "_Выбрать..."
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "По_дтвердите пароль Samba:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Создание пользователя Samba"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Исполнить"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Имя файла"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr "Открыть доступ _всем"
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr "Открыть доступ _пользователям:"
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Права группы:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "Блокировка"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Журналирование"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Авторизация"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "Другие"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Права:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "Печать"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Протокол"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Чтение"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Безопасность"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"Некоторые строки из файла /etc/samba/smb.conf могут быть интерпретированы "
+"неверно. Возможно, это неизвестные директивы для подключаемых модулей Samba, "
+"но не исключено, что это ошибки конфигурации."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Настройка"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Права пользователя:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Остальные права:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Запись"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Доступ"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Добавить пользователя"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "_Режим аутентификации:"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Основные"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "_Удалить пользователя"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "_Описание:"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Изменить пользователя"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "_Шифровать пароли:"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr "_Каталог:"
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "_Гостевая учётная запись:"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "_Домен Kerberos:"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "Па_роль Samba:"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Безопасность"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "_Название ресурса:"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "Имя пользователя _Unix:"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "_Виден"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "Имя пользователя _Windows:"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "_Рабочая группа:"
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "_Запись разрешена"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr "system-config-samba"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr ""
+"Alexandr Kanevskiy <kad@blackcatlinux.com>, 2003. \n"
+"Leonid Kanter <leon@asplinux.ru>, 2003, 2004.\n"
+"Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.\n"
+"Anatoliy Guskov <anatoliy.guskov@gmail.com>, 2009.\n"
+"Yulia <ypoyarko@redhat.com>, 2009, 2010."
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "Настроить Samba"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr "Для настройки Samba необходимо авторизоваться"
+

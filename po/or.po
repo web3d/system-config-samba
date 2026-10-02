@@ -1,0 +1,677 @@
+# translation of system-config-samba.master.or.po to Oriya
+# This file is distributed under the same license as the system-config-samba package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
+# Subhransu Behera <sbehera@redhat.com>, 2006.
+# Subhransu Behera <arya_subhransu@yahoo.co.in>, 2007.
+# saroj kumar padhy <saroz.kumar@gmail.com>, 2008.
+# Manoj Kumar Giri <mgiri@redhat.com>, 2009, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: system-config-samba.master.or\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2011-01-17 10:11+0530\n"
+"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
+"Language-Team: Oriya <oriya-it@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "ପ୍ରବେଶ ସଙ୍କେତଟି ମିଶୁ ନାହିଁ, ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ"
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "ଦୟାକରି ୱିଣ୍ଡୋଜ୍ ପାଇଁ ଗୋଟିଏ ଚାଳକ ନାମ ପ୍ରବେଶ କରନ୍ତୁ"
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "ଏହି ଚାଳକ ପାଇଁ ଗୋଟିଏ ହିସାବ ଖାତା ପୂର୍ବ ରୁ ରହିଛି, ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ"
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ଏ.ଡି.ଏସ୍."
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "ପରିସର"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "ସେବକ"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "ସହଭାଗ"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "ଚାଳକ"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "ହଁ"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "ନାଁ"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "କୌଣସି ଅତିଥି ହିସାବ ଖାତା ନାହିଁ"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"ପ୍ରବେଶ ସଙ୍କେତ ସେବକ ର ସ୍ବୟଂ ସନ୍ଧାନ କରିବା ପାଇଁ, ବୈଧିକରଣ ସେବକ ର ପ୍ରବେଶ କ୍ଷେତ୍ର ରେ ଗୋଟିଏ \"*"
+"\" ଭରଣ କରନ୍ତୁ |ଅନ୍ଯଥା, 'ଏ.ଡି.ଏସ.', 'ପରିସର' କିମ୍ବା 'ସେବକ' ର ବୈଧିକରଣ କୁ ବ୍ଯବହାର କରୁଥିବା "
+"ସମୟ ରେ ଆପଣ ଗୋଟିଏପ୍ରବେଶ ସଙ୍କେତ ସେବକ କୁ ଉଲ୍ଲେକ୍ଷିତ କରିବା ଉଚିତ"
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr ""
+"ଏ.ଡି.ଏସ୍. ବୈଧିକରଣ କୁ ବ୍ଯବହାର କରୁଥିବା ସମୟରେ ଦୟାକରି ଗୋଟିଏ କେର୍ବେରୋଶ ପ୍ରବେଶ ସଂଙ୍କେତ କୁ "
+"ବ୍ଯବହାର କରନ୍ତୁ"
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "ଆପଣ ଗୋଟିଏ ଗୋଟିଏ କାର୍ଯ୍ଯ ସମୁହ କୁ ଉଲ୍ଲେକ୍ଷିତ କରିବା ଉଚିତ"
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"ଏହି ପ୍ରୋଗ୍ରାମ ଟି ମୁକ୍ତ ସଫଟୱେର ଅଟେ; ଆପଣ ଏହାକୁ ଗ୍ନୁ ସାଧାରଣ ସାର୍ବଜନୀନ ଅନୁମତି ପତ୍ର ଶବ୍ଦ ଅଧୀନରେ "
+"ପୁଣି ବଣ୍ଟନ କିମ୍ଭା ରୂପାନ୍ତର କରିପାରିବେ, ଯାହାକି ମୁକ୍ତ ସଫ୍ଟୱେର ପ୍ରତିଷ୍ଠାନ ଦ୍ବାରା ପ୍ରକାଶିତ; ଅନୁମତି ପତ୍ର "
+"ସଂସ୍କରଣ ୨ କିମ୍ଭା ଅନ୍ଯ କୌଣସି ନୂଆ ସଂସ୍କରଣ (ଆପଣକଂ ବିକଳ୍ପ ରେ).\n"
+"\n"
+"ଏହି ପ୍ରୋଗ୍ରାମଟି ବ୍ଯବହାର ଯୋଗ୍ଯ ହୋଇପାରିବ ସେହି ଦ୍ରୁଷ୍ଟିରୁ ବଣ୍ଟନ କରାଯାଇଛି; କିନ୍ତୁ କୌଣସି ନିର୍ଭରୋକ୍ତି "
+"ବିନା; ଏବଂ ବିକ୍ରୟଯୋଗ୍ଯତା ନିର୍ଭରୋକ୍ତି କିମ୍ଭା କୌଣସି ନିର୍ଦ୍ଦିଷ୍ଠ କାର୍ଯ୍ଯ ପାଈଂ ମେଳକ ବିନା. ଅଧିକ ବିସ୍ତ୍ରୁତ "
+"ବିବରଣୀ ପାଈଂ ଗ୍ନୁ ସାଧାରଣ ସାର୍ବଜନୀନ ଅନୁମତି ପତ୍ର ଦେଖନ୍ତୁ. \n"
+"\n"
+" ଆପଣ ଏହି ପ୍ରୋଗ୍ରାମ ସହିତ ଗ୍ନୁ ସାଧାରଣ ସାର୍ବଜନୀନ ଅନୁମତି ପତ୍ର ପାଈଥିବେ. ଯଦି ପାଇନାହାନ୍ତି ତେବେ "
+"ଏହାକୁ ଦେଖନ୍ତୁ <http://www.gnu.org/licenses/>."
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "ଶାମ୍ବା ସେବକ ର ବିନ୍ଯାସ"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "ଶାମ୍ବା"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "ଶାମ୍ବା ର ସହଭାଗ ମାନଙ୍କୁ ସ୍ରୁଷ୍ଟି କର, ରୂପାନ୍ତର କର, ଏବଂ ଅପସାରଣ କର"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "ବିସ୍ତୃତ ବିବରଣୀ ଲୁଚାଇ ରଖନ୍ତୁ (_d)"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "ବିସ୍ତୃତ ବିବରଣୀ ପ୍ରଦର୍ଶନ କରନ୍ତୁ (_d)"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "ଡିରେକ୍ଟୋରି"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "ସହଭାଗ ମାନଙ୍କ ର ନାମ"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "ଅନୁନତି"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "ଦ୍ରୁଶ୍ଯମାନ୍ଯତା"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "ବର୍ଣ୍ଣନା"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "ଫାଇଲ (_F)"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "ସହଭାଗ ମାନଙ୍କୁ ଯୋଗ କର (_A)"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "ଗୁଣଧର୍ମ (_P)"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "ଅପସାରଣ କର (_D)"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "ବିଦାୟ ନିଅ (_Q)"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "ପସନ୍ଦ (_P)"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "ସେବକ ର ବିନ୍ଯାସ... (_S) "
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "ଶାମ୍ବା ର ଚାଳକ... (_U)"
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "ସହାୟକ (_H)"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "ସୂଚୀପତ୍ର (_C)"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "ବିବରଣୀ (_A)"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "ଶାମ୍ବା ର ଗୋଟିଏ ସହଭାଗ କୁ ଯୋଗ କର"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "ଯୋଗ କର (_A)"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "ଚୟିତ ଡିରେକ୍ଟୋରି ର ଗୁଣଧର୍ମ କୁ ସମ୍ପାଦନ କର"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "ଗୁଣଧର୍ମ (_r)"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "ଚୟିତ ଡିରେକ୍ଟୋରି କୁ ଅପସାରଣ କରି ନିଅ"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "ସହାୟକ କୁ ଦ୍ରୁଶ୍ଯ କର"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "ପ୍ରୋଗ୍ରାମ ଟି କୁ ଅପସାରଣ କରି ନିଅ"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "ସେବକ ର ବିନ୍ଯାସ"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "ଶାମ୍ବା ର ଚାଳକ"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "ସହାୟକ ର ସୂଚୀପତ୍ର"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "ସହାୟକ କୁ ଦ୍ରୁଶ୍ଯ କର"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "ପ୍ରୋଗ୍ରାମ ର ବିବରଣୀ"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "କେବଳ ପଠନୀୟ"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "ଦ୍ରୁଶ୍ଯମାନ୍ଯ"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "ପଠନ/ଲିଖନ"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "ଲୁକ୍କାୟିତ"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "ଶାମ୍ବା ର ସେବା ଗୁଡିକ ବର୍ତ୍ତମାନ ଚାଲୁ ନାହିଁ, ଆପଣ ଏହାକୁ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr "Samba ସର୍ଭର ସଂରଚନା ସାଧନ"
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr "Samba କୁ ବିନ୍ୟାସ କରିବା ପାଇଁ ଆଲେଖୀକ ଅନ୍ତରାପୃଷ୍ଠ"
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr "Copyright %(year)s © %(holder)s <%(email)s>"
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr "Copyright %(year)s © %(holder)s"
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr "%(name)s <%(email)s>"
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr "ସହାୟକ ପ୍ରଦର୍ଶନ ମିଳୁନାହିଂ. ସହାୟକ ଦେଖିବାପାଇଂ ଆପଣଙ୍କୁ 'yelp' ପ୍ଯାକେଜ ସ୍ଥାପନ କରିବାକୁ ପଡିବ."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "ଶାମ୍ବା ର ସହଭାଗ କୁ ସ୍ରୁଷ୍ଟି କର"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "ଶାମ୍ବା ର ସହଭାଗ କୁ ରୂପାନ୍ତର କର"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"ସହଭାଗ କରିବା ପାଇଁ ଆପଣ ଗୋଟିଏ ଡିରୋକ୍ଟୋରି କୁ ଉଲ୍ଲେକ୍ଷିତ କରିବା ଉଚିତ\n"
+"\n"
+"ଆଗକୁ ବଢିବା ପାଇଁ \"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ"
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"\"%s\" ଡିରେକ୍ଟୋରି ଟି ଅବସ୍ଥିତ ନାହିଁ | ଦୟାକରି ପୂର୍ବରୁ ରହି ଥିବା ଗୋଟିଏଡିରେକ୍ଟୋରି କୁ ଉଲ୍ଲେକ୍ଷିତ କରନ୍ତୁ \n"
+"\n"
+"ଆଗକୁ ବଢିବା ପାଇଁ \"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ"
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"ଦୟାକରି ସହଭାଗ ପାଇଁ ଗୋଟିଏ ନାମ ସେଟ୍ କର\n"
+"\n"
+"ଆଗକୁ ବଢିବା ପାଇଁ \"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ"
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "\"%s\" ସହଭାଗ ନାମ ଟି ପୂର୍ବରୁ ରହିଛି"
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "\"%s\" ସହଭାଗ ନାମ ଟି ସଂରକ୍ଷିତ ଅଛି"
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"ଦୟାକରି ଗୋଟିଏ ଭିନ୍ନ ସହଭାଗ ନାମ ବ୍ଯବହାର କରନ୍ତୁ\n"
+"ଆଗକୁ ବଢିବା ପାଇଁ \"ସହଭାଗ ନାମ ଦିଅନ୍ତୁ\" କିମ୍ବା \"ଠିକ ଅଛି\" କୁ ଦବାନ୍ତୁ"
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "ସହଭାଗ ନାମ ଦିଅନ୍ତୁ (_S)"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "ଦୟାକରି ଅତି କମରେ ଗୋଟିଏ ଚାଳକ କୁ ପ୍ରବେଶାନୁମତି ପ୍ରଦାନ କରନ୍ତୁ"
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "ଡିରେକ୍ଟୋରି ର ଚୟନ କର"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr "system-config-samba ଗୋଟିଏ X-Window ପ୍ରଦର୍ଶନି ଆବଶ୍ୟକ କରିଥାଏ।"
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr "ବୈଧିକରଣ ତ୍ରୁଟି"
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+"'%(action_id)s' ପାଇଁ ଆବଶ୍ୟକ ହେଉଥିବା ବୈଧିକରଣ ମିଳିଲା ନାହିଁ। ପ୍ରୟୋଗଟି ବର୍ତ୍ତମାନ "
+"ପ୍ରସ୍ଥାନ କରିବ।"
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "%s କୁ ନିଷ୍ପାଦନ କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଅନୁମତି ନାହିଁ।"
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+"Samba ପ୍ରବେଶ ସଂକେତ ତାଲିକା ପଢ଼ିବା ସମୟରେ ତ୍ରୁଟି:\n"
+"%s"
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "%sକୁ ପଢ଼ିପାରିବେ ନାହିଁ।  ପ୍ରଗ୍ରାମଟି ବିଦାୟ ନେବ ନାହିଁ।"
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "ବୈଧିକରଣ ସେବକ (_u):"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "ଆଧୁନିକ ଶାମ୍ବା ସେବକ ର ବିନ୍ଯାସ"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "ମୌଳିକ"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "ଖୋଜ"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr "ବାଛନ୍ତୁ (_h)..."
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "ଶାମ୍ବା ର ପ୍ରବେଶ ସଙ୍କେତ କୁ ନିଶ୍ଚିତ କର (_f):"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "ନୂଆ ଶାମ୍ବା ଚାଳକ ସ୍ରୁଷ୍ଟି କର"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "ନିଷ୍ପାଦନ"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "ଫାଇଲ ନାମ"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr "ସମସ୍ତଙ୍କୁ ଅଭିଗମ୍ୟତା ପ୍ରଦାନ କରନ୍ତୁ (_e)"
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr "ଏହି ଚାଳକମାନଙ୍କୁ ଅଭିଗମ୍ୟତା ପ୍ରଦାନ କରନ୍ତୁ (_u):"
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "ସାମୁହିକ ଅନୁମତି:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "ଅପରବର୍ତ୍ତନୀୟ ରଖୁଅଛି"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "ଲଗ କରୁଅଛି"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "ଲଗଅନ୍"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "ବିବିଦ୍ଧ"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "ଅନୁମତି:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "ମୁଦ୍ରଣ କରୁଅଛି"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "ପ୍ରୋଟୋକଲ"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "ପଠନ"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "ସୁରକ୍ଷା"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"ବିନ୍ଯାସ ଫାଇଲ  /etc/samba/smb.conf ପଢିବା ସମୟରେ କେତୋଟି ଧାଡ଼ି ବୁଝାପଡୁନାହିଂ. ଏହା ବୋଧହୁଏ "
+"ଶାମ୍ବା ପ୍ଲଗ୍ଇନ୍ ପାଇଂ ଅଜଣା ବିନ୍ଯାସ ଡିରେକ୍ଟିଭ୍, କିନ୍ତୁ ବିନ୍ଯାସ ତ୍ରୁଟି ମଧ୍ୟ ହୋଇପାରେ."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "ଟ୍ଯୁନ କରୁଅଛି"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "ଚାଳକ ପାଇଁ ଅନୁମତି:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "ଭି.ଏଫ.ଏସ."
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "ଚେତାବନୀ"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "ୱିନ୍-ବାଇଣ୍ଡ"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "ସାମଗ୍ରିକ ଅନୁମତି:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "ଲିଖନ"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "ପ୍ରବେଶାନୁମତି (_A)"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "ଚାଳକ କୁ ଯୋଗ କର (_A)"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "ବୈଧିକରଣ ଅବସ୍ଥା (_A)"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "ମୌଳିକ (_B)"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "ଚାଳକ କୁ ଅପସାରଣ କର (_D)"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "ବର୍ଣ୍ଣନା (_D):"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "ଚାଳକ କୁ ସମ୍ପାଦନ କର (_E)"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "ପ୍ରବେଶ ସଙ୍କେତ କୁ ସଙ୍ଗୁପ୍ତ କର (_E):"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr "ଫୋଲଡର ‍(_F):"
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "ଅତିଥି ହିସାବ ଖାତା (_G):"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "କେର୍ବେରୋଶ ପ୍ରବେଶ ସଂଙ୍କେତ (_K):"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "ଶାମ୍ବା ର ପ୍ରବେଶ ସଙ୍କେତ (_S):"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "ସୁରକ୍ଷା (_S)"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "ସହଭାଗ ର ନାମ (_S):"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "ୟୁନିକ୍ସ ଚାଳକ ନାମ (_U):"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "ଦ୍ରୁଶ୍ଯମାନ୍ଯ (_V)"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "ୱିଣ୍ଡୋଜ ଚାଳକ ନାମ (_W):"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "କାର୍ଯ୍ଯ ସମୁହ (_W):"
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "ଲିଖନୀୟ (_W)"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr "system-config-samba"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr "ମନୋଜ କୁମାର ଗିରି <mgiri@redhat.com>"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "Samba ସଂରଚନା କରନ୍ତୁ"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr "Samba ସଂରଚନା କରିବା ପାଇଁ ବୈଧିକରଣ ଆବଶ୍ୟକ ହୋଇଥାଏ"
+
+#~ msgid "A_llow access to everyone"
+#~ msgstr "ସମସ୍ତ ଙ୍କୁ ପ୍ରବେଶାନୁମତି ପ୍ରଦାନ କର (_l)"
+
+#~ msgid "Brow_se..."
+#~ msgstr "ଖୋଜ... (_s)"
+
+#~ msgid "D_escription:"
+#~ msgstr "ବର୍ଣ୍ଣନା (_e):"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "ନିର୍ଦ୍ଦିଷ୍ଟ ଚାଳକ ମାନଙ୍କୁ କେବଳ ପ୍ରବେଶାନୁମତି ପ୍ରଦାନ କର (_n)"
+
+#~ msgid "_Directory:"
+#~ msgstr "ଡିରେକ୍ଟୋରି (_D):"
+
+#~ msgid "window1"
+#~ msgstr "ୱିଣ୍ଡୋ ୧"
+
+#~ msgid "System policy prevents access to Samba configuration"
+#~ msgstr "ତନ୍ତ୍ର ନୀତି Samba ସଂରଚନା ମଧ୍ଯରେ ପ୍ରବେଶ କରିବାରେ ଅଟକାଇଥାଏ"
+
+#~ msgid "Copyright %(year)s © %(holder)s <%(email)s>\n"
+#~ msgstr "Copyright %(year)s © %(holder)s <%(email)s>\n"
+
+#~ msgid "Copyright %(year)s © %(holder)s\n"
+#~ msgstr "Copyright %(year)s © %(holder)s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "A graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Samba ସର୍ଭର ସଂରଚନା ସାଧନ %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "SMB ସହଭାଗକୁ ସଂରଚନା କରିବା ପାଇଁ ଗୋଟିଏ ଆଲେଖୀକ ଅନ୍ତରାପୃଷ୍ଠ"
+
+#~ msgid "About"
+#~ msgstr "ବିବରଣୀ"

@@ -1,0 +1,772 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2002 ORGANIZATION
+# pclouds <pclouds@gmx.net>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: system-config-samba VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2003-10-18 19:37+0700\n"
+"Last-Translator: pclouds <pclouds@gmx.net>\n"
+"Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.4\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Mật khẩu không khớp. Vui lòng nhập lại."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Vui lòng nhập mật khẩu Windows."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "Tài khoản cho người dùng này đã có rồi. Vui lòng thử lại."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Miền"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Server"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Chia sẻ"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Người dùng"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Có"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "Không"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Không có tài khoản guest"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"Để tự động định vị máy chủ mật khẩu, hãy nhập \"*\" vào mục nhập Máy chủ Xác "
+"thực. Nếu không, bạn phải xác định máy chủ mật khẩu khi dùng xác thực 'ADS', "
+"'Domain' hoặc 'Server'."
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr ""
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Bạn phải xác định workgroup"
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Cấu hình Server Samba"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Tạo, hiệu chỉnh, và xóa Chia sẻ Samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr ""
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr ""
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Thư mục"
+
+#: src/mainWindow.py:176
+#, fuzzy
+msgid "Share name"
+msgstr "Chia sẻ"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Quyền truy cập"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr ""
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Mô tả"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+#, fuzzy
+msgid "_File"
+msgstr "/_Tập tin"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+#, fuzzy
+msgid "_Add Share"
+msgstr "/_Tập tin/_Thêm Chia sẻ"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+#, fuzzy
+msgid "_Properties"
+msgstr "/_Tập tin/_Thuộc tính"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+#, fuzzy
+msgid "_Delete"
+msgstr "_Xóa Người dùng"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr ""
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+#, fuzzy
+msgid "_Preferences"
+msgstr "/_Tùy thích"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+#, fuzzy
+msgid "_Server Settings..."
+msgstr "Thiết lập Server"
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+#, fuzzy
+msgid "Samba _Users..."
+msgstr "Người dùng Samba"
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+#, fuzzy
+msgid "_Help"
+msgstr "/Trợ _giúp"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+#, fuzzy
+msgid "_Contents"
+msgstr "/Trợ _giúp/_Nội dung"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+#, fuzzy
+msgid "_About"
+msgstr "Giới thiệu"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+#, fuzzy
+msgid "Add a Samba share"
+msgstr "Thêm Chia sẻ Samba"
+
+#: src/mainWindow.py:217
+#, fuzzy
+msgid "_Add"
+msgstr "_Thêm Người dùng"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Sửa thuộc tính của thư mục được chọn"
+
+#: src/mainWindow.py:222
+#, fuzzy
+msgid "P_roperties"
+msgstr "/_Tập tin/_Thuộc tính"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Xóa thư mục được chọn"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Xem trợ giúp"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr ""
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Thiết lập Server"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Người dùng Samba"
+
+#: src/mainWindow.py:272
+#, fuzzy
+msgid "Help Contents"
+msgstr "/Trợ _giúp/_Nội dung"
+
+#: src/mainWindow.py:273
+#, fuzzy
+msgid "View Help"
+msgstr "Xem trợ giúp"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr ""
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Chỉ Đọc"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr ""
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Đọc/Ghi"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr ""
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "Chưa chạy dịch vụ Samba. Bạn có muốn khởi động dịch vụ không?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr ""
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr ""
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr ""
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr ""
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr ""
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr ""
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Tạo Chia sẻ Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Hiệu chỉnh Chia sẻ Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Bạn phải xác định thư mục cần chia sẻ.\n"
+"\n"
+"Nhấn \"Đồng ý\" để tiếp tục."
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Thư mục \"%s\" không tồn tại. Bạn phải xác định thư mục có thực.\n"
+"\n"
+"Nhấn \"Đồng ý\" để tiếp tục."
+
+#: src/shareWindow.py:242
+#, fuzzy
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Bạn phải xác định thư mục cần chia sẻ.\n"
+"\n"
+"Nhấn \"Đồng ý\" để tiếp tục."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr ""
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr ""
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr ""
+
+#: src/shareWindow.py:327
+#, fuzzy
+msgid "Please allow access to at least one user."
+msgstr "Chỉ cho một số người dùng nhất định truy cập"
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Chọn thư mục"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr ""
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr ""
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:137
+#, fuzzy, python-format
+msgid "You do not have permission to execute %s."
+msgstr "Bạn không có quyền đọc %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "Không thể đọc %s. Chương trình sẽ kết thúc ngay."
+
+#: src/system-config-samba.glade.h:1
+#, fuzzy
+msgid "A_uthentication Server:"
+msgstr "Server Xác thực:"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Thiết lập Samba Server Nâng cao"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Cơ bản"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Duyệt"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr ""
+
+#: src/system-config-samba.glade.h:6
+#, fuzzy
+msgid "Con_firm Samba Password:"
+msgstr "Xác nhận Mật khẩu Samba:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Tạo Người dùng Samba Mới"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Thực thi"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Tên tập tin"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr ""
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Quyền Truy cập của Nhóm:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "Khóa"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Đăng nhập"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Đăng nhập"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "Linh tinh"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Quyền truy cập:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "In ấn"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Giao thức"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Đọc"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Bảo mật"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Tinh chỉnh"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Quyền Truy cập của Người dùng:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+#, fuzzy
+msgid "Warning"
+msgstr "In ấn"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Quyền Truy cập của Thế giới:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Ghi"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Truy cập"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Thêm Người dùng"
+
+#: src/system-config-samba.glade.h:37
+#, fuzzy
+msgid "_Authentication Mode:"
+msgstr "Kiểu xác thực:"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Cơ bản"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "_Xóa Người dùng"
+
+#: src/system-config-samba.glade.h:40
+#, fuzzy
+msgid "_Description:"
+msgstr "Mô tả:"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Hiệu chỉnh Người dùng"
+
+#: src/system-config-samba.glade.h:42
+#, fuzzy
+msgid "_Encrypt Passwords:"
+msgstr "Mã hóa Mật khẩu:"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:44
+#, fuzzy
+msgid "_Guest Account:"
+msgstr "Mật khẩu Guest:"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:46
+#, fuzzy
+msgid "_Samba Password:"
+msgstr "Mật khẩu Samba:"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Bảo mật"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr ""
+
+#: src/system-config-samba.glade.h:49
+#, fuzzy
+msgid "_Unix Username:"
+msgstr "Tên Người dùng (Unix):"
+
+#: src/system-config-samba.glade.h:50
+#, fuzzy
+msgid "_Visible"
+msgstr "/_Tập tin"
+
+#: src/system-config-samba.glade.h:51
+#, fuzzy
+msgid "_Windows Username:"
+msgstr "Tên Người dùng (Windows):"
+
+#: src/system-config-samba.glade.h:52
+#, fuzzy
+msgid "_Workgroup:"
+msgstr "Workgroup:"
+
+#: src/system-config-samba.glade.h:53
+#, fuzzy
+msgid "_Writable"
+msgstr "Ghi"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr ""
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr ""
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr ""
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr ""
+
+#, fuzzy
+#~ msgid "A_llow access to everyone"
+#~ msgstr "Cho mọi người truy cập"
+
+#, fuzzy
+#~ msgid "Brow_se..."
+#~ msgstr "Duyệt..."
+
+#, fuzzy
+#~ msgid "D_escription:"
+#~ msgstr "Mô tả:"
+
+#, fuzzy
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "Chỉ cho một số người dùng nhất định truy cập"
+
+#, fuzzy
+#~ msgid "_Directory:"
+#~ msgstr "Thư mục:"
+
+#~ msgid "window1"
+#~ msgstr "window1"
+
+#~ msgid "About"
+#~ msgstr "Giới thiệu"
+
+#~ msgid "label30"
+#~ msgstr "label30"
+
+#~ msgid "label31"
+#~ msgstr "label31"
+
+#~ msgid "label32"
+#~ msgstr "label32"
+
+#~ msgid "label33"
+#~ msgstr "label33"
+
+#~ msgid "label34"
+#~ msgstr "label34"
+
+#~ msgid "label35"
+#~ msgstr "label35"
+
+#~ msgid "label36"
+#~ msgstr "label36"
+
+#~ msgid "label37"
+#~ msgstr "label37"
+
+#~ msgid "label38"
+#~ msgstr "label38"
+
+#~ msgid "label39"
+#~ msgstr "label39"
+
+#~ msgid "label40"
+#~ msgstr "label40"
+
+#~ msgid "label41"
+#~ msgstr "label41"
+
+#~ msgid "label42"
+#~ msgstr "label42"
+
+#~ msgid "label43"
+#~ msgstr "label43"
+
+#~ msgid "label44"
+#~ msgstr "label44"
+
+#~ msgid "Cannot write to %s.  Program will now exit."
+#~ msgstr "Không thể ghi %s. Chương trình sẽ kết thúc ngay."
+
+#~ msgid "You do not have permission to write to %s.  Program will now exit."
+#~ msgstr "Bạn không có quyền ghi %s. Chương trình kết thúc ngay."
+
+#~ msgid "Help is not available."
+#~ msgstr "Không có trợ giúp."
+
+#~ msgid "Add a samba share"
+#~ msgstr "Thêm Chia sẻ Samba"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Basic Permissions:"
+#~ msgstr "Quyền truy cập Cơ bản:"
+
+#, fuzzy
+#~ msgid "_Read-only"
+#~ msgstr "Chỉ đọc"
+
+#, fuzzy
+#~ msgid "Read / _Write"
+#~ msgstr "Đọc / Ghi"
+
+#~ msgid "/_File/_Properties"
+#~ msgstr "/_Tập tin/_Thuộc tính"
+
+#~ msgid "/_File/_Delete"
+#~ msgstr "/_Tập tin/_Xóa"
+
+#~ msgid "/_File/_Quit"
+#~ msgstr "/_Tập tin/T_hoát"
+
+#~ msgid "/_Preferences/_Server Settings..."
+#~ msgstr "/_Tùy thích/Thiết lập _Server..."
+
+#~ msgid "/_Preferences/Samba _Users..."
+#~ msgstr "/_Tùy thích/_Người dùng Samba..."
+
+#~ msgid "/_Help/_About"
+#~ msgstr "/Trợ _giúp/_Giới thiệu"
+
+#, fuzzy
+#~ msgid ""
+#~ "Samba Server Configuration Tool %s\n"
+#~ " Copyright (c) 2002 Red Hat, Inc.\n"
+#~ " Copyright (c) 2002 Brent Fox <bfox@redhat.com>\n"
+#~ " Copyright (c) 2002 Tammy Fox <tfox@redhat.com>\n"
+#~ " A graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Công cụ Cấu hình Server Samba %s\n"
+#~ " Copyright (c) 2002 Red Hat, Inc.\n"
+#~ " Copyright (c) 2002 Brent Fox <bfox@redhat.com>\n"
+#~ " Copyright (c) 2002 Tammy Fox <tfox@redhat.com>\n"
+#~ " Giao diện đồ họa để cấu hình Chia sẻ SMB"
+
+#~ msgid "Read / Write"
+#~ msgstr "Đọc / Ghi"
+
+#~ msgid ""
+#~ "You must specify a password server when using 'domain' or 'server' "
+#~ "authentication."
+#~ msgstr ""
+#~ "Bạn phải xác định mật khẩu server khi dùng xác thực 'domain' hoặc "
+#~ "'server'."

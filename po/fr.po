@@ -1,0 +1,758 @@
+# translation of s-c-samba_1.po to Français
+# Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc
+#
+# Stephane Raimbault <stephane.raimbault>, 2004.
+# Audrey Simons <asimons@redhat.com>, 2003,2004.
+# Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004, 2005.
+# Joëlle Cornavin <jcornavi@kde-france.org>, 2005.
+# Decroux Fabien <fdecroux@redhat.com>, 2006.
+# Alain PORTAL <aportal@univ-montp2.fr>, 2007.
+# Thomas Canniot <mrtom@fedoraproject.org>, 2008, 2009, 2010.
+# Charles-Antoine Couret <cacouret@wanadoo.fr>, 2009.
+# Martin GOYOT <martin.goyot@gmail.com>, 2009.
+# Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: s-c-samba_1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2010-04-13 18:21+0200\n"
+"Last-Translator: Thomas Canniot <mrtom@fedoraproject.org>\n"
+"Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/addUserWin.py:121 src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Les mots de passe ne correspondent pas. Veuillez essayer à nouveau."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Veuillez saisir un nom d'utilisateur Windows."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr ""
+"Il existe déjà un compte pour cet utilisateur. Veuillez saisir un autre nom "
+"d'utilisateur."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57 src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Domaine"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Serveur"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Partage"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Utilisateur"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Oui"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "Non"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Aucun compte invité"
+
+#: src/basicPreferencesWin.py:210
+msgid ""
+"To auto-locate a password server, enter a \"*\" into the Authentication "
+"Server entry field.  Otherwise, you must specify a password server when "
+"using 'ADS', 'Domain' or 'Server' authentication."
+msgstr ""
+"Pour localiser automatiquement le mot de passe d'un serveur, saisissez le "
+"symbole « * » dans le champ d'entrée du serveur d'authentification. Sinon, "
+"vous devez spécifier un serveur de mots de passe lorsque vous utilisez "
+"l'authentification « ADS », « Domaine » ou « Serveur »."
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr ""
+"Veuillez saisir un domaine Kerberos pour utiliser l'authentification ADS."
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Vous devez spécifier un groupe de travail."
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
+"FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Ce programme est un logiciel libre. Vous pouvez le redistribuer et/ou le "
+"modifier selon les termes de la licence GNU General Public License telle que "
+"publiée par la Free Software Foundation, soit sous la version 2 de la "
+"licence, ou (selon votre bon vouloir) une version plus récente.\n"
+"\n"
+"Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE "
+"GARANTIE, y compris dans un objectif de COMMERCIALISATION ou d'UTILISATION "
+"DANS UN BUT PRÉCIS. Consultez la licence GNU General Public License pour "
+"plus d'informations.\n"
+"\n"
+"Vous devriez avoir reçu une copie de la licence GNU General Public License "
+"avec ce programme. Si tel n'a pas été le cas, consultez <http://www.gnu.org/"
+"licenses/>."
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Configuration du serveur Samba"
+
+#: src/mainWindow.py:98 system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99 system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Créer, modifier et supprimer les partages Samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "Cacher les _détails"
+
+#: src/mainWindow.py:140 src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "Afficher les _détails"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Répertoire"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "Nom du partage"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Permissions"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "Visibilité"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Description"
+
+#: src/mainWindow.py:191 src/mainWindow.py:192 src/mainWindow.py:193
+#: src/mainWindow.py:194 src/mainWindow.py:195 src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_Fichier"
+
+#: src/mainWindow.py:192 src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_Ajouter un partage"
+
+#: src/mainWindow.py:193 src/mainWindow.py:265
+msgid "_Properties"
+msgstr "_Propriétés"
+
+#: src/mainWindow.py:194 src/mainWindow.py:227 src/mainWindow.py:266
+msgid "_Delete"
+msgstr "_Supprimer"
+
+#: src/mainWindow.py:196 src/mainWindow.py:267
+msgid "_Quit"
+msgstr "_Quitter"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197 src/mainWindow.py:198 src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "_Préférences"
+
+#: src/mainWindow.py:198 src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "Paramètres du _serveur..."
+
+#: src/mainWindow.py:201 src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "_Utilisateurs Samba..."
+
+#: src/mainWindow.py:203 src/mainWindow.py:204 src/mainWindow.py:205
+#: src/mainWindow.py:271 src/mainWindow.py:272
+msgid "_Help"
+msgstr "_Aide"
+
+#: src/mainWindow.py:204 src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_Contenu"
+
+#: src/mainWindow.py:205 src/mainWindow.py:274
+msgid "_About"
+msgstr "_À propos de"
+
+#: src/mainWindow.py:215 src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "Ajouter un nouveau partage Samba"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_Ajouter"
+
+#: src/mainWindow.py:220 src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Modifier les propriétés du répertoire sélectionné"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "P_ropriétés"
+
+#: src/mainWindow.py:225 src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Supprimer le répertoire sélectionné"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Afficher l'aide"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "Quitter le programme"
+
+#: src/mainWindow.py:269 src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Paramètres du serveur"
+
+#: src/mainWindow.py:270 src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Utilisateurs Samba"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "Contenu de l'aide"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "Afficher l'aide"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "À propos du programme"
+
+#: src/mainWindow.py:331 src/mainWindow.py:350 src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Lecture seule"
+
+#: src/mainWindow.py:332 src/mainWindow.py:362 src/shareWindow.py:458
+msgid "Visible"
+msgstr "Visible"
+
+#: src/mainWindow.py:348 src/mainWindow.py:356 src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Lecture/Écriture"
+
+#: src/mainWindow.py:360 src/shareWindow.py:461
+msgid "Hidden"
+msgstr "Caché"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr ""
+"Le service Samba n'est pas en cours d'exécution. Voulez-vous le lancer ?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr "Outil de configuration du serveur Samba"
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr "Une interface graphique pour configurer Samba"
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr "Copyright %(year)s © %(holder)s <%(email)s>"
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr "Copyright %(year)s © %(holder)s"
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr "%(name)s <%(email)s>"
+
+#: src/mainWindow.py:531
+msgid ""
+"The help viewer could not be found. To be able to view help you need to "
+"install the 'yelp' package."
+msgstr ""
+"Le visualiseur d'aide n'a pas pu être trouvé. Vous devez installer le "
+"paquetage « yelp » pour pouvoir consulter l'aide."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Créer un partage Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Modifier un partage Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Vous devez spécifier un répertoire à partager.\n"
+"\n"
+"Pour continuer, cliquez sur « OK »"
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing "
+"directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Le répertoire « %s » n'existe pas. Veuillez spécifier un répertoire "
+"existant.\n"
+"\n"
+"Pour continuer, cliquez sur « OK »."
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Veuillez spécifier un nom de partage.\n"
+"\n"
+"Cliquez sur « OK » pour continuer."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "Le nom de partage « %s » existe déjà."
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "Le nom de partage « %s » est réservé."
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"Veuillez utiliser un nom de partage différent.\n"
+"\n"
+"Cliquez sur « Suggérer un nom du partage » ou sur « OK » pour continuer."
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_Suggérer un nom de partage"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "Veuillez autoriser l'accès à au moins un utilisateur."
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Sélectionner le répertoire"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr "system-config-samba nécessite un affichage X-Window."
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr "Erreur d'autorisation"
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid ""
+"The authorization needed for '%(action_id)s' could not be obtained. The "
+"application will exit now."
+msgstr ""
+"L'autorisation demandée pour « %(action_id)s » n'a pas pu être obtenue. "
+"L'application va maintenant se fermer."
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "Vous n'êtes pas autorisé à exécuter %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+"Erreur lors de la lecture de la liste des mots de passe de Samba :\n"
+"%s"
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "Impossible de lire %s. Le programme sera maintenant arrêté."
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "Serveur d'a_uthentification :"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Paramètres avancés du serveur Samba"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Général"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Naviguer"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr "C_hoisir..."
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "Con_firmation du mot de passe Samba :"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Créer un nouvel utilisateur Samba"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Exécution"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Nom de fichier"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr "Donner l'accès à tout le mond_e"
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr "Donner l'accès à ces _utilisateurs"
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Permissions de groupe :"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "Verrouillage"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Connexion"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Connexion"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "Divers"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Permissions :"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "Impression"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Protocole"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Lecture"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Sécurité"
+
+#: src/system-config-samba.glade.h:26
+msgid ""
+"Some lines couldn't be understood while reading the configuration file /etc/"
+"samba/smb.conf. These may be unknown configuration directives for Samba "
+"plugins but could also be configuration errors."
+msgstr ""
+"Certaines lignes du fichier de configuration /etc/samba/smb.conf n'ont pu "
+"être interprétées. Celles-ci peuvent être des directives de configurations "
+"inconnues pour des greffons Samba, mais peuvent également être des erreurs "
+"de configuration."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Réglage"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Permissions d'utilisateur :"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "Avertissement"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Permissions mondiales :"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Écriture"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Accès"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Ajouter un utilisateur"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "Mode d'_authentification :"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Général"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "_Supprimer un utilisateur"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "_Description :"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Modifier un utilisateur"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "_Chiffrer les mots de passe :"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr "_Répertoire"
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "Compte _invité :"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "Domaine _Kerberos :"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "_Mot de passe Samba :"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Sécurité"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "_Nom du partage :"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "Nom d'utilisateur _Unix :"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "_Visible"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "Nom d'utilisateur _Windows :"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "Groupe de _travail :"
+
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "_Inscriptible"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr "system-config-samba"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr ""
+"Stephane Raimbault <stephane.raimbault>, 2004.Audrey Simons <asimons@redhat."
+"com>, 2003,2004.Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004, 2005.Joëlle "
+"Cornavin <jcornavi@kde-france.org>, 2005.Decroux Fabien <fdecroux@redhat."
+"com>, 2006.Alain PORTAL <aportal@univ-montp2.fr>, 2007.Thomas Canniot "
+"<mrtom@fedoraproject.org>, 2008, 2009, 2010.Charles-Antoine Couret "
+"<cacouret@wanadoo.fr>, 2009.Martin GOYOT <martin.goyot@gmail.com>, 2009."
+"Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>, 2009."
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "Configurer Samba"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr "Configurer Samba nécessite de s'authentifier"
+
+#~ msgid "A_llow access to everyone"
+#~ msgstr "Autoriser l'accès à _tous les utilisateurs"
+
+#~ msgid "Brow_se..."
+#~ msgstr "_Naviguer..."
+
+#~ msgid "D_escription:"
+#~ msgstr "_Description :"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "Autoriser l'accès _seulement à des utilisateurs spécifiques"
+
+#~ msgid "_Directory:"
+#~ msgstr "_Répertoire :"
+
+#~ msgid "window1"
+#~ msgstr "window1"
+
+#~ msgid "System policy prevents access to Samba configuration"
+#~ msgstr ""
+#~ "La politique du système interdit l'accès à la configuration de Samba"
+
+#~ msgid "Copyright %(year)s © %(holder)s <%(email)s>\n"
+#~ msgstr "Copyright %(year)s © %(holder)s <%(email)s>\n"
+
+#~ msgid "Copyright %(year)s © %(holder)s\n"
+#~ msgstr "Copyright %(year)s © %(holder)s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "A graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Outil de configuration de serveur Samba %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "Une interface graphique pour configurer les partages SMB"
+
+#~ msgid "About"
+#~ msgstr "À propos de"
+
+#~ msgid "label30"
+#~ msgstr "label30"
+
+#~ msgid "label31"
+#~ msgstr "label31"
+
+#~ msgid "label32"
+#~ msgstr "label32"
+
+#~ msgid "label33"
+#~ msgstr "label33"
+
+#~ msgid "label34"
+#~ msgstr "label34"
+
+#~ msgid "label35"
+#~ msgstr "label35"
+
+#~ msgid "label36"
+#~ msgstr "label36"
+
+#~ msgid "label37"
+#~ msgstr "label37"
+
+#~ msgid "label38"
+#~ msgstr "label38"
+
+#~ msgid "label39"
+#~ msgstr "label39"
+
+#~ msgid "label40"
+#~ msgstr "label40"
+
+#~ msgid "label41"
+#~ msgstr "label41"
+
+#~ msgid "label42"
+#~ msgstr "label42"
+
+#~ msgid "label43"
+#~ msgstr "label43"
+
+#~ msgid "label44"
+#~ msgstr "label44"
+
+#~ msgid "<user name>"
+#~ msgstr "<nom d'utilisateur>"
+
+#~ msgid "Copyright %s (c) %s %s\n"
+#~ msgstr "Copyright %s (c) %s %s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %s\n"
+#~ "%sA graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Outil de configuration du serveur Samba %s\n"
+#~ "%sUne interface graphique pour la configuration de partages SMB"
+
+#~ msgid "Cannot write to %s.  Program will now exit."
+#~ msgstr "Impossible d'écrire dans %s. Le programme sera maintenant arrêté."
+
+#~ msgid "You do not have permission to write to %s.  Program will now exit."
+#~ msgstr ""
+#~ "Vous n'êtes pas autorisé à écrire dans %s. Le programme sera maintenant "
+#~ "arrêté."

@@ -1,0 +1,836 @@
+# Catalan translations for system-config-samba package.
+# Copyright (C) 2004, 2005 Red Hat, Inc.
+# This file is distributed under the same license as the
+#  system-config-samba package.
+#
+# Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2010
+# Josep Puigdemont <josep.puigdemont@gmail.com>, 2004-8.
+#
+# This file is translated according to the glossary and style guide of
+#   Softcatalà. If you plan to modify this file, please read first the page
+#   of the Catalan translation team for the Fedora project at:
+#   http://www.softcatala.org/projectes/fedora/
+#   and contact the previous translator
+#
+# Aquest fitxer s'ha de traduir d'acord amb el recull de termes i la guia
+#   d'estil de Softcatalà. Si voleu modificar aquest fitxer, llegiu si
+#   us plau la pàgina de catalanització del projecte Fedora a:
+#   http://www.softcatala.org/projectes/fedora/
+#   i contacteu l'anterior traductor/a.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: system-config-samba\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-28 17:38+0200\n"
+"PO-Revision-Date: 2010-09-20 05:40+0100\n"
+"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"Language-Team: Catalan <fedora@softcatala.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Catalan\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/addUserWin.py:121
+#: src/addUserWin.py:165
+msgid "The passwords do not match.  Please try again."
+msgstr "Les contrasenyes no coincideixen. Intenteu-ho de nou."
+
+#: src/addUserWin.py:153
+msgid "Please enter a Windows username."
+msgstr "Indiqueu un nom d'usuari de Windows."
+
+#: src/addUserWin.py:179
+msgid "An account for this user already exists.  Please try again."
+msgstr "Ja existeix un compte per a aquest usuari. Intenteu-ho de nou."
+
+#: src/basicPreferencesWin.py:53
+msgid "ADS"
+msgstr "ADS"
+
+#: src/basicPreferencesWin.py:57
+#: src/system-config-samba.glade.h:8
+msgid "Domain"
+msgstr "Domini"
+
+#: src/basicPreferencesWin.py:61
+msgid "Server"
+msgstr "Servidor"
+
+#: src/basicPreferencesWin.py:65
+msgid "Share"
+msgstr "Recurs compartit"
+
+#: src/basicPreferencesWin.py:69
+msgid "User"
+msgstr "Usuari"
+
+#: src/basicPreferencesWin.py:77
+msgid "Yes"
+msgstr "Sí"
+
+#: src/basicPreferencesWin.py:81
+msgid "No"
+msgstr "No"
+
+#: src/basicPreferencesWin.py:91
+msgid "No guest account"
+msgstr "Sense compte per a convidats"
+
+#: src/basicPreferencesWin.py:210
+msgid "To auto-locate a password server, enter a \"*\" into the Authentication Server entry field.  Otherwise, you must specify a password server when using 'ADS', 'Domain' or 'Server' authentication."
+msgstr "Per localitzar automàticament un servidor de contrasenyes, indiqueu \"*\" en el camp d'entrada Servidor d'autenticació. Sinó, haureu d'especificar un servidor de contrasenyes quan utilitzeu autenticació 'ADS', 'Domini' o 'Servidor'."
+
+#. There's no realm server, so complain
+#: src/basicPreferencesWin.py:224
+msgid "Please enter a kerberos realm when using ADS authentication."
+msgstr "Indiqueu un regne Kerberos quan feu servir l'autenticació ADS."
+
+#: src/basicPreferencesWin.py:254
+msgid "You must specify a workgroup."
+msgstr "Heu d'indicar un grup de treball."
+
+#: src/mainWindow.py:45
+msgid ""
+"This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Aquest programa és programari lliure; el podeu redistribuir i/o modificar d'acord amb els termes de la Llicència pública general de GNU tal i com la publica la Free Software Foundation; amb la versió 2 de la Llicència, o (si ho preferiu) amb qualsevol versió posterior.\n"
+"\n"
+"Aquest programa es distribueix amb l'esperança que us sigui útil, però SENSE CAP GARANTIA; ni tant sols amb la garantia de COMERCIALITZACIÓ o APTITUD PER A PROPÒSITS DETERMINATS.  Vegeu la Llicència pública general de GNU per a més detalls.\n"
+"\n"
+"Hauríeu d'haver rebut una còpia de la llicència pública general de GNU amb aquest programa; si no fos així, doneu un cop d'ull a <http://www.gnu.org/licenses/>."
+
+#: src/mainWindow.py:94
+msgid "Samba Server Configuration"
+msgstr "Configuració del servidor Samba"
+
+#: src/mainWindow.py:98
+#: system-config-samba.desktop.in.h:2
+msgid "Samba"
+msgstr "Samba"
+
+#: src/mainWindow.py:99
+#: system-config-samba.desktop.in.h:1
+msgid "Create, modify, and delete samba shares"
+msgstr "Creeu, modifiqueu i elimineu recursos compartits samba"
+
+#: src/mainWindow.py:138
+msgid "Hide _details"
+msgstr "Amaga els _detalls"
+
+#: src/mainWindow.py:140
+#: src/system-config-samba.glade.h:25
+msgid "Show _details"
+msgstr "_Mostra els detalls"
+
+#: src/mainWindow.py:173
+msgid "Directory"
+msgstr "Directori"
+
+#: src/mainWindow.py:176
+msgid "Share name"
+msgstr "Nom del recurs compartit"
+
+#: src/mainWindow.py:178
+msgid "Permissions"
+msgstr "Permisos"
+
+#: src/mainWindow.py:180
+msgid "Visibility"
+msgstr "Visibilitat"
+
+#: src/mainWindow.py:182
+msgid "Description"
+msgstr "Descripció"
+
+#: src/mainWindow.py:191
+#: src/mainWindow.py:192
+#: src/mainWindow.py:193
+#: src/mainWindow.py:194
+#: src/mainWindow.py:195
+#: src/mainWindow.py:196
+#: src/mainWindow.py:263
+msgid "_File"
+msgstr "_Fitxer"
+
+#: src/mainWindow.py:192
+#: src/mainWindow.py:264
+msgid "_Add Share"
+msgstr "_Afegeix recurs compartit"
+
+#: src/mainWindow.py:193
+#: src/mainWindow.py:265
+msgid "_Properties"
+msgstr "_Propietats"
+
+#: src/mainWindow.py:194
+#: src/mainWindow.py:227
+#: src/mainWindow.py:266
+msgid "_Delete"
+msgstr "_Suprimeix"
+
+#: src/mainWindow.py:196
+#: src/mainWindow.py:267
+msgid "_Quit"
+msgstr "S_urt"
+
+#. ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
+#: src/mainWindow.py:197
+#: src/mainWindow.py:198
+#: src/mainWindow.py:201
+#: src/mainWindow.py:268
+msgid "_Preferences"
+msgstr "_Preferències"
+
+#: src/mainWindow.py:198
+#: src/mainWindow.py:269
+msgid "_Server Settings..."
+msgstr "Paràmetres del _servidor..."
+
+#: src/mainWindow.py:201
+#: src/mainWindow.py:270
+msgid "Samba _Users..."
+msgstr "_Usuaris Samba..."
+
+#: src/mainWindow.py:203
+#: src/mainWindow.py:204
+#: src/mainWindow.py:205
+#: src/mainWindow.py:271
+#: src/mainWindow.py:272
+msgid "_Help"
+msgstr "_Ajuda"
+
+#: src/mainWindow.py:204
+#: src/mainWindow.py:273
+msgid "_Contents"
+msgstr "_Continguts"
+
+#: src/mainWindow.py:205
+#: src/mainWindow.py:274
+msgid "_About"
+msgstr "_Quant a"
+
+#: src/mainWindow.py:215
+#: src/mainWindow.py:264
+msgid "Add a Samba share"
+msgstr "Afegeix un recurs compartit samba"
+
+#: src/mainWindow.py:217
+msgid "_Add"
+msgstr "_Afegeix"
+
+#: src/mainWindow.py:220
+#: src/mainWindow.py:265
+msgid "Edit the properties of the selected directory"
+msgstr "Edita les propietats del directori seleccionat"
+
+#: src/mainWindow.py:222
+msgid "P_roperties"
+msgstr "P_ropietats"
+
+#: src/mainWindow.py:225
+#: src/mainWindow.py:266
+msgid "Delete the selected directory"
+msgstr "Esborra el directori seleccionat"
+
+#: src/mainWindow.py:230
+msgid "View help"
+msgstr "Mostra l'ajuda"
+
+#: src/mainWindow.py:267
+msgid "Quit program"
+msgstr "Surt del programa"
+
+#: src/mainWindow.py:269
+#: src/system-config-samba.glade.h:24
+msgid "Server Settings"
+msgstr "Paràmetres del servidor"
+
+#: src/mainWindow.py:270
+#: src/system-config-samba.glade.h:22
+msgid "Samba Users"
+msgstr "Usuaris Samba"
+
+#: src/mainWindow.py:272
+msgid "Help Contents"
+msgstr "Continguts"
+
+#: src/mainWindow.py:273
+msgid "View Help"
+msgstr "Mostra l'ajuda"
+
+#: src/mainWindow.py:274
+msgid "About the program"
+msgstr "Quant al programa"
+
+#: src/mainWindow.py:331
+#: src/mainWindow.py:350
+#: src/mainWindow.py:354
+#: src/shareWindow.py:450
+msgid "Read Only"
+msgstr "Només lectura"
+
+#: src/mainWindow.py:332
+#: src/mainWindow.py:362
+#: src/shareWindow.py:458
+msgid "Visible"
+msgstr "Visible"
+
+#: src/mainWindow.py:348
+#: src/mainWindow.py:356
+#: src/shareWindow.py:453
+msgid "Read/Write"
+msgstr "Lectura/escriptura"
+
+#: src/mainWindow.py:360
+#: src/shareWindow.py:461
+msgid "Hidden"
+msgstr "Amagat"
+
+#: src/mainWindow.py:435
+msgid "The Samba service is not currently running.  Do you wish to start it?"
+msgstr "El servei Samba no s'està executant. Voleu iniciar-lo?"
+
+#: src/mainWindow.py:495
+msgid "Samba Server Configuration Tool"
+msgstr "Eina de configuració del servidor Samba"
+
+#: src/mainWindow.py:497
+msgid "A graphical interface for configuring Samba"
+msgstr "Una interfície gràfica per a la configuració de Samba"
+
+#: src/mainWindow.py:504
+#, python-format
+msgid "Copyright %(year)s © %(holder)s <%(email)s>"
+msgstr "Copyright %(year)s © %(holder)s <%(email)s>"
+
+#: src/mainWindow.py:506
+#, python-format
+msgid "Copyright %(year)s © %(holder)s"
+msgstr "Copyright %(year)s © %(holder)s"
+
+#: src/mainWindow.py:512
+#, python-format
+msgid "%(name)s <%(email)s>"
+msgstr "%(name)s <%(email)s>"
+
+#: src/mainWindow.py:531
+msgid "The help viewer could not be found. To be able to view help you need to install the 'yelp' package."
+msgstr "No s'ha trobat el visualitzador d'ajuda. Per poder veure l'ajuda heu d'instal·lar el paquet 'yelp'."
+
+#: src/shareWindow.py:133
+msgid "Create Samba Share"
+msgstr "Crea un recurs compartit Samba"
+
+#: src/shareWindow.py:143
+msgid "Edit Samba Share"
+msgstr "Edita el recurs compartit Samba"
+
+#: src/shareWindow.py:209
+msgid ""
+"You must specify a directory to share.  \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Heu d'especificar un directori per compartir.  \n"
+"\n"
+"Feu clic a \"D'acord\" per continuar."
+
+#: src/shareWindow.py:223
+#, python-format
+msgid ""
+"The directory \"%s\" does not exist.  Please specify an existing directory. \n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"El directori \"%s\" no existeix. Especifiqueu-ne algun d'existent.\n"
+"\n"
+"Feu clic a \"D'acord\" per continuar."
+
+#: src/shareWindow.py:242
+msgid ""
+"Please set a share name.\n"
+"\n"
+"Click \"OK\" to continue."
+msgstr ""
+"Heu d'especificar un nom per al recurs compartit.\n"
+"\n"
+"Feu clic a \"D'acord\" per continuar."
+
+#: src/shareWindow.py:245
+#, python-format
+msgid "The share name \"%s\" already exists."
+msgstr "El nom del recurs compartit \"%s\" ja existeix."
+
+#: src/shareWindow.py:247
+#, python-format
+msgid "The share name \"%s\" is reserved."
+msgstr "El nom del recurs compartit \"%s\" està reservat."
+
+#: src/shareWindow.py:248
+msgid ""
+"\n"
+"Please use a different share name.\n"
+"\n"
+"Click \"Suggest Share Name\" or \"OK\" to continue."
+msgstr ""
+"\n"
+"Feu servir un nom diferent per al recurs compartit.\n"
+"\n"
+"Feu clic a \"Suggereix un nom per al recurs compartit\" o \"D'acord\" per continuar."
+
+#: src/shareWindow.py:249
+msgid "_Suggest Share Name"
+msgstr "_Suggereix un nom per al recurs compartit"
+
+#: src/shareWindow.py:327
+msgid "Please allow access to at least one user."
+msgstr "Permeteu l'accés a almenys un usuari."
+
+#: src/shareWindow.py:489
+msgid "Select Directory"
+msgstr "Selecciona directori"
+
+#: src/system-config-samba.py:46
+msgid "system-config-samba requires an X-Window display."
+msgstr "system-config-samba necessita una pantalla d'X-Window."
+
+#: src/system-config-samba.py:64
+msgid "Authorization Error"
+msgstr "S'ha produït un error en l'autentificació"
+
+#: src/system-config-samba.py:66
+#, python-format
+msgid "The authorization needed for '%(action_id)s' could not be obtained. The application will exit now."
+msgstr "No s'ha pogut obtenir l'autorització necessària per a '%(action_id)s'. Ara mateix es tancarà l'aplicació."
+
+#: src/scsamba/core/sambaBackend.py:137
+#, python-format
+msgid "You do not have permission to execute %s."
+msgstr "No teniu permisos per a executar %s."
+
+#: src/scsamba/core/sambaBackend.py:139
+#, python-format
+msgid ""
+"Error while reading Samba password list:\n"
+"%s"
+msgstr ""
+"S'ha produït un error en llegir la llista de contrasenyes de Samba:\n"
+"%s"
+
+#: src/scsamba/core/sambaBackend.py:160
+#, python-format
+msgid "Cannot read %s.  Program will now exit."
+msgstr "No s'ha pogut llegir %s. L'aplicació sortirà."
+
+#: src/system-config-samba.glade.h:1
+msgid "A_uthentication Server:"
+msgstr "Servidor d'a_utenticació:"
+
+#: src/system-config-samba.glade.h:2
+msgid "Advanced Samba Server Settings"
+msgstr "Paràmetres de configuració avançats del servidor Samba"
+
+#: src/system-config-samba.glade.h:3
+msgid "Basic"
+msgstr "Bàsic"
+
+#: src/system-config-samba.glade.h:4
+msgid "Browse"
+msgstr "Navega"
+
+#: src/system-config-samba.glade.h:5
+msgid "C_hoose..."
+msgstr "Selecciona..."
+
+#: src/system-config-samba.glade.h:6
+msgid "Con_firm Samba Password:"
+msgstr "Con_firmeu la contrasenya Samba:"
+
+#: src/system-config-samba.glade.h:7
+msgid "Create New Samba User"
+msgstr "Crea un nou usuari Samba"
+
+#: src/system-config-samba.glade.h:9
+msgid "Execute"
+msgstr "Execució"
+
+#: src/system-config-samba.glade.h:10
+msgid "Filename"
+msgstr "Nom del fitxer"
+
+#: src/system-config-samba.glade.h:11
+msgid "Give access to _everybody"
+msgstr "Donar accés a tothom:"
+
+#: src/system-config-samba.glade.h:12
+msgid "Give access to these _users:"
+msgstr "Donar accés a aquests _usuaris:"
+
+#: src/system-config-samba.glade.h:13
+msgid "Group Permissions:"
+msgstr "Permisos de grup:"
+
+#: src/system-config-samba.glade.h:14
+msgid "Locking"
+msgstr "S'està blocant"
+
+#: src/system-config-samba.glade.h:15
+msgid "Logging"
+msgstr "Registres"
+
+#: src/system-config-samba.glade.h:16
+msgid "Logon"
+msgstr "Entrada"
+
+#: src/system-config-samba.glade.h:17
+msgid "Miscellaneous"
+msgstr "Miscel·lània"
+
+#: src/system-config-samba.glade.h:18
+msgid "Permissions:"
+msgstr "Permisos:"
+
+#: src/system-config-samba.glade.h:19
+msgid "Printing"
+msgstr "Imprimint"
+
+#: src/system-config-samba.glade.h:20
+msgid "Protocol"
+msgstr "Protocol"
+
+#: src/system-config-samba.glade.h:21
+msgid "Read"
+msgstr "Lectura"
+
+#: src/system-config-samba.glade.h:23
+msgid "Security"
+msgstr "Seguretat"
+
+#: src/system-config-samba.glade.h:26
+msgid "Some lines couldn't be understood while reading the configuration file /etc/samba/smb.conf. These may be unknown configuration directives for Samba plugins but could also be configuration errors."
+msgstr "Algunes línies no s'han entès en llegir el fitxer de configuració /etc/samba/smb.conf. Es poden tractar de directives de configuració desconegudes per a connectors del Samba, o bé errors de configuració."
+
+#: src/system-config-samba.glade.h:27
+msgid "Tuning"
+msgstr "Afinant"
+
+#: src/system-config-samba.glade.h:28
+msgid "User Permissions:"
+msgstr "Permisos d'usuari:"
+
+#: src/system-config-samba.glade.h:29
+msgid "VFS"
+msgstr "VFS"
+
+#: src/system-config-samba.glade.h:30
+msgid "WINS"
+msgstr "WINS"
+
+#: src/system-config-samba.glade.h:31
+msgid "Warning"
+msgstr "Avís"
+
+#: src/system-config-samba.glade.h:32
+msgid "Winbind"
+msgstr "Winbind"
+
+#: src/system-config-samba.glade.h:33
+msgid "World Permissions:"
+msgstr "Permisos del món:"
+
+#: src/system-config-samba.glade.h:34
+msgid "Write"
+msgstr "Escriptura"
+
+#: src/system-config-samba.glade.h:35
+msgid "_Access"
+msgstr "_Accés"
+
+#: src/system-config-samba.glade.h:36
+msgid "_Add User"
+msgstr "_Afegeix usuari"
+
+#: src/system-config-samba.glade.h:37
+msgid "_Authentication Mode:"
+msgstr "Mode d'_autenticació:"
+
+#: src/system-config-samba.glade.h:38
+msgid "_Basic"
+msgstr "_Bàsic"
+
+#: src/system-config-samba.glade.h:39
+msgid "_Delete User"
+msgstr "_Suprimeix usuari"
+
+#: src/system-config-samba.glade.h:40
+msgid "_Description:"
+msgstr "_Descripció:"
+
+#: src/system-config-samba.glade.h:41
+msgid "_Edit User"
+msgstr "_Edita usuari"
+
+#: src/system-config-samba.glade.h:42
+msgid "_Encrypt Passwords:"
+msgstr "Xifra l_es contrasenyes:"
+
+#: src/system-config-samba.glade.h:43
+msgid "_Folder:"
+msgstr "Carpeta:"
+
+#: src/system-config-samba.glade.h:44
+msgid "_Guest Account:"
+msgstr "_Compte de convidat:"
+
+#: src/system-config-samba.glade.h:45
+msgid "_Kerberos Realm:"
+msgstr "Regne _Kerberos:"
+
+#: src/system-config-samba.glade.h:46
+msgid "_Samba Password:"
+msgstr "Contrasenya _Samba:"
+
+#: src/system-config-samba.glade.h:47
+msgid "_Security"
+msgstr "_Seguretat"
+
+#: src/system-config-samba.glade.h:48
+msgid "_Share name:"
+msgstr "Nom del recurs _compartit:"
+
+#: src/system-config-samba.glade.h:49
+msgid "_Unix Username:"
+msgstr "Nom d'_usuari de Unix:"
+
+#: src/system-config-samba.glade.h:50
+msgid "_Visible"
+msgstr "_Visible"
+
+#: src/system-config-samba.glade.h:51
+msgid "_Windows Username:"
+msgstr "Nom d'usuari de _Windows:"
+
+#: src/system-config-samba.glade.h:52
+msgid "_Workgroup:"
+msgstr "_Grup de treball:"
+
+# FIXME (josep)
+#: src/system-config-samba.glade.h:53
+msgid "_Writable"
+msgstr "_Escriptura"
+
+#: src/system-config-samba.glade.h:54
+msgid "system-config-samba"
+msgstr "system-config-samba"
+
+#. TRANSLATORS: Replace this string with your names, one name per line.
+#: src/system-config-samba.glade.h:56
+msgid "translator-credits"
+msgstr "Robert Buj Gelonch <robert.buj@gmail.com>"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:1
+#: config/org.fedoraproject.config.samba.policy.1.in.h:1
+msgid "Configure Samba"
+msgstr "Configureu el Samba"
+
+#: config/org.fedoraproject.config.samba.policy.0.in.h:2
+#: config/org.fedoraproject.config.samba.policy.1.in.h:2
+msgid "Configuring Samba requires authentication"
+msgstr "Per a configurar Samba es obligatori autentificar-se"
+
+#~ msgid "A_llow access to everyone"
+#~ msgstr "Permet _l'accés a tothom"
+
+#~ msgid "Brow_se..."
+#~ msgstr "Na_vega..."
+
+#~ msgid "D_escription:"
+#~ msgstr "D_escripció:"
+
+#~ msgid "O_nly allow access to specific users"
+#~ msgstr "Permet l'accés _només als usuaris especificats"
+
+#~ msgid "_Directory:"
+#~ msgstr "_Directori:"
+
+#~ msgid "window1"
+#~ msgstr "window1"
+
+#~ msgid "System policy prevents access to Samba configuration"
+#~ msgstr "La política del sistema evita accedir la configuració del Samba"
+
+#~ msgid "Copyright %(year)s © %(holder)s <%(email)s>\n"
+#~ msgstr "Copyright %(year)s © %(holder)s <%(email)s>\n"
+
+#~ msgid "Copyright %(year)s © %(holder)s\n"
+#~ msgstr "Copyright %(year)s © %(holder)s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "A graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Eina de configuració del servidor Samba %(version)s\n"
+#~ "%(copyrighttext)s\n"
+#~ "Una intefície gràfica per a configurar comparticions SMB"
+
+#~ msgid "About"
+#~ msgstr "Quant a"
+
+#~ msgid "label30"
+#~ msgstr "label30"
+
+#~ msgid "label31"
+#~ msgstr "label31"
+
+#~ msgid "label32"
+#~ msgstr "label32"
+
+#~ msgid "label33"
+#~ msgstr "label33"
+
+#~ msgid "label34"
+#~ msgstr "label34"
+
+#~ msgid "label35"
+#~ msgstr "label35"
+
+#~ msgid "label36"
+#~ msgstr "label36"
+
+#~ msgid "label37"
+#~ msgstr "label37"
+
+#~ msgid "label38"
+#~ msgstr "label38"
+
+#~ msgid "label39"
+#~ msgstr "label39"
+
+#~ msgid "label40"
+#~ msgstr "label40"
+
+#~ msgid "label41"
+#~ msgstr "label41"
+
+#~ msgid "label42"
+#~ msgstr "label42"
+
+#~ msgid "label43"
+#~ msgstr "label43"
+
+#~ msgid "label44"
+#~ msgstr "label44"
+
+#~ msgid "<user name>"
+#~ msgstr "<nom d'usuari>"
+
+#~ msgid "Copyright %s (c) %s %s\n"
+#~ msgstr "Copyright %s (c) %s %s\n"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %s\n"
+#~ "%sA graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Eina de configuració del servidor Samba %s\n"
+#~ "%sUna interfícia gràfica per configurar compartits SMB"
+
+#~ msgid "Cannot write to %s.  Program will now exit."
+#~ msgstr "No s'ha pogut escriure a %s.  L'aplicació sortirà."
+
+#~ msgid "You do not have permission to write to %s.  Program will now exit."
+#~ msgstr "No teniu permisos per escriure a %s.  L'aplicació sortirà."
+
+#~ msgid "Help is not available."
+#~ msgstr "L'ajuda no està disponible."
+
+#~ msgid "You must be root to run samba-share."
+#~ msgstr "Heu de ser el superusuari per executar samba-share."
+
+#~ msgid "Add a samba share"
+#~ msgstr "Afegeix un compartit samba"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "Basic Permissions:"
+#~ msgstr "Permisos bàsics:"
+
+#~ msgid "_Read-only"
+#~ msgstr "No_més lectura"
+
+#~ msgid "Read / _Write"
+#~ msgstr "Lectura / _Escriptura"
+
+#~ msgid "/_File/_Properties"
+#~ msgstr "/_Fitxer/_Propietats"
+
+#~ msgid "/_File/_Delete"
+#~ msgstr "/_Fitxer/_Elimina"
+
+#~ msgid "/_File/_Quit"
+#~ msgstr "/_Fitxer/_Surt"
+
+#~ msgid "/_Preferences/_Server Settings..."
+#~ msgstr "/_Preferències/Paràmetres del _servidor..."
+
+#~ msgid "/_Preferences/Samba _Users..."
+#~ msgstr "/_Preferències/_Usuaris Samba..."
+
+#~ msgid "/_Help/_About"
+#~ msgstr "/_Ajuda/_Quant a"
+
+#~ msgid ""
+#~ "Samba Server Configuration Tool %s\n"
+#~ " Copyright (c) 2002 Red Hat, Inc.\n"
+#~ " Copyright (c) 2002 Brent Fox <bfox@redhat.com>\n"
+#~ " Copyright (c) 2002 Tammy Fox <tfox@redhat.com>\n"
+#~ " A graphical interface for configuring SMB shares"
+#~ msgstr ""
+#~ "Eina per a la configuració del servidor Samba %s\n"
+#~ " Copyright (c) 2002 Red Hat, Inc.\n"
+#~ " Copyright (c) 2002 Brent Fox <bfox@redhat.com>\n"
+#~ " Copyright (c) 2002 Tammy Fox <tfox@redhat.com>\n"
+#~ " Una interfícia gràfica per configurar compartits SMB"
+
+#~ msgid "Read / Write"
+#~ msgstr "Lectura / Escriptura"
+
+#~ msgid "%s is not a valid directory."
+#~ msgstr "%s no és un directori vàlid."
+
+#~ msgid "Please specify a permission"
+#~ msgstr "Indiqueu algun permís"
+
+#~ msgid "%s is not a valid permission."
+#~ msgstr "%s no és un permís vàlid."
+
+#~ msgid "Please specify an IP."
+#~ msgstr "Indiqueu una IP."
+
+#~ msgid ""
+#~ "Usage: samba-export [OPTION...]\n"
+#~ "       --help             Print out this message.\n"
+#~ "       --dir <path>       Specify directory.\n"
+#~ "       --perm <perm>      \"ro\" for read only.  \"rw\" for read/write.\n"
+#~ "       --ip <ipaddr>      IP address of the hosts allowed to connect.\n"
+#~ "       --list             List the existing SAMBA exports.\n"
+#~ "       --async            Reply to SAMBA requests before changes are "
+#~ "written to disk."
+#~ msgstr ""
+#~ "Ús: samba-export [OPCIÓ...]\n"
+#~ "       --help           Mostra aquest misssatge.\n"
+#~ "       --dir <camí>     Indica el directori.\n"
+#~ "       --perm <perm>    \"ro\" per a només lectura. \"rw\" per a lectura/"
+#~ "escriptura.\n"
+#~ "       --ip <adreçaIP>  Adreça IP dels ordinadors que es poden "
+#~ "connectar.\n"
+#~ "       --list           Mostra una llista dels exports SAMBA.\n"
+#~ "       --async          Respon a les sol·licituds abans d'escriure els "
+#~ "canvis al disc."
