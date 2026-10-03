@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Samba Share Configuration
+GenericName=Samba Configuration
+Comment=Configure Samba shares, server settings and users
+Exec=samba-conf-tool
+Icon=samba-conf-tool
+Terminal=false
+Categories=Settings;GTK;
+Keywords=samba;shares;smb;network;file sharing;
+StartupNotify=true

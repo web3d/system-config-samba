@@ -1,513 +1,303 @@
-# shareWindow.py - the UI code for creating samba shares
 # -*- coding: utf-8 -*-
-# Copyright © 2002 - 2010 Red Hat, Inc.
-# Copyright © 2002, 2003 Brent Fox <bfox@redhat.com>
+# Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
+# GTK4 / libadwaita rewrite for samba-conf-tool.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-# Authors:
-# Brent Fox <bfox@redhat.com>
-# Nils Philippsen <nils@redhat.com>
+# Share create/edit dialog. Mirrors the fields of the old shareWindow:
+# directory (with browse + existence check), auto-suggested share name,
+# name de-dup / reserved-word validation, description, writable and
+# browseable switches, and the access mode (guest ok for everyone versus an
+# explicit "valid users" multi-select). Saving hands a ShareSpec back to the
+# caller which mutates the parsed config and writes it through the backend.
 
-import gtk
-import mainWindow
-from scsamba.core import sambaParser
+from __future__ import annotations
+
 import os
-import gobject
-import gettext
-_ = lambda x: unicode(gettext.ldgettext("system-config-samba", x), "utf-8")
+from dataclasses import dataclass, field
 
-class ShareWindow(object):
-    def __init__(self, parent, xml, samba_data, samba_backend, main_window):
-        self.ParentClass = parent
-        self.samba_data = samba_data
-        self.samba_backend = samba_backend
-        self.samba_sections = samba_data.sections
-        self.samba_sections_dict = samba_data.sections_dict
+import gi
 
-        self.share_window = xml.get_widget("share_win")
-        self.share_window.set_modal(True)
-        self.share_window.set_transient_for(main_window)
-        self.share_window.connect("delete-event", self.onCancelButtonClicked)
-        self.share_window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        self.share_window.set_icon_name(mainWindow.iconName)
-        self.share_notebook = xml.get_widget("share_notebook")
-        self.dir_entry = xml.get_widget("share_dir_entry")
-        self.description_entry = xml.get_widget("description_entry")
-        self.sharename_entry = xml.get_widget("sharename_entry")
-        self.writable_check = xml.get_widget("share_writable_check")
-        self.visible_check = xml.get_widget("share_visible_check")
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+from gi.repository import Adw, GLib, Gtk  # noqa: E402
 
-        self.user_access_radio = xml.get_widget("user_access_radio")
-        self.guest_access_radio = xml.get_widget("guest_access_radio")
-        self.user_access_radio.connect("toggled", self.userRadioToggled)
+RESERVED_NAMES = ("global", "homes", "printers")
+BAD_NAME_CHARS = set('/\\[]:;|=,+*?<>|')
 
-        xml.signal_connect("on_share_cancel_button_clicked", self.onCancelButtonClicked)
-        xml.signal_connect("on_share_ok_button_clicked", self.onOkButtonClicked)
-        xml.signal_connect("on_share_browse_button_clicked", self.onBrowseButtonClicked)
-        xml.signal_connect("on_share_dir_entry_changed", self.onDirEntryChanged)
-        xml.signal_connect("on_sharename_entry_changed", self.onShareNameEntryChanged)
 
-        self.valid_users_treeview = xml.get_widget("valid_users_treeview")
+@dataclass
+class ShareSpec:
+    name: str
+    directory: str
+    comment: str
+    writable: bool
+    browseable: bool
+    everyone: bool
+    valid_users: list = field(default_factory=list)
+    original_name: str | None = None  # None => creating a new share
 
-        self.valid_users_store = gtk.ListStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING)
-        self.valid_users_treeview.set_model(self.valid_users_store)
 
-        self.checkbox = gtk.CellRendererToggle()
-        col = gtk.TreeViewColumn('', self.checkbox, active = 0)
-        col.set_fixed_width(20)
-        col.set_clickable(True)
-        self.checkbox.connect("toggled", self.userToggled)
-        self.valid_users_treeview.append_column(col)
+def suggest_share_name(directory: str) -> str:
+    """Best-effort share name from a directory path (old suggestShareName)."""
+    path = directory.rstrip("/\\")
+    base = os.path.basename(path) if path else ""
+    return base or ""
 
-        col = gtk.TreeViewColumn("", gtk.CellRendererText(), text=1)
-        self.valid_users_treeview.append_column(col)
 
-    def populateUserStore(self):
-        userList = self.samba_backend.getPasswdFile()
+def validate_name(name: str, is_new: bool, existing: set) -> str | None:
+    """Return an error message, or None when the name is acceptable."""
+    if not name:
+        return "Share name must be specified."
+    if name.lower() in RESERVED_NAMES:
+        return "Share name may not be one of: global, homes, printers."
+    bad = sorted({c for c in name if c in BAD_NAME_CHARS})
+    if bad:
+        return "Share name may not contain: " + " ".join(bad)
+    if is_new and name.lower() in {e.lower() for e in existing}:
+        return "A share named “%s” already exists." % name
+    return None
 
-        if userList == None:
+
+def validate_directory(directory: str) -> str | None:
+    if not directory:
+        return "A share must have a directory."
+    if not os.path.isabs(directory):
+        return "The directory must be an absolute path."
+    if not os.path.isdir(directory):
+        return "The directory does not exist or is not a folder:\n%s" % directory
+    return None
+
+
+class ShareEditor(Gtk.Window):
+    """A modal, transient form window for one share."""
+
+    def __init__(self, parent, spec: ShareSpec | None, users, existing_names,
+                 on_apply, *, get_users=None, add_user=None):
+        super().__init__()
+        self.set_transient_for(parent)
+        self.set_modal(True)
+        self.set_title(_("Create Share") if spec is None
+                       else _("Share Properties"))
+        self.set_default_size(540, -1)
+        self.set_resizable(False)
+
+        self._spec = spec
+        self._users = list(users)
+        self._existing = set(existing_names)
+        self._on_apply = on_apply
+        self._get_users = get_users
+        self._add_user = add_user
+        self._name_edited = spec is not None  # only auto-fill for untouched new
+
+        # Gtk.Window already draws its own CSD titlebar, so we promote our
+        # Adw.HeaderBar to be that titlebar instead of stacking a second bar
+        # inside a ToolbarView (which would show two duplicate headers).
+        header = Adw.HeaderBar()
+
+        cancel = Gtk.Button(label=_("Cancel"))
+        cancel.connect("clicked", lambda *_ignored: self.destroy())
+        header.pack_start(cancel)
+
+        self._apply_btn = Gtk.Button(label=_("OK"))
+        self._apply_btn.add_css_class("suggested-action")
+        self._apply_btn.connect("clicked", self._on_apply_clicked)
+        header.pack_end(self._apply_btn)
+        # Cancel already closes this dialog, so drop the redundant window
+        # close button that set_titlebar() would otherwise add after OK.
+        header.set_show_end_title_buttons(False)
+        self.set_titlebar(header)
+
+        page = Adw.PreferencesPage()
+        self.set_child(page)
+
+        # ---- Basic group
+        basic = Adw.PreferencesGroup(title=_("Basic"))
+        self.dir_row = Adw.EntryRow(title=_("Directory"))
+        browse = Gtk.Button(icon_name="folder-open-symbolic", valign=Gtk.Align.CENTER)
+        browse.set_tooltip_text(_("Browse for a directory…"))
+        browse.connect("clicked", self._on_browse)
+        self.dir_row.add_suffix(browse)
+        self.dir_row.connect("notify::text", self._on_dir_changed)
+
+        self.name_row = Adw.EntryRow(title=_("Share name"))
+        self.name_row.connect("notify::text", self._on_name_changed)
+
+        self.comment_row = Adw.EntryRow(title=_("Description"))
+        for row in (self.dir_row, self.name_row, self.comment_row):
+            basic.add(row)
+        page.add(basic)
+
+        # ---- Access group
+        access = Adw.PreferencesGroup(title=_("Access"))
+        self.writable_row = Adw.SwitchRow(title=_("Writable"))
+        self.browseable_row = Adw.SwitchRow(title=_("Browseable"))
+        self.browseable_row.set_active(True)
+        self.everyone_row = Adw.SwitchRow(
+            title=_("Allow access to everyone"),
+            subtitle=_("Guest access, no password (guest ok = yes)"))
+        self.everyone_row.connect("notify::active", self._on_everyone_toggled)
+        for row in (self.writable_row, self.browseable_row, self.everyone_row):
+            access.add(row)
+        page.add(access)
+
+        # ---- Allowed users group (only meaningful when not "everyone")
+        self.users_group = Adw.PreferencesGroup(title=_("Allowed users"))
+        # Entry point for creating a Samba user straight from here: without it
+        # a new user has no clue that an account must exist before it can be
+        # granted access. Rebuilds the list below once one is added.
+        add_user_btn = Gtk.Button()
+        add_user_btn.add_css_class("flat")
+        btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        btn_box.append(Gtk.Image.new_from_icon_name("list-add-symbolic"))
+        btn_box.append(Gtk.Label(label=_("Add user")))
+        add_user_btn.set_child(btn_box)
+        add_user_btn.connect("clicked", self._on_add_user_clicked)
+        self.users_group.set_header_suffix(add_user_btn)
+
+        self._users_hint = Gtk.Label(xalign=0)
+        self._users_hint.set_wrap(True)
+        self._users_hint.add_css_class("dim-label")
+        self._users_hint.set_margin_top(6)
+        self._users_hint.set_margin_bottom(6)
+        self._users_hint.set_markup(
+            _("No Samba users yet. Use \u201cAdd user\u201d to create one, "
+              "or enable guest access above."))
+        self.users_group.add(self._users_hint)
+
+        # Rows live in a boxed ListBox (not added straight to the group) so the
+        # list can be cleared and rebuilt on refresh after a user is added.
+        self.users_list = Gtk.ListBox()
+        self.users_list.add_css_class("boxed-list")
+        self.users_list.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.users_group.add(self.users_list)
+
+        self._checkrows = {}
+        self._populate_users()
+        page.add(self.users_group)
+
+        if spec is not None:
+            self._load_spec(spec)
+        self._sync_users_visibility()
+
+    # ------------------------------------------------------------------ populate
+    def _load_spec(self, spec: ShareSpec):
+        self.dir_row.set_text(spec.directory)
+        self.name_row.set_text(spec.name)
+        self.comment_row.set_text(spec.comment)
+        self.writable_row.set_active(spec.writable)
+        self.browseable_row.set_active(spec.browseable)
+        self.everyone_row.set_active(spec.everyone)
+        for uname in spec.valid_users:
+            crow = self._checkrows.get(uname)
+            if crow is not None:
+                crow.set_active(True)
+
+    # ------------------------------------------------------------------ signals
+    def _on_dir_changed(self, *_ignored):
+        # Auto-suggest the share name from the directory until the user edits
+        # the name field themselves (matches the original behaviour).
+        if self._name_edited:
             return
+        self.name_row.set_text(suggest_share_name(self.dir_row.get_text()))
 
-        userList.sort()
-        for line in userList:
-            iter = self.valid_users_store.append()
-            tokens = line.split(":")
-            self.valid_users_store.set_value(iter, 0, False)
-            self.valid_users_store.set_value(iter, 1, tokens[0])
+    def _on_name_changed(self, *args):
+        self._name_edited = True
 
-    def populateUserStoreOnEdit(self, currentUserList, invalidUsers):
-        userList = self.samba_backend.getPasswdFile()
+    def _on_everyone_toggled(self, *_ignored):
+        self._sync_users_visibility()
 
-        if userList == None:
-            return
+    def _sync_users_visibility(self):
+        everyone = self.everyone_row.get_active()
+        self.users_group.set_visible(not everyone)
+        self.users_group.set_sensitive(not everyone)
 
-        userList.sort()
-        for line in userList:
-            iter = self.valid_users_store.append()
-            tokens = line.split(":")
+    # ------------------------------------------------------- allowed users
+    def _populate_users(self):
+        # Rebuild the "valid users" check rows from self._users, preserving any
+        # current selection so a refresh after "Add user" keeps the checks.
+        selected = {u for u, c in self._checkrows.items() if c.get_active()}
+        row = self.users_list.get_row_at_index(0)
+        while row is not None:
+            self.users_list.remove(row)
+            row = self.users_list.get_row_at_index(0)
+        self._checkrows = {}
+        for uname in self._users:
+            # Gtk.CheckRow is not exposed by this system's GI typelib, so use
+            # an Adw.ActionRow with a trailing Gtk.CheckButton holding state.
+            action = Adw.ActionRow(title=uname)
+            check = Gtk.CheckButton(valign=Gtk.Align.CENTER)
+            check.set_active(uname in selected)
+            action.add_suffix(check)
+            action.set_activatable_widget(check)
+            self.users_list.append(action)
+            self._checkrows[uname] = check
+        has_users = bool(self._users)
+        self._users_hint.set_visible(not has_users)
+        self.users_list.set_visible(has_users)
 
-            if self.guest_access_radio.get_active() == True:
-                self.valid_users_store.set_value(iter, 0, False)
-                self.valid_users_store.set_value(iter, 1, tokens[0])
-                continue
+    def _refresh_users(self):
+        if self._get_users is not None:
+            self._users = list(self._get_users())
+        self._populate_users()
 
-            if invalidUsers == "%S":
-                #Make all users unselected
-                self.valid_users_store.set_value(iter, 0, False)
-                self.valid_users_store.set_value(iter, 1, tokens[0])
-            else:
-                #invalidUsers is not "%S"
-                if currentUserList == ['None'] or currentUserList == []:
-                    #If no users are specified, assume all are allowed
-                    self.valid_users_store.set_value(iter, 0, True)
-                    self.valid_users_store.set_value(iter, 1, tokens[0])
-                else:
-                    #Let's see which users are allowed
-                    if tokens[0] in currentUserList:
-                        self.valid_users_store.set_value(iter, 0, True)
-                        self.valid_users_store.set_value(iter, 1, tokens[0])
-                    else:
-                        self.valid_users_store.set_value(iter, 0, False)
-                        self.valid_users_store.set_value(iter, 1, tokens[0])
+    def _on_add_user_clicked(self, *_ignored):
+        if self._add_user is not None:
+            # The parent opens the add-user dialog transient to this window and
+            # calls _refresh_users once a new account has been created.
+            self._add_user(self, self._refresh_users)
 
-    def userToggled(self, data, row):
-        iter = self.valid_users_store.get_iter((int(row),))
-        val = self.valid_users_store.get_value(iter, 0)
-        self.valid_users_store.set_value(iter, 0 , not val)
+    def _on_browse(self, *_ignored):
+        dialog = Gtk.FileDialog()
+        dialog.set_title(_("Choose a directory to share"))
+        dialog.select_folder(self, None, self._on_folder_chosen, None)
 
-    def showNewWindow(self):
-        self.section = None
-        self.share_window.set_title(_("Create Samba Share"))
-        self.edit_mode = 0
-        self.reset ()
-        self.dir_entry.grab_focus()
-        self.populateUserStore()
-        self.share_window.show_all()
-        self.sharenamechanged = 0
-
-    def showEditWindow(self, iter, section):
-        self.section = section
-        self.share_window.set_title(_("Edit Samba Share"))
-        self.edit_mode = 1
-        self.reset ()
-        self.sharenamechanged = 1
-        self.edit_iter = iter
-
-        userList = []
-        invalidUsers = None
-
-        self.sharename_entry.set_text (section.name)
-
-        path = section.getKey ("path")
-        if path:
-            self.dir_entry.set_text (path)
-
-        comment = section.getKey ("comment")
-        if comment and comment != "None":
-            self.description_entry.set_text (comment)
-
-        writeable = section.getKey ("writeable")
-        if writeable and writeable.lower() == "yes":
-            self.writable_check.set_active (True)
-        else:
-            self.writable_check.set_active (False)
-
-        visible = section.getKey ("browseable")
-        if visible and visible.lower() == "yes":
-            self.visible_check.set_active (True)
-        else:
-            self.visible_check.set_active (False)
-
-        guest_ok = section.getKey ("guest ok")
-        if guest_ok and guest_ok.lower() == "yes":
-            self.guest_access_radio.set_active(True)
-        else:
-            self.user_access_radio.set_active(True)
-
-        valid_users = section.getKey ("valid users")
-        if valid_users:
-            list = valid_users.split (",")
-            for item in list:
-                userList.append(item.strip())
-
-        invalid_users = section.getKey ("invalid users")
-        if invalid_users and invalid_users == "%S":
-            invalidUsers = invalid_users
-
-        self.sharenamechanged = 0
-        self.populateUserStoreOnEdit(userList, invalidUsers)
-        self.share_window.show_all()
-
-    def reset (self):
-        self.share_notebook.set_current_page (0)
-        self.dir_entry.set_text ("")
-        self.sharename_entry.set_text ("")
-        self.description_entry.set_text ("")
-        self.valid_users_store.clear ()
-        self.writable_check.set_active (False)
-        self.visible_check.set_active (False)
-        self.user_access_radio.set_active (True)
-        self.share_window.hide ()
-        self.sharenamechanged = 0
-
-    def checkDirectoryValidity(self, dir):
-        if dir.strip() == "":
-            dlg = gtk.MessageDialog(self.share_window, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK,
-                                    (_("You must specify a directory to share.  \n\n"
-                                       "Click \"OK\" to continue.")))
-            dlg.set_modal(True)
-            dlg.set_transient_for(self.share_window)
-            dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            dlg.set_icon_name(mainWindow.iconName)
-            dlg.run()
-            dlg.destroy()
-            return 0
-
+    def _on_folder_chosen(self, dialog, result, _data):
         try:
-            os.stat(dir)
-        except:
-            dlg = gtk.MessageDialog(self.share_window, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK,
-                                    (_("The directory \"%s\" does not exist.  Please specify "
-                                       "an existing directory. \n\n"
-                                       "Click \"OK\" to continue." % dir)))
-            dlg.set_modal(True)
-            dlg.set_transient_for(self.share_window)
-            dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            dlg.set_icon_name(mainWindow.iconName)
-            dlg.run()
-            dlg.destroy()
-            self.share_notebook.set_current_page(0)
-            return 0
-
-        return 1
-
-    def checkShareNameValidity(self, sharename, path, oldsharename = None):
-        msg = None
-        buttons = None
-
-        if sharename == "":
-            msg = _("Please set a share name.\n\nClick \"OK\" to continue.")
-        elif (not oldsharename or oldsharename != sharename) and sharename in self.samba_data.getHeaders ():
-            if sharename in self.samba_data.getShareHeaders ():
-                msg = _("The share name \"%s\" already exists.") % (sharename)
-            else:
-                msg = _("The share name \"%s\" is reserved.") % (sharename)
-            msg += _("\nPlease use a different share name.\n\nClick \"Suggest Share Name\" or \"OK\" to continue.")
-            buttons = [(_("_Suggest Share Name"), 2), (gtk.STOCK_OK, 1)]
-            self.share_notebook.set_current_page(0)
-
-        if msg:
-            dlg = gtk.MessageDialog (self.share_window, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_NONE, msg)
-            if buttons:
-                for button in buttons:
-                    dlg.add_button (button[0], button[1])
-            else:
-                dlg.add_button (gtk.STOCK_OK, 1)
-            dlg.set_modal(True)
-            dlg.set_transient_for(self.share_window)
-            dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            dlg.set_icon_name(mainWindow.iconName)
-            result = dlg.run()
-            dlg.destroy()
-            if result == 2:
-                self.sharename_entry.set_text (self.suggestShareName (path, sharename))
-
-            return False
-        return True
-
-    def suggestShareName (self, path, sharename = None):
-        if self.section:
-            ownsharename = self.section.name
-        else:
-            ownsharename = ""
-        if not sharename or sharename == "":
-            if path == "/":
-                #Sharing the root is a special case
-                sharename = "root directory"
-
-            else:
-                #Check to see if the path ends in a "/"  If it does, strip it off
-                if path[-1:] == "/":
-                    path = path[:-1]
-
-                #If there are any /'s or \'s in the path, split by them
-                if '/' in path:
-                    tokens = path.split("/")
-                    #The last item in the token list is the directory name that we want
-                    sharename = tokens[len(tokens)-1]
-
-                #sharename = string.replace (sharename, " ", "_")
-
-        if sharename and sharename != "" and sharename != ownsharename:
-            #If there's already a section header with this name, then start adding numbers to it
-            #until it's a unique name
-            if sharename in self.samba_data.getHeaders():
-                count = 1
-                _sharename = sharename
-                while sharename in self.samba_data.getHeaders():
-                    sharename = _sharename + "-" + str(count)
-                    count = count + 1
-        else:
-            sharename = ownsharename
-
-        return sharename
-
-    def getValidUsers (self):
-        all_users = []
-        selected_users = []
-
-        user_iter = self.valid_users_store.get_iter_first()
-        while user_iter:
-            #Crawl through the list and see which users are selected
-            all_users.append(self.valid_users_store.get_value(user_iter, 1))
-            if self.valid_users_store.get_value(user_iter, 0) == True:
-                selected_users.append(self.valid_users_store.get_value(user_iter, 1))
-            user_iter = self.valid_users_store.iter_next(user_iter)
-
-        return (all_users, selected_users)
-
-    def checkValidUsers (self, all_users, selected_users, section = None):
-        if self.user_access_radio.get_active() == True:
-            if selected_users == []:
-                #No users are selected.  Make the user choose at least one.
-                dlg = gtk.MessageDialog(self.share_window, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK,
-                                        (_("Please allow access to at least one user.")))
-                dlg.set_modal(True)
-                dlg.set_transient_for(self.share_window)
-                dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-                dlg.set_icon_name(mainWindow.iconName)
-                dlg.run()
-                dlg.destroy()
-                self.share_notebook.set_current_page(1)
-                return False
-            elif section:
-                #They have selected at least one user.
-                section.setKey ("guest ok", "no")
-
-                users = ", ".join(selected_users)
-                section.setKey ("valid users", users)
-                section.delKey ("invalid users")
-
-        elif section and self.guest_access_radio.get_active() == True:
-            section.setKey ("guest ok", "yes")
-            section.delKey ("valid users")
-            section.delKey ("invalid users")
-
-        return True
-
-    #################Event Handlers######################
-    def onShareNameEntryChanged (self, *args):
-        if self.sharename_entry.is_focus ():
-            self.sharenamechanged = 1
-        dir_header = self.sharename_entry.get_text()
-
-        if self.edit_mode == 1:
-            section = self.ParentClass.share_store.get_value(self.edit_iter, 5)
-        else:
-            section = sambaParser.SambaSection (self.samba_data, prototype = True)
-        if section.name != dir_header and dir_header in self.samba_data.getShareHeaders():
-            count = 1
-            _dir_header = dir_header
-            while dir_header in self.samba_data.getShareHeaders():
-                dir_header = _dir_header + "-" + str(count)
-                count = count + 1
-            self.sharename_entry.set_text (dir_header)
-
-    def onDirEntryChanged(self, *args):
-        if self.sharenamechanged != 1:
-            path = self.dir_entry.get_text().strip()
-            sharename = self.suggestShareName(path)
-
-            self.sharename_entry.set_text(sharename)
-
-    def onOkButtonClicked(self, *args):
-        if self.edit_mode:
-            oldsharename = self.ParentClass.share_store.get_value(self.edit_iter, 1)
-        else:
-            oldsharename = None
-        # Get the path from the widget
-        path = self.dir_entry.get_text()
-        # Strip off any whitespace
-        path = path.strip()
-
-        # Get the sharename and strip off any whitespace
-        sharename = self.sharename_entry.get_text().strip()
-
-        # Question: Are there other characters that are invalid for the sharename?
-        # Is space invalid? Afaik not
-        # sharename = string.replace (sharename, " ", "_")
-
-        #Check to see if directory exists
-        if not self.checkDirectoryValidity(path):
+            folder = dialog.select_folder_finish(result)
+        except GLib.Error:
             return
+        if folder is not None:
+            self.dir_row.set_text(folder.get_path() or "")
 
-        #Check to see whether the share name is valid, not duplicate, ...
-        if not self.checkShareNameValidity(sharename, path, oldsharename):
+    # ------------------------------------------------------------------ apply
+    def _collect(self) -> ShareSpec:
+        selected = [u for u, c in self._checkrows.items() if c.get_active()]
+        return ShareSpec(
+            name=self.name_row.get_text().strip(),
+            directory=self.dir_row.get_text().strip(),
+            comment=self.comment_row.get_text().strip(),
+            writable=self.writable_row.get_active(),
+            browseable=self.browseable_row.get_active(),
+            everyone=self.everyone_row.get_active(),
+            valid_users=selected,
+            original_name=self._spec.name if self._spec else None,
+        )
+
+    def _on_apply_clicked(self, *_ignored):
+        spec = self._collect()
+        is_new = self._spec is None
+        error = (validate_name(spec.name, is_new, self._existing)
+                 or validate_directory(spec.directory))
+        if not spec.everyone and not spec.valid_users:
+            error = error or _("Select at least one user, or allow everyone.")
+        if error:
+            self._show_error(error)
             return
-        dir_header = sharename
-
-        #Check to see if any users are selected.  This will be useful to us later
-        (all_users, selected_users) = self.getValidUsers ()
-        if not self.checkValidUsers (all_users, selected_users):
+        try:
+            self._on_apply(spec)
+        except Exception as e:  # surfaced from the write callback
+            self._show_error(str(e))
             return
+        self.destroy()
 
-        if not self.edit_mode:
-            #Ok, things are good now.  Start adding to the share_store
-            iter = self.ParentClass.share_store.append()
-            self.ParentClass.share_store.set_value(iter, 0, path)
-            self.ParentClass.share_store.set_value(iter, 1, sharename)
+    def _show_error(self, message: str):
+        dlg = Adw.MessageDialog(
+            transient_for=self, modal=True, heading=_("Invalid Share"),
+            body=message)
+        dlg.add_response("ok", _("OK"))
+        dlg.set_default_response("ok")
+        dlg.present()
 
-            #create a blank line token
-            last_section = self.samba_sections_dict[self.samba_sections[-1]]
-            if last_section.content[-1].getData() != "\n":
-                token = self.samba_data.createToken("", last_section)
-                last_section.content.append(token)
 
-            section = sambaParser.SambaSection (self.samba_data, dir_header)
-        else:
-            iter = self.edit_iter
-            section = self.ParentClass.share_store.get_value (iter, 5)
-
-            # section contains the old sharename of course
-            # If the new name differs from the old one, we will need to rename
-            oldsharename = section.name.strip()
-            if sharename != oldsharename:
-                section.set_name (dir_header)
-
-        #create token for the description if it exists
-        description = self.description_entry.get_text().strip()
-
-        if description != "":
-            while description[-1] == "\\" or description[-1] == " ":
-                #If description ends in a backslash, chop it off b/c it confuses Windows
-                description = description[:-1]
-            section.setKey ("comment", description)
-            self.ParentClass.share_store.set_value(iter, 4, description)
-
-        #set token for the path
-        section.setKey ("path", path)
-        #set path in main window
-        self.ParentClass.share_store.set_value (iter, 0, path)
-
-        #set sharename in main window
-        self.ParentClass.share_store.set_value (iter, 1, sharename)
-
-        #set token(s) for permissions
-        if self.writable_check.get_active() == False:
-            self.ParentClass.share_store.set_value(iter, 2, (_("Read Only")))
-            section.setKey ("read only", "yes")
-        else:
-            self.ParentClass.share_store.set_value(iter, 2, (_("Read/Write")))
-            section.setKey ("read only", "no")
-
-        #set token(s) for browsable
-        if self.visible_check.get_active() == True:
-            self.ParentClass.share_store.set_value(iter, 3, (_("Visible")))
-            section.setKey ("browsable", "yes")
-        else:
-            self.ParentClass.share_store.set_value(iter, 3, (_("Hidden")))
-            section.setKey ("browsable", "no")
-
-        if self.guest_access_radio.get_active() == True:
-            #set token for guest access
-            section.setKey ("guest ok", "yes")
-            section.delKey ("valid users")
-            section.delKey ("invalid users")
-        else:
-            users = ", ".join(selected_users)
-            section.delKey ("guest ok")
-            section.setKey ("valid users", users)
-
-        self.ParentClass.share_store.set_value(iter, 5, section)
-        self.ParentClass.properties_button.set_sensitive(False)
-        self.ParentClass.delete_button.set_sensitive(False)
-        self.ParentClass.share_view.get_selection().unselect_all()
-        self.reset()
-
-        #Let's go ahead and restart the service.
-        self.samba_data.writeFile()
-        self.samba_backend.restartSamba()
-
-    def onCancelButtonClicked(self, *args):
-        self.reset()
-        return True
-
-    def onBrowseButtonClicked(self, *args):
-        dlg = gtk.FileChooserDialog (_("Select Directory"), self.share_window,
-                gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                (
-                    gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                    gtk.STOCK_OK, gtk.RESPONSE_OK
-                )
-            )
-        filename = self.dir_entry.get_text ()
-        if filename.strip () != "":
-            dlg.set_filename (filename)
-        dlg.set_modal(True)
-        dlg.set_transient_for(self.share_window)
-        dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        dlg.set_icon_name(mainWindow.iconName)
-
-        result = dlg.run()
-
-        if result == gtk.RESPONSE_OK:
-            filename = dlg.get_filename()
-            self.dir_entry.set_text(dlg.get_filename())
-
-        dlg.destroy()
-
-    def userRadioToggled(self, *args):
-        self.valid_users_treeview.set_sensitive(self.user_access_radio.get_active())
+# ``gettext`` passthrough hook (catalog wiring lands in a later phase).
+def _(*args):
+    return args[0] if len(args) == 1 else args

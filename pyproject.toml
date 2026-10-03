@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "samba-conf-tool"
+version = "0.1.0"
+description = "Modern Python 3 + GTK4/libadwaita rewrite of system-config-samba"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "GPL-2.0-or-later" }
+authors = [
+    { name = "samba-conf-tool rewrite" }
+]
+dependencies = []
+
+# The privileged install is driven by the Makefile (pip-free copy + generated
+# launchers, because the hyphenated entry scripts are not importable module
+# names). setuptools metadata below only declares the importable scsamba
+# library so `pip install .` / tooling still understand the package layout.
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["scsamba", "scsamba.core", "scsamba.dbus"]

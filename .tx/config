@@ -1,8 +1,0 @@
-[main]
-host = https://www.transifex.net
-
-[system-config-samba.master]
-file_filter = po/<lang>.po
-source_file = po/system-config-samba.pot
-source_lang = en
-

@@ -1,37 +1,30 @@
-## sambaParser.py - the smb.conf file parser for system-config-samba
-## -*- coding: utf-8 -*-
-## Copyright © 2009 Red Hat, Inc.
+# -*- coding: utf-8 -*-
+# Copyright © 2009 Red Hat, Inc.
+#
+# GPL-2.0-or-later. Python 2 -> Python 3 rewrite of sambaConfig.py.
+#
+# Thin model wrapper binding the token parser to a backend (which owns the
+# actual file locations), and serialising the section list back to text.
 
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
+from __future__ import annotations
 
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
+from .sambaParser import SambaParser
 
-## You should have received a copy of the GNU General Public License
-## along with this program; if not, write to the Free Software
-## Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-## Authors:
-## Nils Philippsen <nils@redhat.com>
-
-import sambaParser
-
-class SambaConfig (sambaParser.SambaParser):
+class SambaConfig(SambaParser):
     def __init__(self, backend):
-        super (SambaConfig, self).__init__ ()
+        super().__init__()
         self.backend = backend
-        self.parseFile ()
+        self.parseFile()
 
     def parseFile(self):
-        return self.parse (self.backend.readSmbConf ())
+        return self.parse(self.backend.readSmbConf())
 
-    def writeFile(self):
+    def serialize(self) -> str:
         lines = ""
         for name in self.sections:
-            lines += str (self.getSection (name))
-        self.backend.writeSmbConf (lines)
+            lines += str(self.getSection(name))
+        return lines
+
+    def writeFile(self):
+        self.backend.writeSmbConf(self.serialize())

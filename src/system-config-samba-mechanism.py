@@ -1,29 +1,19 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# system-config-samba-mechanism.py: run dbus backend service for
-# system-config-samba
-#
-# Copyright © 2008 Red Hat, Inc.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-#
-# Authors:
-# Nils Philippsen <nils@redhat.com>
+"""Privileged backend launcher for samba-conf-tool.
 
-import scsamba.dbus.service
-try:
-    scsamba.dbus.service.run_service ()
-except KeyboardInterrupt:
-    pass
+Thin entry point that mirrors upstream's system-config-samba-mechanism.py: the
+real polkit-gated D-Bus service lives in :mod:`scsamba.dbus.service`. The
+systemd ``Type=dbus`` unit Execs this script, which owns the bus name and
+serves client calls as root.
+"""
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from scsamba.dbus.service import main  # noqa: E402
+
+if __name__ == "__main__":
+    sys.exit(main())

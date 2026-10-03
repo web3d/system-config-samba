@@ -1,0 +1,55 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.SambaConfTool.Backend">
+    <!-- Read the current smb.conf text (validated on the way in). -->
+    <method name="ReadConfig">
+      <arg name="text" type="s" direction="out"/>
+    </method>
+
+    <!-- Validate + atomically write smb.conf, then restart smb/nmb. -->
+    <method name="WriteConfig">
+      <arg name="text" type="s" direction="in"/>
+    </method>
+
+    <!-- Samba passdb users: list of unix usernames. -->
+    <method name="ListSambaUsers">
+      <arg name="users" type="as" direction="out"/>
+    </method>
+
+    <method name="GetUserAliasMap">
+      <arg name="map" type="a{ss}" direction="out"/>
+    </method>
+
+    <method name="AddSambaUser">
+      <arg name="unix_name" type="s" direction="in"/>
+      <arg name="windows_name" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+    </method>
+
+    <method name="ChangeUserPassword">
+      <arg name="unix_name" type="s" direction="in"/>
+      <arg name="password" type="s" direction="in"/>
+    </method>
+
+    <method name="SetUserAlias">
+      <arg name="unix_name" type="s" direction="in"/>
+      <arg name="windows_name" type="s" direction="in"/>
+    </method>
+
+    <method name="DeleteSambaUser">
+      <arg name="unix_name" type="s" direction="in"/>
+    </method>
+
+    <!-- Service lifecycle. -->
+    <method name="IsServiceActive">
+      <arg name="active" type="b" direction="out"/>
+    </method>
+
+    <method name="StartService"/>
+    <method name="RestartService"/>
+
+    <!-- Emits "" on any successful mutation so open UIs can refresh. -->
+    <signal name="Changed"/>
+  </interface>
+</node>

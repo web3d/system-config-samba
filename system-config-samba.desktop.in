@@ -1,9 +1,0 @@
-[Desktop Entry]
-_Name=Samba
-_Comment=Create, modify, and delete samba shares
-Categories=System;Settings;
-Icon=system-config-samba
-Exec=/usr/bin/system-config-samba
-Type=Application
-StartupNotify=true
-Terminal=false

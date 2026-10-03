@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+
+  <vendor>samba-conf-tool</vendor>
+  <vendor_url>https://example.invalid/samba-conf-tool</vendor_url>
+
+  <!-- One action covers all privileged operations (write smb.conf, manage
+       passdb/smbusers, start/restart smb). The D-Bus backend checks this
+       action on every mutating method call. allow_active=yes means a user
+       with an active local login session is authorised without a password
+       prompt, per the project decision; inactive/remote still needs admin. -->
+  <action id="org.SambaConfTool.configure">
+    <description>Configure Samba shares and users</description>
+    <message>Authentication is required to change Samba configuration</message>
+    <icon_name>network-server-symbolic</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/samba-conf-tool-backend</annotate>
+  </action>
+
+</policyconfig>

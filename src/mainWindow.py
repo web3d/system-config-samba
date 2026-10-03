@@ -1,536 +1,518 @@
 # -*- coding: utf-8 -*-
-
-# mainWindow.py - Contains the main UI for system-config-samba
-# Copyright © 2002 - 2100 Red Hat, Inc.
-# Copyright © 2002 - 2004 Brent Fox <bfox@redhat.com>
+# Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
+# GTK4 / libadwaita rewrite for samba-conf-tool.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-# Authors:
-# Brent Fox <bfox@redhat.com>
-# Nils Philippsen <nils@redhat.com>
+# Main window: a share list (Directory / Share name / Permissions /
+# Visibility / Description) with Add / Properties / Delete actions plus
+# Server Settings and Samba Users entries in the primary menu. Selection
+# drives the sensitivity of Properties and Delete, as the original did.
 
-from scsamba.core import sambaConfig
-from scsamba.core import sambaToken
-import gtk
-import gobject
-import os
-import gtk.glade
-import basicPreferencesWin
-import sambaUserWin
-import shareWindow
+from __future__ import annotations
 
-import gettext
-_ = lambda x: unicode(gettext.ldgettext("system-config-samba", x), "utf-8")
+import gi
 
-copyrights = (('2002 - 2010', 'Red Hat, Inc.', None),
-              ('2002 - 2004', 'Brent Fox', 'bfox@redhat.com'),
-              ('2002 - 2003', 'Tammy Fox', 'tfox@redhat.com'))
-authors = (("Brent Fox", "bfox@redhat.com"),
-           ("Tammy Fox", "tfox@redhat.com"),
-           ("Nils Philippsen", "nils@redhat.com"),
-           ("Jakub Steiner", "jimmac@redhat.com"))
-license = \
-_("This program is free software; you can redistribute it and/or modify \
-it under the terms of the GNU General Public License as published by \
-the Free Software Foundation; either version 2 of the License, or \
-(at your option) any later version.\n\
-\n\
-This program is distributed in the hope that it will be useful, \
-but WITHOUT ANY WARRANTY; without even the implied warranty of \
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the \
-GNU General Public License for more details.\n\
-\n\
-You should have received a copy of the GNU General Public License \
-along with this program.  If not, see <http://www.gnu.org/licenses/>.")
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+gi.require_version("Pango", "1.0")
+from gi.repository import Adw, Gio, GLib, Gtk, Pango  # noqa: E402
 
-##
-## Icon for windows
-##
-iconName = 'system-config-samba'
+from scsamba import __version__
+from scsamba.core.sambaView import (
+    load_config_text, parse_shares, serialize_config, service_is_active_local)
+from scsamba.core import SambaSection
+from scsamba.dbus.proxy import BackendError, NotAuthorized
+from shareWindow import ShareEditor, ShareSpec
+from basicPreferencesWin import ServerSettingsDialog, ServerSpec
+from sambaUserWin import UsersDialog, _system_users
+from addUserWin import AddUserDialog
 
-class MainWindow(object):
-    def __init__(self, debug_flag = False, use_dbus = True):
-        self.debug_flag = debug_flag
-
-        if use_dbus == None:
-            if os.getuid () != 0 and os.geteuid () != 0:
-                use_dbus = True
-            else:
-                use_dbus = False
-        self.use_dbus = use_dbus
-
-        if os.access("system-config-samba.glade", os.F_OK):
-            self.xml = gtk.glade.XML ("system-config-samba.glade", domain="system-config-samba")
-        else:
-            self.xml = gtk.glade.XML ("/usr/share/system-config-samba/system-config-samba.glade", domain="system-config-samba")
+COLUMNS = ("Directory", "Share name", "Permissions", "Visibility", "Description")
+# Fixed per-column widths shared by the header and every data row so the
+# column boundaries line up exactly and all cells stay left-aligned; the last
+# (Description) column additionally expands to fill the remaining width.
+COLUMN_WIDTHS = (260, 150, 130, 120, 200)
 
 
-#        [0 dir, 1 hosts, 2 permissions, 3 visibility, 4 description, 5 sambaDataObject]
-        self.share_store = gtk.ListStore(gobject.TYPE_STRING,
-                gobject.TYPE_STRING,
-                gobject.TYPE_STRING,
-                gobject.TYPE_STRING,
-                gobject.TYPE_STRING,
-                gobject.TYPE_PYOBJECT)
+class ShareRow(Gtk.Box):
+    """One list row: five left-aligned labels laid out proportionally."""
 
-        self.main_window = gtk.Window()
-        self.main_window.set_title(_("Samba Server Configuration"))
-        self.main_window.connect("delete-event", self.destroy)
-        self.main_window.set_position(gtk.WIN_POS_CENTER)
-        self.main_window.set_icon_name(iconName)
-        self.nameTag = _("Samba")
-        self.commentTag = _("Create, modify, and delete samba shares")
+    def __init__(self, *args, **kwargs):
+        super().__init__(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+        self.get_style_context().add_class("share-row")
+        self.set_size_request(-1, 34)
+        self.labels = []
+        for idx, width in enumerate(COLUMN_WIDTHS):
+            lbl = Gtk.Label(xalign=0)
+            lbl.set_ellipsize(Pango.EllipsizeMode.END)
+            lbl.set_size_request(width, -1)
+            lbl.set_hexpand(idx == len(COLUMN_WIDTHS) - 1)
+            self.labels.append(lbl)
+            self.append(lbl)
 
-        if use_dbus:
-            # use monkey-patched SystemBus if available to have a default
-            # method timeout of forever or at least very long
+    def bind(self, item):
+        vals = (item.directory, item.name, item.permissions_label,
+                item.visibility_label, item.comment)
+        for lbl, text in zip(self.labels, vals):
+            lbl.set_text(text or "")
+
+
+class SambaMainWindow(Adw.ApplicationWindow):
+    def __init__(self, application, client=None):
+        super().__init__(application=application)
+        self.client = client
+        self.set_title(_("Samba Share Configuration"))
+        self.set_default_size(940, 600)
+
+        self._parser = None
+        self.selected_item = None
+
+        # ---- actions
+        for name, handler, accels in (
+            ("add-share", self.on_add_share, ["<primary>n"]),
+            ("edit-share", self.on_edit_share, ["<primary>p"]),
+            ("delete-share", self.on_delete_share, ["<primary>Delete"]),
+            ("server-settings", self.on_server_settings, None),
+            ("manage-users", self.on_manage_users, None),
+            ("reload", lambda *a: self.reload(), ["<primary>r"]),
+            ("about", self.on_about, None),
+            ("quit", lambda *a: self.destroy(), ["<primary>q"]),
+        ):
+            action = Gio.SimpleAction.new(name, None)
+            action.connect("activate", handler)
+            self.add_action(action)
+            if accels:
+                self.get_application().set_accels_for_action(
+                    f"win.{name}", accels)
+
+        self.properties_button = self._header_button(
+            "document-edit-symbolic", _("Properties"), "win.edit-share")
+        self.delete_button = self._header_button(
+            "user-trash-symbolic", _("Delete"), "win.delete-share")
+        self.add_button = self._header_button(
+            "list-add-symbolic", _("Add Share"), "win.add-share")
+
+        header = Adw.HeaderBar()
+        # Primary action (Add) leads the left group; a gap separates it from
+        # the row-edit buttons, and another gap separates Reload. The add
+        # button no longer sits on the right next to the menu.
+        header.pack_start(self.add_button)
+        self.properties_button.set_margin_start(12)
+        header.pack_start(self.properties_button)
+        header.pack_start(self.delete_button)
+        self.reload_button = self._header_button(
+            "view-refresh-symbolic", _("Reload"), "win.reload")
+        self.reload_button.set_margin_start(12)
+        header.pack_start(self.reload_button)
+
+        menu = Gio.Menu()
+        menu.append(_("Server Settings"), "win.server-settings")
+        menu.append(_("Samba Users"), "win.manage-users")
+        menu.append(_("About samba-conf-tool"), "win.about")
+        menu.append(_("Keyboard Shortcuts"), "win.shortcuts")
+        self._menu_button = Gtk.MenuButton(
+            icon_name="open-menu-symbolic", menu_model=menu)
+        header.pack_end(self._menu_button)
+
+        sc = Gio.SimpleAction.new("shortcuts", None)
+        sc.connect("activate", lambda *a: self._show_shortcuts())
+        self.add_action(sc)
+
+        # ---- list (Gtk.ListBox keeps this simple in PyGObject)
+        self.list_box = Gtk.ListBox()
+        self.list_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self.list_box.add_css_class("data-table")
+        self.list_box.connect("row-selected", self._on_row_selected)
+
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_child(self.list_box)
+        scrolled.set_vexpand(True)
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+
+        content = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        content.append(self._build_column_header())
+        content.append(scrolled)
+        content.append(self._build_statusbar())
+
+        self.status = Adw.ToastOverlay(child=content)
+
+        # Adw.ApplicationWindow needs an Adw.ToolbarView to host the header
+        # bar; without it the HeaderBar (and its window controls) is never
+        # added to the widget tree and the window has no top bar at all.
+        toolbar = Adw.ToolbarView()
+        toolbar.add_top_bar(header)
+        toolbar.set_content(self.status)
+        self.set_content(toolbar)
+        self._header = header
+        self._toolbar = toolbar
+
+        self.reload()
+
+        # A focusable GtkListBox with SINGLE selection auto-selects its first
+        # row the moment it receives the window's initial focus, which would
+        # highlight a share on startup. Park the initial focus on the (harmless)
+        # menu button so the list starts with nothing selected.
+        self._menu_button.grab_focus()
+
+    # ------------------------------------------------------------------ helpers
+    def _header_button(self, icon, tooltip, action_name):
+        btn = Gtk.Button(icon_name=icon)
+        btn.set_tooltip_text(tooltip)
+        btn.set_action_name(action_name)
+        return btn
+
+    def _build_column_header(self):
+        header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
+        header.add_css_class("heading")
+        for idx, (title, width) in enumerate(zip(COLUMNS, COLUMN_WIDTHS)):
+            lbl = Gtk.Label(xalign=0)
+            lbl.set_label(title)
+            lbl.set_size_request(width, -1)
+            lbl.set_hexpand(idx == len(COLUMN_WIDTHS) - 1)
+            header.append(lbl)
+        return header
+
+    def _build_statusbar(self):
+        bar = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        bar.add_css_class("toolbar")
+        self.service_status_label = Gtk.Label(xalign=0)
+        bar.append(self.service_status_label)
+        return bar
+
+    def _make_row(self, item):
+        row = Gtk.ListBoxRow()
+        box = ShareRow()
+        box.bind(item)
+        row.set_child(box)
+        row.share_name = item.name
+        return row
+
+    def _on_row_selected(self, listbox, row):
+        has_sel = row is not None
+        self.properties_button.set_sensitive(has_sel)
+        self.delete_button.set_sensitive(has_sel)
+
+    def _selected_name(self):
+        row = self.list_box.get_selected_row()
+        return getattr(row, "share_name", None) if row else None
+
+    # ------------------------------------------------------------------ reload
+    def reload(self):
+        text = load_config_text(self.client)
+        parser, items = parse_shares(text)
+        self._parser = parser
+        # clear existing rows
+        row = self.list_box.get_row_at_index(0)
+        while row is not None:
+            self.list_box.remove(row)
+            row = self.list_box.get_row_at_index(0)
+        for it in items:
+            self.list_box.append(self._make_row(it))
+        self._update_button_sensitivity()
+        self._refresh_service_status()
+
+    def _update_button_sensitivity(self):
+        has_sel = self.list_box.get_selected_row() is not None
+        self.properties_button.set_sensitive(has_sel)
+        self.delete_button.set_sensitive(has_sel)
+
+    def _refresh_service_status(self):
+        # Prefer the authoritative backend view; fall back to a plain
+        # (non-privileged) `systemctl is-active` query. Distinguish
+        # "unknown" from "not running" so we never misreport.
+        active = None
+        if self.client is not None:
             try:
-                from slip.dbus.bus import SystemBus
-            except ImportError:
-                from dbus import SystemBus
-            import dbus.mainloop.glib
+                active = self.client.is_service_active()
+            except BackendError:
+                active = None
+        if active is None:
+            active = service_is_active_local()
 
-            dbus.mainloop.glib.DBusGMainLoop (set_as_default = True)
-            self._bus = SystemBus ()
-            self._bus.default_timeout = None
-
-            from scsamba.dbus.proxy import sambaBackend
-
-            # Initialize smb.conf backend proxy
-            self.samba_backend = sambaBackend.SambaBackend (bus = self._bus)
-
+        if active is True:
+            text, css = _("SMB service: running"), "success"
+        elif active is False:
+            text, css = _("SMB service: not running"), "dim-label"
         else:
-            from scsamba.core import sambaBackend
+            text, css = _("SMB service: status unknown"), "warning"
+        self.service_status_label.set_text(text)
+        for cls in ("success", "dim-label", "warning"):
+            self.service_status_label.remove_css_class(cls)
+        self.service_status_label.add_css_class(css)
 
-            # Initialize smb.conf backend
-            self.samba_backend = sambaBackend.SambaBackend ()
+    # ------------------------------------------------------------------ actions
+    def on_add_share(self, *_ignored):
+        editor = ShareEditor(
+            self, spec=None, users=self._get_users(),
+            existing_names=[it.name for it in self._items()],
+            on_apply=self._apply_share,
+            get_users=self._get_users, add_user=self._prompt_add_user)
+        editor.present()
 
-        # Initialize global Samba data store
-        self.samba_data = sambaConfig.SambaConfig (self.samba_backend)
-        self.processSambaData (self.samba_data)
+    def on_edit_share(self, *_ignored):
+        name = self._selected_name()
+        if not name:
+            return
+        editor = ShareEditor(
+            self, spec=self._spec_for(name), users=self._get_users(),
+            existing_names=[it.name for it in self._items()],
+            on_apply=self._apply_share,
+            get_users=self._get_users, add_user=self._prompt_add_user)
+        editor.present()
 
-        #Check if there are warnings
-        if len (self.samba_data.warnings):
-            warnings_dialog = self.xml.get_widget ('warnings_dialog')
-            warnings_details_expander = self.xml.get_widget ('warnings_details_expander')
-            warnings_details_expander_label = self.xml.get_widget ('warnings_details_expander_label')
-            warnings_details_textview = self.xml.get_widget ('warnings_details_textview')
+    def _prompt_add_user(self, parent, on_added):
+        # Open the add-user dialog from inside another dialog (the share editor)
+        # and invoke on_added() once a Samba account has actually been created,
+        # so the caller can refresh its user list.
+        def do_add(unix, windows, password):
+            self.client.add_samba_user(unix, windows, password)
+            try:
+                self.client.set_user_alias(unix, windows)
+            except BackendError:
+                pass  # alias is best-effort; the account itself was created
+            if on_added is not None:
+                on_added()
+        dlg = AddUserDialog(
+            parent, "add",
+            system_users=_system_users(),
+            existing_samba_users=self._get_users(),
+            on_add=do_add)
+        dlg.present()
 
-            def exp_activate (expander, data = None):
-                if expander.get_expanded ():
-                    warnings_details_expander_label.set_label (_('Hide _details'))
-                else:
-                    warnings_details_expander_label.set_label (_('Show _details'))
+    # ------------------------------------------------------- share read/write
+    def _items(self):
+        __, items = parse_shares(load_config_text(self.client))
+        return items
 
-            warnings_details_expander.set_expanded (False)
-            exp_activate (warnings_details_expander)
-            warnings_details_expander.connect_after ('activate', exp_activate)
+    def _get_users(self):
+        if self.client is None:
+            return []
+        try:
+            return sorted(self.client.list_samba_users())
+        except BackendError:
+            return []
 
-            warnings_details_text = "\n".join (map (lambda x: "%d: %s" % (x[0], x[1].getData ()), self.samba_data.warnings))
+    def _spec_for(self, name):
+        parser, __ = parse_shares(load_config_text(self.client))
+        section = parser.getSection(name.lower())
+        raw_users = section.getKey("valid users") or ""
+        valid_users = [u.strip() for u in raw_users.split(",") if u.strip()]
+        comment = section.getKey("comment") or ""
+        if comment.lower() == "none":
+            comment = ""
+        return ShareSpec(
+            name=section.name or name,
+            directory=section.getKey("path") or "",
+            comment=comment,
+            writable=_yesno(section.getKey("writeable")),
+            browseable=_yesno(section.getKey("browseable"), default=True),
+            everyone=_yesno(section.getKey("guest ok")),
+            valid_users=valid_users,
+            original_name=section.name or name)
 
-            warnings_details_textview.get_buffer ().set_text (warnings_details_text)
-            warnings_dialog.set_modal (True)
-            warnings_dialog.set_transient_for (self.main_window)
-            warnings_dialog.set_position (gtk.WIN_POS_CENTER_ON_PARENT)
-            warnings_dialog.set_icon_name (iconName)
-            warnings_dialog.run ()
-            warnings_dialog.hide ()
-
-        #Initialize Samba User Window
-        self.samba_user_win = sambaUserWin.SambaUserWin(self, self.xml, self.samba_backend, self.main_window)
-
-        self.basic_preferences_win = basicPreferencesWin.BasicPreferencesWin(self, self.xml, self.samba_data, self.samba_backend, self.main_window)
-        self.share_win = shareWindow.ShareWindow(self, self.xml, self.samba_data, self.samba_backend, self.main_window)
-
-        self.toplevel_vbox = gtk.VBox(False)
-        self.menu_bar = gtk.MenuBar()
-
-        self.share_view = gtk.TreeView(self.share_store)
-        self.share_view.set_rules_hint(True)
-        self.share_view.columns_autosize()
-        self.share_view_sw = gtk.ScrolledWindow()
-        self.share_view_sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.share_view_sw.set_shadow_type(gtk.SHADOW_IN)
-        self.share_view_sw.add(self.share_view)
-
-        col = gtk.TreeViewColumn(_("Directory"), gtk.CellRendererText(), text=0)
-#        col.set_spacing(235)
-        self.share_view.append_column(col)
-        col = gtk.TreeViewColumn(_("Share name"), gtk.CellRendererText(), text=1)
-        self.share_view.append_column(col)
-        col = gtk.TreeViewColumn(_("Permissions"), gtk.CellRendererText(), text=2)
-        self.share_view.append_column(col)
-        col = gtk.TreeViewColumn(_("Visibility"), gtk.CellRendererText(), text=3)
-        self.share_view.append_column(col)
-        col = gtk.TreeViewColumn(_("Description"), gtk.CellRendererText(), text=4)
-        col.set_spacing(235)
-        self.share_view.append_column(col)
-
-        if not (gtk.__dict__.has_key ("ActionGroup") and gtk.__dict__.has_key ("UIManager")):
-            accel_group = gtk.AccelGroup()
-            item_fac = gtk.ItemFactory(gtk.MenuBar, "<main>", accel_group)
-            self.main_window.add_accel_group(accel_group)
-            item_fac.create_items([
-                ('/' + _('_File'),                                None,    None, 0, '<Branch>'),
-                ('/' + _('_File') + '/' + _('_Add Share'),        None,    self.onNewButtonClicked, 6, '<StockItem>', gtk.STOCK_ADD),
-                ('/' + _('_File') + '/' + _('_Properties'),       None,    self.onPropertiesButtonClicked, 6, '<StockItem>', gtk.STOCK_PROPERTIES),
-                ('/' + _('_File') + '/' + _('_Delete'),           None,    self.onDeleteButtonClicked, 6, '<StockItem>', gtk.STOCK_DELETE),
-                ('/' + _('_File') + '/separator',                 None,    None, 0, '<Separator>', ''),
-                ('/' + _('_File') + '/' + _('_Quit'),             None,    self.destroy, 6, '<StockItem>', gtk.STOCK_QUIT),
-                ('/' + _('_Preferences'),                         None,    None, 0, '<Branch>'),
-                ('/' + _('_Preferences') + '/' + _('_Server Settings...'),
-                                                                  None,    self.onBasicPreferencesClicked, 1, '<StockItem>', gtk.STOCK_PREFERENCES),
-    #            ('/' + _(_Preferences) + '/' + _('_Advanced Preferences...'),  None,   self.onAdvancedPreferencesClicked, 2, ''),
-                ('/' + _('_Preferences') + '/' + _('Samba _Users...'),
-                                                                  None,    self.onModifyUsersClicked, 3, ''),
-                ('/' + _('_Help'),                                None,    None, 0, '<Branch>'),
-                ('/' + _('_Help') + '/' + _('_Contents'),         None,    self.onHelpClicked, 1, '<StockItem>', gtk.STOCK_HELP),
-                ('/' + _('_Help') + '/' + _('_About'),            None,    self.onAboutClicked, 2, ''),
-                ])
-            self.menu_bar = item_fac.get_widget('<main>')
-
-            self.actionMenu = self.menu_bar.get_children()[0].get_submenu()
-            self.propertiesMenu = self.actionMenu.get_children()[1]
-            self.deleteMenu = self.actionMenu.get_children()[2]
-
-            self.toolbar = gtk.Toolbar()
-
-            button = self.toolbar.insert_stock('gtk-add', _("Add a Samba share"), None, self.onNewButtonClicked, None, 0)
-            image, label = button.get_children()[0].get_children()
-            label.set_text(_("_Add"))
-            label.set_use_underline(True)
-
-            self.properties_button = self.toolbar.insert_stock('gtk-properties', _("Edit the properties of the selected directory"), None, self.onPropertiesButtonClicked, None, 1)
-            image, label = self.properties_button.get_children()[0].get_children()
-            label.set_text(_("P_roperties"))
-            label.set_use_underline(True)
-
-            self.delete_button = self.toolbar.insert_stock('gtk-delete', _("Delete the selected directory"), None, self.onDeleteButtonClicked, None, 2)
-            image, label = self.delete_button.get_children()[0].get_children()
-            label.set_text(_("_Delete"))
-            label.set_use_underline(True)
-
-            self.toolbar.insert_stock('gtk-help', _("View help"), None, self.onHelpClicked, None, 3)
-
-            self.toplevel_vbox.pack_start(self.menu_bar, False)
-            self.toplevel_vbox.pack_start(self.toolbar, False)
+    def _apply_share(self, spec: ShareSpec):
+        # Runs inside the editor's apply handler: raise to surface an error
+        # dialog there; success leaves the editor to close itself.
+        if self.client is None:
+            raise RuntimeError(_("No backend connected; cannot write."))
+        parser, __ = parse_shares(load_config_text(self.client))
+        if spec.original_name is None:
+            if spec.name.lower() in [s for s in parser.sections if s]:
+                raise ValueError(_("A share named \u201c%s\u201d already exists.")
+                                 % spec.name)
+            section = SambaSection(parser, spec.name)
         else:
-            ui_string = """<ui>
-                <menubar name='Menubar'>
-                    <menu action='FileMenu'>
-                        <menuitem action='Add'/>
-                        <menuitem action='Properties'/>
-                        <menuitem action='Delete'/>
-                        <separator />
-                        <menuitem action='Quit'/>
-                    </menu>
-                    <menu action='Preferences'>
-                        <menuitem action='Settings'/>
-                        <menuitem action='Users'/>
-                    </menu>
-                    <menu action='Help'>
-                        <menuitem action='Contents'/>
-                        <menuitem action='About'/>
-                    </menu>
-                </menubar>
-                <toolbar name='Toolbar'>
-                    <toolitem action='Add'/>
-                    <toolitem action='Properties'/>
-                    <toolitem action='Delete'/>
-                    <toolitem action='HelpB'/>
-                </toolbar>
-            </ui>"""
+            section = parser.getSection(spec.original_name.lower())
 
-            ag = gtk.ActionGroup('WindowActions')
-            actions = [
-                ('FileMenu', None, _('_File')),
-                ('Add',        gtk.STOCK_ADD, _('_Add Share'), None, _('Add a Samba share'), self.onNewButtonClicked),
-                ('Properties',    gtk.STOCK_PROPERTIES, _('_Properties'), None, _('Edit the properties of the selected directory'), self.onPropertiesButtonClicked),
-                ('Delete',    gtk.STOCK_DELETE, _('_Delete'), None, _('Delete the selected directory'), self.onDeleteButtonClicked),
-                ('Quit',     gtk.STOCK_QUIT, _('_Quit'), None, _('Quit program'), self.destroy),
-                ('Preferences', None, _('_Preferences')),
-                ('Settings', gtk.STOCK_PREFERENCES, _('_Server Settings...'), None, _('Server Settings'), self.onBasicPreferencesClicked),
-                ('Users', '', _('Samba _Users...'), None, _('Samba Users'), self.onModifyUsersClicked),
-                ('Help', None, _('_Help')),
-                ('HelpB', gtk.STOCK_HELP, _('_Help'), None, _('Help Contents'), self.onHelpClicked),
-                ('Contents', gtk.STOCK_HELP, _('_Contents'), None, _('View Help'), self.onHelpClicked),
-                ('About', '', _('_About'), None, _('About the program'), self.onAboutClicked)
-                ]
-
-            ag.add_actions(actions)
-            self.main_window.ui = gtk.UIManager()
-            self.main_window.ui.insert_action_group(ag, 0)
-            self.main_window.ui.add_ui_from_string(ui_string)
-            self.main_window.add_accel_group(self.main_window.ui.get_accel_group())
-
-            self.properties_button = self.main_window.ui.get_widget('/Toolbar/Properties')
-            self.delete_button = self.main_window.ui.get_widget('/Toolbar/Delete')
-            self.propertiesMenu = self.main_window.ui.get_widget('/Menubar/FileMenu/Properties')
-            self.deleteMenu = self.main_window.ui.get_widget('/Menubar/FileMenu/Delete')
-
-            self.toplevel_vbox.pack_start(self.main_window.ui.get_widget('/Menubar'), expand=False)
-            self.toplevel_vbox.pack_start(self.main_window.ui.get_widget('/Toolbar'), expand=False)
-
-        self.properties_button.set_sensitive(False)
-        self.delete_button.set_sensitive(False)
-        self.propertiesMenu.set_sensitive(False)
-        self.deleteMenu.set_sensitive(False)
-
-        #-------------------Packing--------------------#
-        self.toplevel_vbox.pack_start(self.share_view_sw, True)
-        self.main_window.add(self.toplevel_vbox)
-        self.main_window.set_default_size(600, 400)
-        self.main_window.set_size_request(600, 200)
-
-        self.selected_row = -1
-        self.changed = False
-
-        self.create_handler = None
-        self.modify_handler = None
-
-        self.main_window.show_all()
-
-#        self.share_view.connect("cursor-changed", self.onShareListSelectRow)
-        self.share_view.get_selection().connect("changed", self.onShareListSelectRow)
-        self.share_view.connect ("row_activated", self.onShareListActivate)
-        self.share_view.get_selection().unselect_all()
-
-    def processSambaData(self, samba_data):
-        sections = samba_data.sections
-        sections_dict = samba_data.sections_dict
-
-        #print "sections:", sections
-        #print "sections_dict.keys ():", sections_dict.keys ()
-
-        for section_name in sections:
-            #print "-->", section_name, "<--"
-            if not section_name in samba_data.getShareHeaders ():
-                #print "FOO", section_name
-                continue
-            section = sections_dict[section_name]
-            #print "filling UI with section", repr (section)
-
-            iter = self.share_store.append ()
-            self.share_store.set_value (iter, 2, _("Read Only"))
-            self.share_store.set_value (iter, 3, _("Visible"))
-
-            sharename = section.name.strip()
-            self.share_store.set_value (iter, 1, sharename)
-            self.share_store.set_value (iter, 5, section)
-
-            for token in section.content:
-                if token.type == sambaToken.SambaToken.SAMBA_TOKEN_KEYVAL:
-                    # normalize keyname for comparisons
-                    _keyname = sambaToken._remove_ws (token.keyname).lower ()
-
-                    if _keyname == "path":
-                        self.share_store.set_value (iter, 0, token.keyval)
-                    elif _keyname == "readonly":
-
-                        if token.keyval.lower() == "no":
-                            self.share_store.set_value (iter, 2, (_("Read/Write")))
-                        else:
-                            self.share_store.set_value (iter, 2, (_("Read Only")))
-
-                    elif _keyname == "writeable" or _keyname == "writable":
-                        if token.keyval.lower() == "no":
-                            self.share_store.set_value(iter, 2, (_("Read Only")))
-                        else:
-                            self.share_store.set_value(iter, 2, (_("Read/Write")))
-
-                    elif _keyname == "browseable" or _keyname == "browsable":
-                        if token.keyval.lower() == "no":
-                            self.share_store.set_value(iter, 3, (_("Hidden")))
-                        else:
-                            self.share_store.set_value(iter, 3, (_("Visible")))
-
-                    elif _keyname == "comment":
-                        self.share_store.set_value (iter, 4, token.keyval)
-
-    #--------Event handlers for main_window-----#
-    def onShareListSelectRow(self, *args):
-        store, iter = self.share_view.get_selection().get_selected()
-        if iter:
-            self.properties_button.set_sensitive(True)
-            self.delete_button.set_sensitive(True)
-            self.propertiesMenu.set_sensitive(True)
-            self.deleteMenu.set_sensitive(True)
+        section.setKey("path", spec.directory)
+        if spec.comment:
+            section.setKey("comment", spec.comment)
         else:
-            self.properties_button.set_sensitive(False)
-            self.delete_button.set_sensitive(False)
-            self.propertiesMenu.set_sensitive(False)
-            self.deleteMenu.set_sensitive(False)
-
-    def onNewButtonClicked(self, *args):
-        self.changed = True
-        self.share_win.showNewWindow()
-
-    def onShareListActivate (self, *args):
-        self.showPropertiesDialog ()
-
-    def onPropertiesButtonClicked (self, *args):
-        self.showPropertiesDialog ()
-
-    def showPropertiesDialog (self):
-        self.changed = True
-        store, iter = self.share_view.get_selection ().get_selected ()
-        if iter != None:
-            section = self.share_store.get_value (iter, 5)
-            self.share_win.showEditWindow (iter, section)
-
-    def onDeleteButtonClicked(self, *args):
-        self.changed = True
-
-
-        store, iter = self.share_view.get_selection().get_selected()
-        section = self.share_store.get_value(iter, 5)
-        #print "deleting", section
-        #print "before delete"
-        section.delete ()
-        #print "after delete"
-        self.share_store.remove(iter)
-
-        self.properties_button.set_sensitive(False)
-        self.delete_button.set_sensitive(False)
-        self.propertiesMenu.set_sensitive(False)
-        self.deleteMenu.set_sensitive(False)
-
-        #Let's go ahead and restart the service.
-        self.samba_data.writeFile()
-        self.samba_backend.restartSamba()
-
-    def onApplyButtonClicked(self, *args):
-        self.changed = True
-
-        self.samba_data.writeFile()
-        self.properties_button.set_sensitive(False)
-        self.delete_button.set_sensitive(False)
-        self.propertiesMenu.set_sensitive(False)
-        self.deleteMenu.set_sensitive(False)
-        self.share_view.get_selection().unselect_all()
-
-        status = self.samba_backend.isSambaRunning()
-
-        result = None
-        if not status:
-            #smb is not running, so ask the user if they want to start it
-            dlg = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_WARNING,
-                                    gtk.BUTTONS_YES_NO, (_("The Samba service is not "
-                                                           "currently running.  Do you "
-                                                           "wish to start it?")))
-            dlg.set_icon_name(iconName)
-            dlg.set_modal(True)
-            dlg.set_transient_for(self.main_window)
-            dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            result = dlg.run()
-            dlg.destroy()
-
-            if result == gtk.RESPONSE_YES:
-                #Start smb if the user says 'yes'
-                if not self.debug_flag:
-                    self.samba_backend.startSamba()
-                else:
-                    print "cannot start the service in debug mode"
-
+            section.delKey("comment")
+        section.setKey("writeable", "yes" if spec.writable else "no")
+        section.setKey("browseable", "yes" if spec.browseable else "no")
+        if spec.everyone:
+            section.setKey("guest ok", "yes")
+            section.delKey("valid users")
         else:
-            #smb is already running, so restart to allow changes to take effect
-            if not self.debug_flag:
-                self.samba_backend.restartSamba()
-            else:
-                print "cannot start the service in debug mode"
+            section.setKey("guest ok", "no")
+            section.setKey("valid users", ", ".join(spec.valid_users))
 
-    def onBasicPreferencesClicked(self, *args):
-        self.basic_preferences_win.showWindow()
+        # WriteConfig on the backend already restarts smb after a successful
+        # atomic write, so there is no separate restart call here.
+        self.client.write_config(serialize_config(parser))
+        self.reload()
+        self._toast(_("Saved share \u201c%s\u201d.") % spec.name)
 
-    def onAdvancedPreferencesClicked(self, *args):
-        advanced_preferences_win = self.xml.get_widget("advanced_preferences_win")
-        advanced_preferences_win.show_all()
+    def on_server_settings(self, *_ignored):
+        dialog = ServerSettingsDialog(self, self._server_spec(),
+                                      on_apply=self._apply_server)
+        dialog.present()
 
-    def onRefreshButtonClicked(self, *args):
-        pass
+    # ------------------------------------------------------ server read/write
+    def _global_section(self, parser):
+        try:
+            return parser.getSection("global")
+        except KeyError:
+            return SambaSection(parser, "global")
 
-    def onModifyUsersClicked(self, *args):
-        self.samba_user_win.showWindow()
+    def _server_spec(self):
+        parser, __ = parse_shares(load_config_text(self.client))
+        try:
+            g = parser.getSection("global")
+        except KeyError:
+            return ServerSpec("WORKGROUP", "", "user", "", "", True, None)
+        guest_ok = _yesno(g.getKey("guest ok"))
+        guest_account = g.getKey("guest account") if guest_ok else None
+        if guest_account and guest_account.lower() in ("none", "guest"):
+            guest_account = "nobody"
+        return ServerSpec(
+            workgroup=g.getKey("workgroup") or "",
+            server_string=g.getKey("server string") or "",
+            security=(g.getKey("security") or "user").lower(),
+            password_server=g.getKey("password server") or "",
+            realm=g.getKey("realm") or "",
+            encrypt=_yesno(g.getKey("encrypt passwords"), default=True),
+            guest_account=guest_account)
 
-    def destroy(self, *args):
-#        #Maybe we don't need to restart the service now, so let's comment this line out
-#        self.onApplyButtonClicked()
-        if gtk.__dict__.has_key ("main_quit"):
-            gtk.main_quit ()
+    def _apply_server(self, spec: ServerSpec):
+        if self.client is None:
+            raise RuntimeError(_("No backend connected; cannot write."))
+        parser, __ = parse_shares(load_config_text(self.client))
+        g = self._global_section(parser)
+        g.setKey("workgroup", spec.workgroup)
+        if spec.server_string:
+            g.setKey("server string", spec.server_string)
         else:
-            gtk.mainquit()
+            g.delKey("server string")
+        g.setKey("security", spec.security)
+        if spec.security in ("server", "domain", "ads") and spec.password_server:
+            g.setKey("password server", spec.password_server)
+        else:
+            g.delKey("password server")
+        if spec.security == "ads" and spec.realm:
+            g.setKey("realm", spec.realm)
+        else:
+            g.delKey("realm")
+        g.setKey("encrypt passwords", "yes" if spec.encrypt else "no")
+        if spec.guest_account:
+            g.setKey("guest ok", "yes")
+            g.setKey("guest account", spec.guest_account)
+        else:
+            g.setKey("guest ok", "no")
+            g.setKey("guest account", "nobody")
 
-    def onAboutClicked(self, *args):
-        if not hasattr(self, "about_dialog"):
-            self.about_dialog = self.xml.get_widget("about_dialog")
-            self.prepareAboutDialog()
+        # WriteConfig restarts smb internally (see backend dispatch).
+        self.client.write_config(serialize_config(parser))
+        self.reload()
+        self._toast(_("Server settings saved."))
 
-        self.about_dialog.show()
+    def on_manage_users(self, *_ignored):
+        UsersDialog(self, self.client).present()
 
-    def onAboutDelete(self, *args):
-        self.about_dialog.hide()
-        return True
-
-    def prepareAboutDialog(self):
-        global copyrights, authors, license
-
-        self.about_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        self.about_dialog.set_name(_("Samba Server Configuration Tool"))
-        self.about_dialog.set_version("@VERSION@")
-        self.about_dialog.set_comments(_("A graphical interface for configuring Samba"))
-        self.about_dialog.set_license(license)
-        self.about_dialog.set_logo_icon_name(iconName)
-
-        copyrights_list = []
-        for year, holder, email in copyrights:
-            if email:
-                copyrights_list.append(_("Copyright %(year)s © %(holder)s <%(email)s>") % {"year": year, "holder": holder, "email": email})
-            else:
-                copyrights_list.append(_("Copyright %(year)s © %(holder)s") % {"year": year, "holder": holder})
-
-        self.about_dialog.set_copyright("\n".join(copyrights_list))
-
-        authors_list = []
-        for name, email in authors:
-            authors_list.append(_("%(name)s <%(email)s>") % {'name': name, 'email': email})
-
-        self.about_dialog.set_authors(authors_list)
-
-        self.about_dialog.connect("delete-event", self.onAboutDelete)
-        self.about_dialog.connect("response", self.onAboutDelete)
-        self.about_dialog.set_transient_for(self.main_window)
-        self.about_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-
-    def onHelpClicked(self, *args):
-        help_page = "ghelp:system-config-samba"
-        paths = ["/usr/bin/yelp", None]
-
-        for path in paths:
-            if path and os.access (path, os.X_OK):
-                break
-
-        if path == None:
-            dlg = gtk.MessageDialog(None, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK,
-                                    (_("The help viewer could not be found. To be able to view help you need to install the 'yelp' package.")))
-            dlg.set_transient_for(self.main_window)
-            dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-            dlg.run()
-            dlg.destroy()
+    def on_delete_share(self, *_ignored):
+        name = self._selected_name()
+        if not name:
             return
 
-        pid = os.fork()
-        if not pid:
-            os.execv(path, [path, help_page])
+        confirm = Adw.MessageDialog(
+            transient_for=self, modal=True,
+            heading=_("Delete share “%s”?") % name,
+            body=_("The share section is removed from smb.conf and Samba is restarted."))
+        confirm.add_response("cancel", _("Cancel"))
+        confirm.add_response("delete", _("Delete"))
+        confirm.set_default_response("delete")
+        confirm.set_close_response("cancel")
+        confirm.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE)
+        confirm.connect("response", self._confirm_delete, name)
+        confirm.present()
+
+    def _confirm_delete(self, dialog, response, name):
+        dialog.destroy()
+        if response != "delete":
+            return
+        if self.client is None:
+            self._toast(_("No backend connected; cannot write."))
+            return
+        parser, __ = parse_shares(load_config_text(self.client))
+        section = parser.getSection(name)
+        section.delete()
+        new_text = "".join(str(parser.getSection(n)) for n in parser.sections)
+        try:
+            self.client.write_config(new_text)
+            self.reload()
+            self._toast(_("Deleted share “%s”.") % name)
+        except NotAuthorized:
+            self._toast(_("Not authorized."))
+        except BackendError as e:
+            self._toast(_("Write failed: %s") % e)
+
+    # ------------------------------------------------------------ self-check
+    def selfcheck_open_dialogs(self):
+        """Headlessly construct every dialog so import/widget errors surface
+        during the launch smoke test, then discard them."""
+        # Structural guard: a constructed-but-detached HeaderBar renders an
+        # invisible top bar (no window controls), which a plain construct
+        # smoke test would not catch. add_top_bar wraps the bar in internal
+        # containers, so check ancestry to the ToolbarView, not the direct
+        # parent.
+        assert self._header.get_ancestor(Adw.ToolbarView) is self._toolbar, \
+            "HeaderBar is not attached to the ToolbarView (no top bar)"
+        users = ["nobody", "guest"]
+        existing = [it.name for it in self._items()]
+        new_editor = ShareEditor(self, spec=None, users=users,
+                                 existing_names=existing, on_apply=lambda s: None)
+        new_editor._show_error("probe")   # exercise the error-dialog API
+        new_editor.destroy()
+        if existing:
+            edit_editor = ShareEditor(
+                self, spec=self._spec_for(existing[0]), users=users,
+                existing_names=existing, on_apply=lambda s: None)
+            edit_editor.destroy()
+        server_dialog = ServerSettingsDialog(
+            self, self._server_spec(), on_apply=lambda s: None)
+        server_dialog._show_error("probe")
+        server_dialog.destroy()
+        users_dialog = UsersDialog(self, self.client)
+        users_dialog._report(BackendError("probe"))
+        users_dialog.destroy()
+        add_dlg = AddUserDialog(self, "add", system_users=["root", "nobody"],
+                                existing_samba_users=[], on_add=lambda *a: None)
+        add_dlg._error("probe")
+        add_dlg.destroy()
+        AddUserDialog(self, "edit", unix_name="nobody", windows_name="Nobody",
+                      on_edit=lambda *a: None).destroy()
+        # Guard the two-button confirm API (used by share/user delete) that
+        # the construct-only smoke test never touched.
+        confirm = Adw.MessageDialog(heading="probe", body="probe")
+        confirm.add_response("cancel", "Cancel")
+        confirm.add_response("delete", "Delete")
+        confirm.set_default_response("delete")
+        confirm.set_close_response("cancel")
+        confirm.set_response_appearance("delete", Adw.ResponseAppearance.DESTRUCTIVE)
+        confirm.destroy()
+
+    def on_about(self, *_ignored):
+        about = Adw.AboutWindow(
+            transient_for=self, application_name="samba-conf-tool",
+            application_icon="network-server-symbolic",
+            developer_name="Rewrite of system-config-samba (C) Red Hat, Inc.",
+            version=__version__, license_type=Gtk.License.GPL_2_0)
+        about.present()
+
+    def _show_shortcuts(self):
+        self._toast(_("Keyboard shortcuts: Ctrl+N add, Ctrl+P edit, "
+                      "Ctrl+Delete delete, Ctrl+R reload."))
+
+    def _toast(self, message):
+        self.status.add_toast(Adw.Toast(title=message))
+
+
+def _(*args):
+    # gettext passthrough hook (catalog wiring lands in a later phase).
+    return args[0] if len(args) == 1 else args
+
+
+def _yesno(value, default=False) -> bool:
+    if not value:
+        return default
+    return value.strip().lower() in ("yes", "1", "true")

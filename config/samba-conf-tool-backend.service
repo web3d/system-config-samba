@@ -1,0 +1,23 @@
+[Unit]
+Description=samba-conf-tool privileged D-Bus backend
+Documentation=https://example.invalid/samba-conf-tool
+After=dbus.service
+
+[Service]
+# D-Bus activation: dbus asks systemd to start this unit when something calls
+# org.SambaConfTool on the system bus; systemd waits for the bus name to be
+# acquired (Type=dbus) before letting the method call through.
+Type=dbus
+BusName=org.SambaConfTool
+# @python@ and @libexecdir@ are substituted by the installer (see README).
+ExecStart=@python@ @libexecdir@/samba-conf-tool-backend
+User=root
+Restart=on-failure
+RestartSec=2
+
+# Lockdown where compatible with writing /etc/samba and driving systemctl.
+NoNewPrivileges=false
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

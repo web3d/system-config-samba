@@ -1,0 +1,8 @@
+[D-BUS Service]
+# Well-known name the backend owns on the system bus.
+Name=org.SambaConfTool
+# @python@ and @libexecdir@ are substituted by the installer (see Makefile).
+Exec=@python@ @libexecdir@/samba-conf-tool-backend
+User=root
+# Prefer systemd socket activation (Type=dbus) over dbus-daemon spawning.
+SystemdService=samba-conf-tool-backend.service

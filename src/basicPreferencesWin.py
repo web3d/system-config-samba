@@ -1,289 +1,203 @@
-# basicPreferencesWin.py - contains the code for basic preferences window
 # -*- coding: utf-8 -*-
-# Copyright © 2002 - 2005, 2007 - 2010 Red Hat, Inc.
-# Copyright © 2002, 2003 Brent Fox <bfox@redhat.com>
+# Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
+# GTK4 / libadwaita rewrite for samba-conf-tool.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-# Authors:
-# Brent Fox <bfox@redhat.com>
-# Nils Philippsen <nils@redhat.com>
+# Server settings dialog (old basicPreferencesWin). Edits the [global]
+# section: workgroup (required), server string, security mode with the
+# password-server / realm linkage and the domain forced-encryption rule,
+# encrypt passwords, and the guest account chosen from the system password
+# database.
 
-import gtk
-import gtk.glade
-import mainWindow
+from __future__ import annotations
+
 import pwd
-import gettext
-_ = lambda x: unicode(gettext.ldgettext("system-config-samba", x), "utf-8")
+from dataclasses import dataclass
 
-class BasicPreferencesWin(object):
+import gi
 
-    def __init__(self, parent, xml, samba_data, samba_backend, main_window):
-        self.ParentClass = parent
-        self.samba_data = samba_data
-        self.samba_backend = samba_backend
-        self.samba_sections = samba_data.sections
-        self.samba_sections_dict = samba_data.sections_dict
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+from gi.repository import Adw, Gtk  # noqa: E402
 
-        self.basic_notebook = xml.get_widget("basic_notebook")
-        self.basic_preferences_win = xml.get_widget("basic_preferences_win")
-        self.basic_preferences_win.set_modal(True)
-        self.basic_preferences_win.set_transient_for(main_window)
-        self.basic_preferences_win.connect("delete-event", self.onBasicCancelButtonClicked)
-        self.basic_preferences_win.set_icon_name(mainWindow.iconName)
-        self.workgroup_entry = xml.get_widget("workgroup_entry")
-        self.server_entry = xml.get_widget("server_entry")
-        self.auth_server_entry = xml.get_widget("auth_server_entry")
-        self.ads_realm_entry = xml.get_widget("ads_realm_entry")
+# Order mirrors the original auth_option_menu (ADS, Domain, Server, Share,
+# User); the value written to smb.conf is the lower-cased security= token.
+SECURITY_MODES = [
+    ("ADS", "ads"),
+    ("Domain", "domain"),
+    ("Server", "server"),
+    ("Share", "share"),
+    ("User", "user"),
+]
+SECURITY_VALUES = [v for _label, v in SECURITY_MODES]
+NO_GUEST_LABEL = "No guest account"
 
-        self.auth_option_menu = xml.get_widget("auth_option_menu")
-        self.auth_menu = gtk.Menu()
-        label = (_("ADS"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "ADS")
-        self.auth_menu.append(item)
-        label = (_("Domain"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "DOMAIN")
-        self.auth_menu.append(item)
-        label = (_("Server"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "SERVER")
-        self.auth_menu.append(item)
-        label = (_("Share"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "SHARE")
-        self.auth_menu.append(item)
-        label = (_("User"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "USER")
-        self.auth_menu.append(item)
-        self.auth_option_menu.set_menu(self.auth_menu)
 
-        self.encrypt_option_menu = xml.get_widget("encrypt_option_menu")
-        self.encrypt_menu = gtk.Menu()
-        label = (_("Yes"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "yes")
-        self.encrypt_menu.append(item)
-        label = (_("No"))
-        item = gtk.MenuItem(label)
-        item.set_data("NAME", "no")
-        self.encrypt_menu.append(item)
-        self.encrypt_option_menu.set_menu(self.encrypt_menu)
+@dataclass
+class ServerSpec:
+    workgroup: str
+    server_string: str
+    security: str
+    password_server: str
+    realm: str
+    encrypt: bool
+    guest_account: str | None  # None => guest access disabled
 
-        self.guest_option_menu = xml.get_widget("guest_option_menu")
-        self.guest_menu = gtk.Menu()
-        self.users = [ struct_passwd[0] for struct_passwd in pwd.getpwall () ]
-        self.users.sort()
-        self.users.insert(0, _("No guest account"))
-        for user in self.users:
-            item = gtk.MenuItem(user)
-            item.set_data("NAME", user)
-            self.guest_menu.append(item)
-        self.guest_option_menu.set_menu(self.guest_menu)
 
-        xml.signal_connect("on_basic_cancel_button_clicked", self.onBasicCancelButtonClicked)
-        xml.signal_connect("on_basic_ok_button_clicked", self.onBasicOkButtonClicked)
-        self.auth_option_menu.connect("changed", self.authMenuChanged)
+def _system_users():
+    names = {pw.pw_name for pw in pwd.getpwall()}
+    return sorted(names)
 
-    def showWindow(self):
-        self.reset()
-        self.readFile()
-        self.basic_preferences_win.show_all()
 
-    def readFile(self):
-        global_found = None
+def validate_server(spec: ServerSpec) -> str | None:
+    if not spec.workgroup.strip():
+        return "You must specify a workgroup."
+    if spec.security in ("server", "domain", "ads"):
+        if not spec.password_server.strip():
+            return ('To auto-locate a password server, enter "*" in the '
+                    'Password server field. Otherwise a password server is '
+                    'required for ADS, Domain or Server security.')
+    if spec.security == "ads" and not spec.realm.strip():
+        return "Please enter a Kerberos realm when using ADS security."
+    return None
+
+
+class ServerSettingsDialog(Gtk.Window):
+    def __init__(self, parent, spec: ServerSpec, on_apply):
+        super().__init__()
+        self.set_transient_for(parent)
+        self.set_modal(True)
+        self.set_title(_("Server Settings"))
+        self.set_default_size(560, -1)
+        self.set_resizable(False)
+        self._on_apply = on_apply
+
+        # Gtk.Window draws its own CSD titlebar; promote the Adw.HeaderBar to
+        # be it rather than stacking a second bar inside a ToolbarView.
+        header = Adw.HeaderBar()
+        cancel = Gtk.Button(label=_("Cancel"))
+        cancel.connect("clicked", lambda *_ignored: self.destroy())
+        header.pack_start(cancel)
+        ok = Gtk.Button(label=_("OK"))
+        ok.add_css_class("suggested-action")
+        ok.connect("clicked", self._on_ok_clicked)
+        header.pack_end(ok)
+        # Cancel already closes this dialog; drop the redundant window close.
+        header.set_show_end_title_buttons(False)
+        self.set_titlebar(header)
+
+        page = Adw.PreferencesPage()
+        self.set_child(page)
+
+        # ---- Identity
+        identity = Adw.PreferencesGroup(title=_("Identity"))
+        self.workgroup_row = Adw.EntryRow(title=_("Workgroup"))
+        self.server_string_row = Adw.EntryRow(title=_("Server description"))
+        identity.add(self.workgroup_row)
+        identity.add(self.server_string_row)
+        page.add(identity)
+
+        # ---- Security
+        security = Adw.PreferencesGroup(title=_("Security"))
+        self.security_row = Adw.ComboRow(
+            title=_("Security mode"),
+            model=Gtk.StringList.new([label for label, _v in SECURITY_MODES]))
+        self.security_row.connect("notify::selected", self._sync_sensitivity)
+        self.password_server_row = Adw.EntryRow(title=_("Password server"))
+        self.realm_row = Adw.EntryRow(title=_("Realm"))
+        self.encrypt_row = Adw.ComboRow(
+            title=_("Encrypt passwords"), model=Gtk.StringList.new(["Yes", "No"]))
+        for row in (self.security_row, self.password_server_row,
+                    self.realm_row, self.encrypt_row):
+            security.add(row)
+        page.add(security)
+
+        # ---- Guest access
+        guest = Adw.PreferencesGroup(title=_("Guest access"))
+        users = [NO_GUEST_LABEL] + _system_users()
+        self.guest_row = Adw.ComboRow(
+            title=_("Guest account"), model=Gtk.StringList.new(users))
+        guest.add(self.guest_row)
+        page.add(guest)
+
+        self._load_spec(spec)
+        self._sync_sensitivity()
+
+    def _index_of(self, values, value, default):
+        try:
+            return values.index(value.lower())
+        except ValueError:
+            return default
+
+    def _load_spec(self, spec: ServerSpec):
+        self.workgroup_row.set_text(spec.workgroup)
+        self.server_string_row.set_text(spec.server_string)
+        self.security_row.set_selected(
+            self._index_of(SECURITY_VALUES, spec.security,
+                           SECURITY_VALUES.index("user")))
+        self.password_server_row.set_text(spec.password_server)
+        self.realm_row.set_text(spec.realm)
+        self.encrypt_row.set_selected(0 if spec.encrypt else 1)
+        users_model = self.guest_row.get_model()
+        target = spec.guest_account or NO_GUEST_LABEL
+        idx = 0
+        for i in range(users_model.get_n_items()):
+            if users_model.get_string(i) == target:
+                idx = i
+                break
+        self.guest_row.set_selected(idx)
+
+    def _current_security(self) -> str:
+        return SECURITY_VALUES[self.security_row.get_selected()]
+
+    def _sync_sensitivity(self, *_ignored):
+        sec = self._current_security()
+        needs_server = sec in ("server", "domain", "ads")
+        self.password_server_row.set_sensitive(needs_server)
+        self.realm_row.set_sensitive(sec == "ads")
+        if sec == "domain":
+            # Domain security mandates encrypted passwords.
+            self.encrypt_row.set_selected(0)
+            self.encrypt_row.set_sensitive(False)
+        else:
+            self.encrypt_row.set_sensitive(True)
+
+    def _collect(self) -> ServerSpec:
+        guest_idx = self.guest_row.get_selected()
         guest_account = None
-        guest_ok = None
-        #Set auth_option_menu default to "User" since that is the default value for smb.conf
-        self.auth_option_menu.set_history(4)
-        #Set the encrypt_option_menu default to "Yes"
-        self.encrypt_option_menu.set_history(0)
+        if guest_idx > 0:
+            # get_item() yields a StringObject; get_string() gives the plain str.
+            guest_account = self.guest_row.get_model().get_string(guest_idx)
+        return ServerSpec(
+            workgroup=self.workgroup_row.get_text().strip().lower(),
+            server_string=self.server_string_row.get_text().strip(),
+            security=self._current_security(),
+            password_server=self.password_server_row.get_text().strip(),
+            realm=self.realm_row.get_text().strip(),
+            encrypt=self.encrypt_row.get_selected() == 0,
+            guest_account=guest_account,
+        )
 
-        section = self.samba_sections_dict["global"]
-
-        keys_entries_functions = [
-            [ "workgroup", self.workgroup_entry, lambda x: x.lower() ],
-            [ "server string", self.server_entry ],
-            [ "password server", self.auth_server_entry ]
-        ]
-
-        keys_optionmenus_xlate = [
-            [ "security", self.auth_option_menu, [ "ads", "domain", "server", "share", "user" ] ],
-            [ "encrypt passwords", self.encrypt_option_menu, [ "yes", "no" ] ]
-        ]
-
-        for kef in keys_entries_functions:
-            val = section.getKey (kef[0])
-            entry = kef[1]
-            try:
-                func = kef[2]
-            except IndexError:
-                func = None
-
-            if val == None:
-                val = ""
-            if func:
-                # we have (a) post processing function(s)
-                if type (func) == list or type (func) == tuple:
-                    # multiple functions are applied consecutively
-                    for realfunc in kef[2]:
-                        val = realfunc (val)
-                else:
-                    # function will be applied to value
-                    val = func (val)
-
-            entry.set_text (val)
-
-        for kox in keys_optionmenus_xlate:
-            val = section.getKey (kox[0])
-            optionmenu = kox[1]
-            xlate = kox[2]
-
-            if val:
-                val = val.lower()
-                if val in xlate:
-                    optionmenu.set_history (xlate.index (val))
-
-        guest_ok = section.getKey ("guest ok")
-        if guest_ok:
-            guest_ok = guest_ok.lower ()
-            if guest_ok == "no":
-                guest_account = None
-                guest_ok = "no"
-                self.guest_option_menu.set_history(0)
-            else:
-                guest_account = section.getKey ("guest account")
-                if not guest_account:
-                    #If guest accounts are enabled, let's assume the default is 'nobody'
-                    guest_account = "nobody"
-
-        #if guest accounts are enabled, lets set the menu to the guest user
-        if guest_account:
-            count = 0
-            found = 0
-            for user in self.users:
-                if guest_account == user:
-                    found = count
-                count = count + 1
-            self.guest_option_menu.set_history(found)
-
-    def reset(self):
-        self.basic_notebook.set_current_page(0)
-
-    def onBasicOkButtonClicked(self, *args):
-        #Check to see if workgroup is specified
-        if not self.checkForWorkgroup(self.workgroup_entry.get_text()):
+    def _on_ok_clicked(self, *_ignored):
+        spec = self._collect()
+        error = validate_server(spec)
+        if error:
+            self._show_error(error)
             return
-        else:
-            globalsection = self.samba_sections_dict["global"]
-            globalsection.setKey ("workgroup", self.workgroup_entry.get_text ())
-            globalsection.setKey ("server string", self.server_entry.get_text())
+        try:
+            self._on_apply(spec)
+        except Exception as e:
+            self._show_error(str(e))
+            return
+        self.destroy()
 
-            auth_type = self.auth_menu.get_active().get_data("NAME")
-            if auth_type == "USER":
-                globalsection.delKey ("password server")
-                globalsection.delKey ("realm")
+    def _show_error(self, message: str):
+        dlg = Adw.MessageDialog(
+            transient_for=self, modal=True, heading=_("Invalid Settings"),
+            body=message)
+        dlg.add_response("ok", _("OK"))
+        dlg.set_default_response("ok")
+        dlg.present()
 
-            elif auth_type == "SHARE":
-                globalsection.delKey ("password server")
-                globalsection.delKey ("realm")
 
-            elif auth_type == "SERVER" or auth_type == "DOMAIN" or auth_type == "ADS":
-                #If they've specified SERVER or DOMAIN, require a password server
-                auth_server = self.auth_server_entry.get_text().strip()
-
-                if auth_server == "":
-                    self.showMessageDialog(_("To auto-locate a password server, enter a \"*\" into the "
-                                             "Authentication Server entry field.  Otherwise, you must "
-                                             "specify a password server when using 'ADS', 'Domain' "
-                                             "or 'Server' authentication."))
-                    self.auth_server_entry.grab_focus()
-                    return
-                else:
-                    globalsection.setKey ("password server", auth_server)
-
-                #If they are using ADS, require a realm server
-                ads_realm_server = self.ads_realm_entry.get_text().strip()
-                if auth_type == "ADS":
-                    if ads_realm_server == "":
-                        #There's no realm server, so complain
-                        self.showMessageDialog(_("Please enter a kerberos realm when using "
-                                                 "ADS authentication."))
-                        self.ads_realm_entry.grab_focus()
-                        return
-                    else:
-                        #We've got a realm server
-                        globalsection.setKey ("realm", self.ads_realm_entry.get_text ())
-
-            globalsection.setKey ("security", self.auth_menu.get_active ().get_data("NAME").lower())
-            globalsection.setKey ("encrypt passwords", self.encrypt_menu.get_active ().get_data ("NAME"))
-
-            if self.guest_option_menu.get_history() == 0:
-                globalsection.setKey ("guest ok", "no")
-                globalsection.setKey ("guest account", "nobody")
-            else:
-                globalsection.setKey ("guest ok", "yes")
-                globalsection.setKey ("guest account", self.guest_menu.get_active ().get_data ("NAME"))
-
-            self.basic_preferences_win.hide()
-
-            #Let's go ahead and restart the service
-            self.samba_data.writeFile()
-            self.samba_backend.restartSamba()
-
-    def onBasicCancelButtonClicked(self, *args):
-        self.basic_preferences_win.hide()
-        return True
-
-    def checkForWorkgroup(self, workgroup):
-        if workgroup.strip() == "":
-            self.showMessageDialog(_("You must specify a workgroup."))
-            return 0
-        return 1
-
-    def authMenuChanged(self, *args):
-        type = self.auth_menu.get_active().get_data("NAME")
-
-        #Let's enable/disable the auth_server_entry
-        if type == "SERVER" or type == "DOMAIN":
-            #allow password server if using 'server' or 'domain'
-            self.auth_server_entry.set_sensitive(True)
-            self.ads_realm_entry.set_sensitive(False)
-        elif type == "ADS":
-            #allow password server and realm server if using 'ads'
-            self.auth_server_entry.set_sensitive(True)
-            self.ads_realm_entry.set_sensitive(True)
-        else:
-            self.auth_server_entry.set_sensitive(False)
-            self.ads_realm_entry.set_sensitive(False)
-
-        #Must force encrypted passwords with 'domain'
-        if type == "DOMAIN":
-            self.encrypt_option_menu.set_history(0)
-            self.encrypt_option_menu.set_sensitive(False)
-        else:
-            self.encrypt_option_menu.set_sensitive(True)
-
-    def showMessageDialog(self, text):
-        dlg = gtk.MessageDialog(self.basic_preferences_win, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK, text)
-        dlg.set_modal(True)
-        dlg.set_transient_for(self.basic_preferences_win)
-        dlg.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        dlg.set_icon_name(mainWindow.iconName)
-        dlg.run()
-        dlg.destroy()
-
+def _(*args):
+    return args[0] if len(args) == 1 else args
