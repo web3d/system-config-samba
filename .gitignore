@@ -13,3 +13,12 @@ usr/
 *.swp
 *~
 .DS_Store
+
+# rpmbuild artifacts
+*.tar.bz2
+rpmbuild/
+BUILD/
+RPMS/
+SOURCES/
+SPECS/
+SRPMS/

@@ -50,7 +50,7 @@ POLKIT_ID       = org.fedoraproject.config.samba
 UI_SRC     = src/system-config-samba.py
 MECH_SRC   = src/system-config-samba-mechanism.py
 
-.PHONY: all help check dev-run install uninstall
+.PHONY: all help check dev-run install uninstall dist
 
 all: help
 
@@ -143,3 +143,19 @@ uninstall:
 	rm -f $(DESTDIR)$(POLKITDIR)/$(POLKIT_ID).policy
 	rm -f $(DESTDIR)$(DESKTOPDIR)/$(NAME).desktop
 	rm -f $(DESTDIR)$(ICONDIR)/$(NAME).svg
+
+# ---------------------------------------------------------------------------
+# Distribution tarball for rpmbuild.  Produces $(NAME)-$(VERSION).tar.bz2 in the
+# tree root, matching Source0 in system-config-samba.spec.  Build with:
+#   make dist
+#   rpmbuild -bb --define '_sourcedir %(pwd)' system-config-samba.spec
+DIST_ITEMS = src config icons COPYING AUTHORS README.md pyproject.toml \
+             Makefile system-config-samba.spec
+
+dist:
+	rm -rf $(NAME)-$(VERSION)
+	install -d $(NAME)-$(VERSION)
+	cp -a $(DIST_ITEMS) $(NAME)-$(VERSION)/
+	find $(NAME)-$(VERSION) -name __pycache__ -type d -prune -exec rm -rf {} +
+	tar -cjf $(NAME)-$(VERSION).tar.bz2 $(NAME)-$(VERSION)
+	rm -rf $(NAME)-$(VERSION)

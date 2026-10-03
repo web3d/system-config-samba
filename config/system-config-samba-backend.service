@@ -18,6 +18,3 @@ RestartSec=2
 # Lockdown where compatible with writing /etc/samba and driving systemctl.
 NoNewPrivileges=false
 ProtectHome=true
-
-[Install]
-WantedBy=multi-user.target
