@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""Privileged backend launcher for samba-conf-tool.
+"""Privileged backend launcher for system-config-samba.
 
 Thin entry point that mirrors upstream's system-config-samba-mechanism.py: the
 real polkit-gated D-Bus service lives in :mod:`scsamba.dbus.service`. The

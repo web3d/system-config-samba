@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
-# GTK4 / libadwaita rewrite for samba-conf-tool.
+# GTK4 / libadwaita rewrite for system-config-samba.
 #
 # Share create/edit dialog. Mirrors the fields of the old shareWindow:
 # directory (with browse + existence check), auto-suggested share name,

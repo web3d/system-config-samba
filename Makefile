@@ -1,101 +1,118 @@
-# samba-conf-tool — install / uninstall helpers.
+# License: GPL v2 or later
+# Copyright Red Hat Inc. 2001 - 2009  (original system-config-samba)
 #
-# Layout mirrors upstream system-config-samba: the importable library lives in
-# src/scsamba/, the UI + entry scripts are flat modules in src/, and the
-# D-Bus / polkit / systemd / desktop / icon integration files live in config/
-# and icons/.
+# GTK4 / Python 3 rewrite build.
 #
-# The UI installs as a normal Python package (pip-free copy); the privileged
-# backend is wired up as a D-Bus activated systemd service with a polkit
-# action. System directories require root, so run `sudo make install`.
+# This keeps the upstream autotools-style variable layout (PKGNAME / PKGDATADIR
+# / standard FHS dirs) but is SELF-CONTAINED: it does NOT include the retired
+# `*_rules.mk` python2 fragments (they are gone and only run under the old RPM
+# toolchain). Instead it installs the Python 3 payload pip-free and drops the
+# D-Bus / polkit / systemd / desktop / icon integration files renamed to the
+# upstream identity (org.fedoraproject.Config.Samba / system-config-samba).
 
-PYTHON      ?= $(shell command -v python3)
+PKGNAME  = system-config-samba
+NAME     = system-config-samba
+VERSION  = 2.0.0
+
+PYTHON   ?= $(shell command -v python3)
+
+# Staging root for packaging (e.g. DESTDIR=/tmp/pkg).
+DESTDIR  ?=
+
+# --- install layout -------------------------------------------------------
+# PREFIX defaults to /usr/local so a locally built rewrite never fights the
+# legacy RPM's files under /usr. Override with `make install PREFIX=/usr`.
 PREFIX      ?= /usr/local
-LIBEXECDIR  ?= $(PREFIX)/libexec
-DATADIR     ?= $(PREFIX)/share
-# Pure-Python package location under $(PREFIX). NOTE: on this Fedora the system
-# interpreter does NOT put $(PREFIX)/lib/pythonX.Y/site-packages on its default
-# sys.path, so the launchers generated below insert it explicitly.
-PYVER       ?= $(shell $(PYTHON) -c 'import sys;print("%d.%d"%sys.version_info[:2])')
-SITEPKG     ?= $(PREFIX)/lib/python$(PYVER)/site-packages
-BINDIR      ?= $(PREFIX)/bin
-SYSTEMDDIR  ?= $(PREFIX)/lib/systemd/system
-# Private install dir holding the flat UI/entry scripts (imported at runtime).
-APPDIR      ?= $(DATADIR)/samba-conf-tool
-SRCDIR      ?= $(APPDIR)/src
+BINDIR       = $(PREFIX)/bin
+LIBEXECDIR   = $(PREFIX)/libexec
+DATADIR      = $(PREFIX)/share
+SYSTEMDDIR   = $(PREFIX)/lib/systemd/system
+PKGDATADIR   = $(DATADIR)/$(PKGNAME)
+# The whole Python payload (flat UI/entry scripts + the scsamba package + the
+# D-Bus introspection XML) is installed under PKGDATADIR; the launchers insert
+# it on sys.path, so no site-packages juggling is needed.
+SITEPKG      =
+
 # dbus-daemon and polkit only scan fixed system directories, NOT $(PREFIX)/share,
-# so these integration files must land in the absolute system locations even for
-# a /usr/local install (systemd *does* read $(PREFIX)/lib/systemd/system, and the
-# desktop file / icon under /usr/local/share are found via XDG_DATA_DIRS).
-DBUS_SYSD   ?= /etc/dbus-1/system.d
-DBUS_SERVICES ?= /usr/share/dbus-1/system-services
-POLKITDIR   ?= /usr/share/polkit-1/actions
-DESKTOPDIR  ?= $(DATADIR)/applications
-ICONDIR     ?= $(DATADIR)/icons/hicolor/scalable/apps
+# so these land in absolute system locations even for a /usr/local install
+# (systemd *does* read $(PREFIX)/lib/systemd/system; the desktop file / icon
+# under /usr/local/share are found via XDG_DATA_DIRS).
+DBUS_POLICY_DIR  = /etc/dbus-1/system.d
+DBUS_SERVICE_DIR = /usr/share/dbus-1/system-services
+POLKITDIR        = /usr/share/polkit-1/actions
+DESKTOPDIR       = $(DATADIR)/applications
+ICONDIR          = $(DATADIR)/icons/hicolor/scalable/apps
 
-# Prepend a staging root (e.g. DESTDIR=/tmp/pkg for packaging).
-DESTDIR     ?=
+# Upstream identity (kept in sync with src/scsamba/__init__.py).
+BUS_NAME        = org.fedoraproject.Config.Samba
+POLKIT_ID       = org.fedoraproject.config.samba
 
-NAME        = samba-conf-tool
+UI_SRC     = src/system-config-samba.py
+MECH_SRC   = src/system-config-samba-mechanism.py
 
-.PHONY: all check install uninstall dev-run help
-.PHONY: install-python uninstall-python install-backend install-data
+.PHONY: all help check dev-run install uninstall
 
 all: help
 
 help:
+	@echo "system-config-samba $(VERSION) — GTK4 / Python 3 rewrite"
 	@echo "Targets:"
-	@echo "  make check      run the unit test suite (no root needed)"
-	@echo "  make dev-run    launch the UI from the source tree"
-	@echo "  sudo make install    install UI + backend + polkit/dbus/systemd"
+	@echo "  make check         run the unit test suite (no root needed)"
+	@echo "  make dev-run       launch the UI straight from the source tree"
+	@echo "  sudo make install  install UI + backend + dbus/polkit/systemd/desktop/icon"
 	@echo "  sudo make uninstall  remove everything install placed"
 
 check:
 	PYTHONPATH=src $(PYTHON) -m unittest discover -s src/test -p "test_*.py" -v
 
 dev-run:
-	SAMBA_CONF_TOOL_SELFCHECK=0 $(PYTHON) src/system-config-samba.py
+	SYSTEM_CONFIG_SAMBA_SELFCHECK=0 $(PYTHON) $(UI_SRC)
 
-# ---------------------------------------------------------------- Python pkg
-# Install the scsamba library into site-packages (with the introspection XML
-# the backend reads, dropped next to the service module), and the flat UI /
-# entry scripts into a private $(SRCDIR).
+# ---------------------------------------------------------------------------
+# Install.  Order: python payload -> launchers -> integration files.
+# ---------------------------------------------------------------------------
+install: install-python install-launchers install-data
+	@echo "Installed system-config-samba $(VERSION) under $(DESTDIR)$(PREFIX)."
+	@echo "Reload systemd/D-Bus/polkit so the backend is picked up:"
+	@echo "  systemctl daemon-reload"
+	@echo "  # the $(BUS_NAME) name activates on first call"
+
+# Python payload: flat UI/entry scripts + importable scsamba package + the
+# D-Bus introspection XML (dropped next to the service module the backend
+# reads it from at runtime).
 install-python:
-	rm -rf $(DESTDIR)$(SITEPKG)/scsamba
-	install -d -m 0755 $(DESTDIR)$(SITEPKG)
-	cp -r src/scsamba $(DESTDIR)$(SITEPKG)/
-	find $(DESTDIR)$(SITEPKG)/scsamba -name __pycache__ -type d -prune -exec rm -rf {} +
-	install -m 0644 config/org.SambaConfTool.Backend.xml \
-		$(DESTDIR)$(SITEPKG)/scsamba/dbus/
-	rm -rf $(DESTDIR)$(SRCDIR)
-	install -d -m 0755 $(DESTDIR)$(SRCDIR)
-	install -m 0644 src/*.py $(DESTDIR)$(SRCDIR)/
+	rm -rf $(DESTDIR)$(PKGDATADIR)
+	install -d -m 0755 $(DESTDIR)$(PKGDATADIR)
+	cp -r src/scsamba $(DESTDIR)$(PKGDATADIR)/
+	install -m 0644 src/*.py $(DESTDIR)$(PKGDATADIR)/
+	find $(DESTDIR)$(PKGDATADIR) -name __pycache__ -type d -prune -exec rm -rf {} +
+	install -m 0644 config/$(BUS_NAME).Backend.xml \
+		$(DESTDIR)$(PKGDATADIR)/scsamba/dbus/
+	chmod 0755 $(DESTDIR)$(PKGDATADIR)/$(notdir $(UI_SRC)) \
+		$(DESTDIR)$(PKGDATADIR)/$(notdir $(MECH_SRC))
 
-uninstall-python:
-	rm -rf $(DESTDIR)$(SITEPKG)/scsamba
-	rm -rf $(DESTDIR)$(APPDIR)
-	rm -f $(DESTDIR)$(BINDIR)/$(NAME)
-
-# ------------------------------------------------------------- launchers
-# Two thin Python launchers that insert the (non-default) site-packages and the
-# private script dir, then runpy the real entry script as __main__.
-install-backend: install-python
-	install -d -m 0755 $(DESTDIR)$(LIBEXECDIR)
+# Two thin launchers that insert PKGDATADIR on sys.path and runpy the real
+# entry script as __main__. The UI launcher goes to $(BINDIR); the privileged
+# backend launcher goes to $(LIBEXECDIR) and is what the systemd Type=dbus
+# unit Execs.
+install-launchers: install-python
 	install -d -m 0755 $(DESTDIR)$(BINDIR)
-	printf '#!%s\nimport sys, runpy\nfor p in ("%s", "%s"):\n    if p not in sys.path:\n        sys.path.insert(0, p)\nrunpy.run_path("%s/system-config-samba.py", run_name="__main__")\n' \
-		"$(PYTHON)" "$(SRCDIR)" "$(SITEPKG)" "$(SRCDIR)" \
+	install -d -m 0755 $(DESTDIR)$(LIBEXECDIR)
+	printf '#!%s\nimport sys, runpy\nP = "%s"\nif P not in sys.path:\n    sys.path.insert(0, P)\nrunpy.run_path(P + "/$(PKGNAME).py", run_name="__main__")\n' \
+		"$(PYTHON)" "$(PKGDATADIR)" \
 		> $(DESTDIR)$(BINDIR)/$(NAME)
 	chmod 0755 $(DESTDIR)$(BINDIR)/$(NAME)
-	printf '#!%s\nimport sys, runpy\nfor p in ("%s", "%s"):\n    if p not in sys.path:\n        sys.path.insert(0, p)\nrunpy.run_path("%s/system-config-samba-mechanism.py", run_name="__main__")\n' \
-		"$(PYTHON)" "$(SRCDIR)" "$(SITEPKG)" "$(SRCDIR)" \
+	printf '#!%s\nimport sys, runpy\nP = "%s"\nif P not in sys.path:\n    sys.path.insert(0, P)\nrunpy.run_path(P + "/$(PKGNAME)-mechanism.py", run_name="__main__")\n' \
+		"$(PYTHON)" "$(PKGDATADIR)" \
 		> $(DESTDIR)$(LIBEXECDIR)/$(NAME)-backend
 	chmod 0755 $(DESTDIR)$(LIBEXECDIR)/$(NAME)-backend
 
-# --------------------------------------------------------- data (root-owned)
-install-data: install-backend
+# Integration files.  @python@ / @libexecdir@ placeholders are substituted so
+# the shipped files carry the real absolute paths of this install.
+install-data:
 	install -d -m 0755 $(DESTDIR)$(SYSTEMDDIR)
-	install -d -m 0755 $(DESTDIR)$(DBUS_SYSD)
-	install -d -m 0755 $(DESTDIR)$(DBUS_SERVICES)
+	install -d -m 0755 $(DESTDIR)$(DBUS_POLICY_DIR)
+	install -d -m 0755 $(DESTDIR)$(DBUS_SERVICE_DIR)
 	install -d -m 0755 $(DESTDIR)$(POLKITDIR)
 	install -d -m 0755 $(DESTDIR)$(DESKTOPDIR)
 	install -d -m 0755 $(DESTDIR)$(ICONDIR)
@@ -103,28 +120,26 @@ install-data: install-backend
 		config/$(NAME)-backend.service \
 		> $(DESTDIR)$(SYSTEMDDIR)/$(NAME)-backend.service
 	sed -e 's|@python@|$(PYTHON)|g' -e 's|@libexecdir@|$(LIBEXECDIR)|g' \
-		config/org.SambaConfTool.service \
-		> $(DESTDIR)$(DBUS_SERVICES)/org.SambaConfTool.service
-	install -m 0644 config/org.SambaConfTool.conf \
-		$(DESTDIR)$(DBUS_SYSD)/org.SambaConfTool.conf
+		config/$(BUS_NAME).service \
+		> $(DESTDIR)$(DBUS_SERVICE_DIR)/$(BUS_NAME).service
+	install -m 0644 config/$(BUS_NAME).conf \
+		$(DESTDIR)$(DBUS_POLICY_DIR)/$(BUS_NAME).conf
 	sed -e 's|@libexecdir@|$(LIBEXECDIR)|g' \
-		config/org.SambaConfTool.policy \
-		> $(DESTDIR)$(POLKITDIR)/org.SambaConfTool.policy
+		config/$(POLKIT_ID).policy \
+		> $(DESTDIR)$(POLKITDIR)/$(POLKIT_ID).policy
 	install -m 0644 config/$(NAME).desktop \
 		$(DESTDIR)$(DESKTOPDIR)/$(NAME).desktop
 	install -m 0644 icons/$(NAME).svg \
 		$(DESTDIR)$(ICONDIR)/$(NAME).svg
 
-install: install-data
-	@echo "Installed. Reload systemd/D-Bus/polkit so the backend is picked up:"
-	@echo "  systemctl daemon-reload"
-	@echo "  # the org.SambaConfTool name activates on first call"
-
-uninstall: uninstall-python
+# ---------------------------------------------------------------------------
+uninstall:
+	rm -rf $(DESTDIR)$(PKGDATADIR)
+	rm -f $(DESTDIR)$(BINDIR)/$(NAME)
 	rm -f $(DESTDIR)$(LIBEXECDIR)/$(NAME)-backend
 	rm -f $(DESTDIR)$(SYSTEMDDIR)/$(NAME)-backend.service
-	rm -f $(DESTDIR)$(DBUS_SERVICES)/org.SambaConfTool.service
-	rm -f $(DESTDIR)$(DBUS_SYSD)/org.SambaConfTool.conf
-	rm -f $(DESTDIR)$(POLKITDIR)/org.SambaConfTool.policy
+	rm -f $(DESTDIR)$(DBUS_SERVICE_DIR)/$(BUS_NAME).service
+	rm -f $(DESTDIR)$(DBUS_POLICY_DIR)/$(BUS_NAME).conf
+	rm -f $(DESTDIR)$(POLKITDIR)/$(POLKIT_ID).policy
 	rm -f $(DESTDIR)$(DESKTOPDIR)/$(NAME).desktop
 	rm -f $(DESTDIR)$(ICONDIR)/$(NAME).svg

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""GUI application entry point for samba-conf-tool.
+"""GUI application entry point for system-config-samba.
 
 Builds the libadwaita application and shows the main share window. The window
 talks to the privileged D-Bus backend through BackendClient; if the backend is
@@ -38,7 +38,7 @@ def _make_client():
         return None
 
 
-class SambaConfToolApp(Adw.Application):
+class SystemConfigSambaApp(Adw.Application):
     def __init__(self):
         super().__init__(
             application_id=APP_ID,
@@ -53,7 +53,7 @@ class SambaConfToolApp(Adw.Application):
             self._window = SambaMainWindow(self, client=self._client)
         self._window.present()
 
-        if os.environ.get("SAMBA_CONF_TOOL_SELFCHECK") == "1":
+        if os.environ.get("SYSTEM_CONFIG_SAMBA_SELFCHECK") == "1":
             # Exercise dialog construction headlessly. PyGObject swallows
             # exceptions raised in do_activate yet still returns 0 from run(),
             # so we must catch them here and propagate an explicit exit code
@@ -83,7 +83,7 @@ class SambaConfToolApp(Adw.Application):
 
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
-    app = SambaConfToolApp()
+    app = SystemConfigSambaApp()
     rc = app.run(argv)
     if getattr(app, "_selfcheck_failed", False):
         rc = 1

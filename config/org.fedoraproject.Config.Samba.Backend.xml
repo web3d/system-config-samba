@@ -1,7 +1,7 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
  "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node>
-  <interface name="org.SambaConfTool.Backend">
+  <interface name="org.fedoraproject.Config.Samba.Backend">
     <!-- Read the current smb.conf text (validated on the way in). -->
     <method name="ReadConfig">
       <arg name="text" type="s" direction="out"/>

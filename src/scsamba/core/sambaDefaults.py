@@ -7,7 +7,7 @@
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# Python 2 -> Python 3 rewrite of sambaDefaults.py for samba-conf-tool.
+# Python 2 -> Python 3 rewrite of sambaDefaults.py for system-config-samba.
 #
 # Default values for the smb.conf data structure. The defaults are discovered
 # by asking `testparm -s -v` about the Samba build on this host, so behaviour

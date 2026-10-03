@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
-# GTK4 / libadwaita rewrite for samba-conf-tool.
+# GTK4 / libadwaita rewrite for system-config-samba.
 #
 # Server settings dialog (old basicPreferencesWin). Edits the [global]
 # section: workgroup (required), server string, security mode with the

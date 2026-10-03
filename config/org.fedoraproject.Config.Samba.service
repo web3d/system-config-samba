@@ -1,8 +1,8 @@
 [D-BUS Service]
 # Well-known name the backend owns on the system bus.
-Name=org.SambaConfTool
+Name=org.fedoraproject.Config.Samba
 # @python@ and @libexecdir@ are substituted by the installer (see Makefile).
-Exec=@python@ @libexecdir@/samba-conf-tool-backend
+Exec=@python@ @libexecdir@/system-config-samba-backend
 User=root
 # Prefer systemd socket activation (Type=dbus) over dbus-daemon spawning.
-SystemdService=samba-conf-tool-backend.service
+SystemdService=system-config-samba-backend.service

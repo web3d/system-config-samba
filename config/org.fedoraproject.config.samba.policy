@@ -4,15 +4,15 @@
  "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
 <policyconfig>
 
-  <vendor>samba-conf-tool</vendor>
-  <vendor_url>https://example.invalid/samba-conf-tool</vendor_url>
+  <vendor>system-config-samba</vendor>
+  <vendor_url>https://example.invalid/system-config-samba</vendor_url>
 
   <!-- One action covers all privileged operations (write smb.conf, manage
        passdb/smbusers, start/restart smb). The D-Bus backend checks this
        action on every mutating method call. allow_active=yes means a user
        with an active local login session is authorised without a password
        prompt, per the project decision; inactive/remote still needs admin. -->
-  <action id="org.SambaConfTool.configure">
+  <action id="org.fedoraproject.config.samba.configure">
     <description>Configure Samba shares and users</description>
     <message>Authentication is required to change Samba configuration</message>
     <icon_name>network-server-symbolic</icon_name>
@@ -21,7 +21,7 @@
       <allow_inactive>auth_admin</allow_inactive>
       <allow_active>yes</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/samba-conf-tool-backend</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">@libexecdir@/system-config-samba-backend</annotate>
   </action>
 
 </policyconfig>

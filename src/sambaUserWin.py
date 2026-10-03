@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
-# GTK4 / libadwaita rewrite for samba-conf-tool.
+# GTK4 / libadwaita rewrite for system-config-samba.
 #
 # Samba user management window (old sambaUserWin). Lists the pdbedit users
 # with their smbusers Windows aliases and offers Add / Properties / Delete.
@@ -147,7 +147,7 @@ class UsersDialog(Gtk.Window):
             self.empty_notice.set_text(
                 _("The privileged backend is not connected, so Samba users "
                   "cannot be listed or edited. Install and start "
-                  "samba-conf-tool-backend to manage users."))
+                  "system-config-samba-backend to manage users."))
         elif not has_users:
             self.empty_notice.set_text(_("No Samba users yet."))
         self._update_sensitivity()

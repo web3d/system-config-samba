@@ -1,4 +1,4 @@
-# samba-conf-tool
+# system-config-samba
 
 A modern **Python 3 + GTK4 / libadwaita** rewrite of the retired
 `system-config-samba` graphical Samba administrator. It lets an ordinary user
@@ -7,8 +7,10 @@ privileged operation (writing `smb.conf`, editing the passdb / `smbusers`,
 restarting `smb`) is delegated to a small **root backend** reached over D-Bus
 and gated by **polkit**.
 
-The name (`samba-conf-tool`, D-Bus `org.SambaConfTool`) is deliberately
-different from the old RPM so the two never collide.
+This rewrite **reuses the upstream identity** — package `system-config-samba` and D-Bus
+`org.fedoraproject.Config.Samba` — and is versioned **2.0.0**. Because it now shares the
+old RPM's D-Bus name and install paths, do **not** install it alongside the legacy
+`system-config-samba` RPM.
 
 ## Layout
 
@@ -42,8 +44,8 @@ icons/                                # application icon
 ## Privilege model
 
 ```
-UI (you, GTK4)  --system bus-->  org.SambaConfTool backend (root, systemd-activated)
-                                    └─ polkit action org.SambaConfTool.configure
+UI (you, GTK4)  --system bus-->  org.fedoraproject.Config.Samba backend (root, systemd-activated)
+                                    └─ polkit action org.fedoraproject.config.samba.configure
 ```
 
 The UI reads `smb.conf` directly (world-readable) so the share list works even
@@ -83,7 +85,7 @@ sudo systemctl daemon-reload           # pick up the new systemd unit
 `/usr/local`), writes the backend launcher to `/usr/local/libexec`, and
 installs the polkit / D-Bus / systemd / desktop / icon files with the
 `@python@` and `@libexecdir@` placeholders substituted. The
-`org.SambaConfTool` bus name is **D-Bus socket activated** — the backend starts
+`org.fedoraproject.Config.Samba` bus name is **D-Bus socket activated** — the backend starts
 on the first call, no manual `systemctl start` needed.
 
 Override paths with e.g. `make install PREFIX=/usr SYSTEMDDIR=/usr/lib/systemd/system`.
@@ -109,8 +111,8 @@ Remove everything with `sudo make uninstall`.
   mechanically converted; building in code keeps the dialogs consistent and
   testable. The plan's `data/ui/*.ui` are therefore not present.
 - **Two D-Bus data files** are shipped: the bus *policy*
-  (`org.SambaConfTool.conf` → `dbus-1/system.d`) and the *activation* record
-  (`org.SambaConfTool.service` → `dbus-1/system-services`). Both are required
+  (`org.fedoraproject.Config.Samba.conf` → `dbus-1/system.d`) and the *activation* record
+  (`org.fedoraproject.Config.Samba.service` → `dbus-1/system-services`). Both are required
   for systemd `Type=dbus` activation.
 - The share editor preserves the original field set and validations
   (directory existence, name de-dup / reserved words, guest-ok vs valid-users

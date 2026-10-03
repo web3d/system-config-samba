@@ -1,16 +1,16 @@
 [Unit]
-Description=samba-conf-tool privileged D-Bus backend
-Documentation=https://example.invalid/samba-conf-tool
+Description=system-config-samba privileged D-Bus backend
+Documentation=https://example.invalid/system-config-samba
 After=dbus.service
 
 [Service]
 # D-Bus activation: dbus asks systemd to start this unit when something calls
-# org.SambaConfTool on the system bus; systemd waits for the bus name to be
+# org.fedoraproject.Config.Samba on the system bus; systemd waits for the bus name to be
 # acquired (Type=dbus) before letting the method call through.
 Type=dbus
-BusName=org.SambaConfTool
+BusName=org.fedoraproject.Config.Samba
 # @python@ and @libexecdir@ are substituted by the installer (see README).
-ExecStart=@python@ @libexecdir@/samba-conf-tool-backend
+ExecStart=@python@ @libexecdir@/system-config-samba-backend
 User=root
 Restart=on-failure
 RestartSec=2

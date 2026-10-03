@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""End-to-end D-Bus test for the samba-conf-tool backend over a private bus.
+"""End-to-end D-Bus test for the system-config-samba backend over a private bus.
 
 Spins up Gio.TestDBus (a real dbus-daemon), exports the privileged backend on
 it with polkit disabled, and drives it through the production BackendClient
@@ -47,9 +47,9 @@ class DbusBackendE2E(unittest.TestCase):
             fh.write(SAMPLE)
         self.users = self.conf + ".users"
 
-        os.environ["SAMBA_CONF_TOOL_DISABLE_POLKIT"] = "1"
-        os.environ["SAMBA_CONF_TOOL_SKIP_VALIDATE"] = "1"
-        os.environ["SAMBA_CONF_TOOL_SKIP_SERVICE"] = "1"
+        os.environ["SYSTEM_CONFIG_SAMBA_DISABLE_POLKIT"] = "1"
+        os.environ["SYSTEM_CONFIG_SAMBA_SKIP_VALIDATE"] = "1"
+        os.environ["SYSTEM_CONFIG_SAMBA_SKIP_SERVICE"] = "1"
 
         self.test_bus = Gio.TestDBus.new(Gio.TestDBusFlags.NONE)
         self.test_bus.up()

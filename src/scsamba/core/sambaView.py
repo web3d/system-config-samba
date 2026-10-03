@@ -78,7 +78,7 @@ def load_config_text(client=None, conf_path=None) -> str:
             return client.read_config()
         except Exception:
             pass
-    path = conf_path or os.environ.get("SAMBA_CONF_TOOL_SMB_CONF") or DEFAULT_SMB_CONF
+    path = conf_path or os.environ.get("SYSTEM_CONFIG_SAMBA_SMB_CONF") or DEFAULT_SMB_CONF
     try:
         with open(path, "r", encoding="utf-8") as fh:
             return fh.read()

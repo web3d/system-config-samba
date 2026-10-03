@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Front-end D-Bus proxy for samba-conf-tool.
+"""Front-end D-Bus proxy for system-config-samba.
 
 The UI runs as an unprivileged user and talks to the root backend over the
 system bus. Reads (ReadConfig / ListSambaUsers / IsServiceActive) are cheap;
 writes trigger a polkit authorisation inside the backend.
 
-SAMBA_CONF_TOOL_BUS=address://... lets tests point the client at a private
+SYSTEM_CONFIG_SAMBA_BUS=address://... lets tests point the client at a private
 bus instead of the real system bus.
 """
 
@@ -27,7 +27,7 @@ class BackendError(Exception):
 
 
 class BackendNotInstalled(BackendError):
-    """The privileged org.SambaConfTool backend is not installed/activatable."""
+    """The privileged org.fedoraproject.Config.Samba backend is not installed/activatable."""
     pass
 
 
@@ -41,7 +41,7 @@ class BackendClient:
 
     @staticmethod
     def _default_bus():
-        address = os.environ.get("SAMBA_CONF_TOOL_BUS")
+        address = os.environ.get("SYSTEM_CONFIG_SAMBA_BUS")
         if address:
             return Gio.DBusConnection.new_for_address_sync(
                 address,
@@ -58,13 +58,13 @@ class BackendClient:
                 Gio.DBusCallFlags.NONE, -1, None)
         except GLib.Error as e:
             if e.domain == "g-dbus-error" and \
-                    e.message.startswith("GDBus.Error:org.SambaConfTool.NotAuthorized"):
+                    e.message.startswith("GDBus.Error:org.fedoraproject.Config.Samba.NotAuthorized"):
                 raise NotAuthorized(e.message) from e
             if "ServiceUnknown" in e.message or "not activatable" in e.message:
                 raise BackendNotInstalled(
                     "The privileged backend is not installed, so changes "
                     "cannot be saved. Run `sudo make install` to install "
-                    "the samba-conf-tool backend service, then restart the "
+                    "the system-config-samba backend service, then restart the "
                     "application.") from e
             raise BackendError(e.message) from e
 

@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Privileged D-Bus backend for samba-conf-tool.
+"""Privileged D-Bus backend for system-config-samba.
 
 Runs as root (via systemd Type=dbus activation) and exposes
-org.SambaConfTool.Backend on the system bus. Every mutating method first
-checks the org.SambaConfTool.configure polkit action against the caller's
-unix user id (see data/polkit/org.SambaConfTool.policy: allow_active=yes).
+org.fedoraproject.Config.Samba.Backend on the system bus. Every mutating method first
+checks the org.fedoraproject.config.samba.configure polkit action against the caller's
+unix user id (see config/org.fedoraproject.config.samba.policy: allow_active=yes).
 
 Test/development escape hatches (never set in production installs):
-  SAMBA_CONF_TOOL_BUS=address://...   use a private/session bus instead of the
+  SYSTEM_CONFIG_SAMBA_BUS=address://...   use a private/session bus instead of the
                                        system bus so the plumbing can be
                                        exercised without touching the real one.
-  SAMBA_CONF_TOOL_DISABLE_POLKIT=1    skip the polkit check.
-  SAMBA_CONF_TOOL_SMB_CONF=/path      inject an smb.conf path.
-  SAMBA_CONF_TOOL_SMBUSERS=/path      inject an smbusers path.
+  SYSTEM_CONFIG_SAMBA_DISABLE_POLKIT=1    skip the polkit check.
+  SYSTEM_CONFIG_SAMBA_SMB_CONF=/path      inject an smb.conf path.
+  SYSTEM_CONFIG_SAMBA_SMBUSERS=/path      inject an smbusers path.
 """
 
 from __future__ import annotations
@@ -33,13 +33,13 @@ from scsamba.core import SambaBackend, SambaConfig
 # top-level config/ dir (three levels up from src/scsamba/dbus); once installed
 # the Makefile drops it next to this module. An env override wins.
 _HERE = os.path.dirname(os.path.abspath(__file__))
-_INTRO_XML = os.environ.get("SAMBA_CONF_TOOL_INTRO_XML") or next(
+_INTRO_XML = os.environ.get("SYSTEM_CONFIG_SAMBA_INTRO_XML") or next(
     (p for p in (
-        os.path.join(_HERE, "org.SambaConfTool.Backend.xml"),
+        os.path.join(_HERE, "org.fedoraproject.Config.Samba.Backend.xml"),
         os.path.join(_HERE, "..", "..", "..", "config",
-                     "org.SambaConfTool.Backend.xml"),
+                     "org.fedoraproject.Config.Samba.Backend.xml"),
     ) if os.path.exists(p)),
-    os.path.join(_HERE, "org.SambaConfTool.Backend.xml"),
+    os.path.join(_HERE, "org.fedoraproject.Config.Samba.Backend.xml"),
 )
 
 # Methods that mutate privileged state and therefore require polkit.
@@ -135,14 +135,14 @@ class BackendService:
                        method_name, parameters, invocation):
         if method_name in _MUTATING and not self._polkit_allowed(sender):
             invocation.return_dbus_error(
-                "org.SambaConfTool.NotAuthorized",
+                "org.fedoraproject.Config.Samba.NotAuthorized",
                 "polkit action %s is not authorized for this caller" % POLKIT_ACTION)
             return
 
         try:
             result = self._dispatch(method_name, parameters)
         except Exception as exc:  # surface backend errors to the client
-            invocation.return_dbus_error("org.SambaConfTool.Error", str(exc))
+            invocation.return_dbus_error("org.fedoraproject.Config.Samba.Error", str(exc))
             return
 
         out_sig = self._out_signature(method_name)
@@ -221,7 +221,7 @@ class BackendService:
 
 
 def _build_bus():
-    address = os.environ.get("SAMBA_CONF_TOOL_BUS")
+    address = os.environ.get("SYSTEM_CONFIG_SAMBA_BUS")
     if address:
         return Gio.DBusConnection.new_for_address_sync(
             address,
@@ -233,8 +233,8 @@ def _build_bus():
 
 def _build_backend():
     return SambaBackend(
-        smb_conf_path=os.environ.get("SAMBA_CONF_TOOL_SMB_CONF"),
-        smbusers_path=os.environ.get("SAMBA_CONF_TOOL_SMBUSERS"),
+        smb_conf_path=os.environ.get("SYSTEM_CONFIG_SAMBA_SMB_CONF"),
+        smbusers_path=os.environ.get("SYSTEM_CONFIG_SAMBA_SMBUSERS"),
     )
 
 
@@ -253,7 +253,7 @@ def _own_name(bus):
 
 def main(argv=None):
     bus = _build_bus()
-    require_polkit = os.environ.get("SAMBA_CONF_TOOL_DISABLE_POLKIT") != "1"
+    require_polkit = os.environ.get("SYSTEM_CONFIG_SAMBA_DISABLE_POLKIT") != "1"
     service = BackendService(bus, _build_backend(), require_polkit=require_polkit)
     _own_name(bus)
 

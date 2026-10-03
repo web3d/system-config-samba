@@ -6,7 +6,7 @@
 #
 # Owns on-disk state and privileged commands: smb.conf read/write (atomic,
 # validated with testparm), the smbusers map, the passdb (pdbedit/smbpasswd),
-# and the smb/nmb service lifecycle. In samba-conf-tool this runs on the
+# and the smb/nmb service lifecycle. In system-config-samba this runs on the
 # polkit-gated root backend side; file/command paths are injectable so the
 # model can be unit-tested against a temp smb.conf without root.
 
@@ -68,7 +68,7 @@ class SambaBackend(object):
     def _service_ops_disabled() -> bool:
         # Tests / previews must not actually drive systemd (a non-root
         # "systemctl restart" can block on a polkit agent that isn't present).
-        return os.environ.get("SAMBA_CONF_TOOL_SKIP_SERVICE") == "1"
+        return os.environ.get("SYSTEM_CONFIG_SAMBA_SKIP_SERVICE") == "1"
 
     def isSambaRunning(self) -> bool:
         if self._service_ops_disabled():
@@ -150,7 +150,7 @@ class SambaBackend(object):
                 pass
 
     def writeSmbConf(self, contents: str):
-        validate = os.environ.get("SAMBA_CONF_TOOL_SKIP_VALIDATE") != "1"
+        validate = os.environ.get("SYSTEM_CONFIG_SAMBA_SKIP_VALIDATE") != "1"
         if validate:
             self.validate(contents)
 

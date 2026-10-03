@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
-# GTK4 / libadwaita rewrite for samba-conf-tool.
+# GTK4 / libadwaita rewrite for system-config-samba.
 #
 # Add / edit Samba user dialog (old addUserWin). "add" picks a system (unix)
 # account from pwd, sets a Windows alias and a confirmed password; "edit"

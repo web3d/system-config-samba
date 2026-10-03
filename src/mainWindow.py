@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright © 2002 - 2010 Red Hat, Inc. (original system-config-samba)
-# GTK4 / libadwaita rewrite for samba-conf-tool.
+# GTK4 / libadwaita rewrite for system-config-samba.
 #
 # Main window: a share list (Directory / Share name / Permissions /
 # Visibility / Description) with Add / Properties / Delete actions plus
@@ -107,7 +107,7 @@ class SambaMainWindow(Adw.ApplicationWindow):
         menu = Gio.Menu()
         menu.append(_("Server Settings"), "win.server-settings")
         menu.append(_("Samba Users"), "win.manage-users")
-        menu.append(_("About samba-conf-tool"), "win.about")
+        menu.append(_("About system-config-samba"), "win.about")
         menu.append(_("Keyboard Shortcuts"), "win.shortcuts")
         self._menu_button = Gtk.MenuButton(
             icon_name="open-menu-symbolic", menu_model=menu)
@@ -493,7 +493,7 @@ class SambaMainWindow(Adw.ApplicationWindow):
 
     def on_about(self, *_ignored):
         about = Adw.AboutWindow(
-            transient_for=self, application_name="samba-conf-tool",
+            transient_for=self, application_name="system-config-samba",
             application_icon="network-server-symbolic",
             developer_name="Rewrite of system-config-samba (C) Red Hat, Inc.",
             version=__version__, license_type=Gtk.License.GPL_2_0)
